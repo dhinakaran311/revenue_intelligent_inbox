@@ -1,30 +1,67 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "12216d5c-e254-52c6-b344-47de4c6e1ae5",
+  "record_ref": "C06",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "120-store prospect fully automated and not interested; caller identifies as 'Ravi', metadata says Meera",
+  "priority": "medium",
   "suggested_routes": [
     {
-      "route_id": "deal_next_step",
-      "label": "Product pitch — unified finance dashboard",
-      "rationale": "Meera delivered a product-value statement describing SpendNest's core offering (invoices, vendor payments, and documents in one dashboard). This is active sales pitching, and a next step is required to gauge prospect reaction and advance the deal.",
-      "evidence_ref": "12216d5c-e254-52c6-b344-47de4c6e1ae5 — \"SpendNest brings invoices, vendor payments and documents into one dashboard.\"",
-      "is_manual": false
+      "route_id": "human_review",
+      "label": "Human review",
+      "rationale": "The caller introduces himself as Ravi, but the record's rep_name is Meera. Per-person coaching and activity attribution are uncertain.",
+      "evidence_ref": "C06 — \"Good evening. Ravi here.\"",
+      "is_manual": false,
+      "priority": "medium",
+      "output": "Attribution check: confirm who made this call before using it in Meera's coaching or per-person counts. The dashboard counts it under the source rep_name (Meera) and flags the conflict; it is not reassigned automatically.",
+      "owner": null
     },
     {
-      "route_id": "sales_coaching",
-      "label": "Pitch delivery — discovery vs. feature dump",
-      "rationale": "The evidence shows Meera leading with a product feature statement. Coaching should review whether she had completed discovery before pitching and whether she tied the feature to the prospect's stated pain point.",
-      "evidence_ref": "12216d5c-e254-52c6-b344-47de4c6e1ae5 — \"SpendNest brings invoices, vendor payments and documents into one dashboard.\"",
-      "is_manual": false
+      "route_id": "log_only",
+      "label": "Log only",
+      "rationale": "Clear 'already in place' rejection with a stated reason; no follow-up agreed.",
+      "evidence_ref": "C06 — \"We already have many of those things in place.\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Log: not interested. Head office runs automated expense processes through their business management system.",
+      "owner": null
     }
   ],
-  "concise_output": "Meera pitched SpendNest's unified dashboard capability (invoices, vendor payments, documents) on this call. Whether the pitch was anchored to a prospect-stated problem is unknown from the available evidence.",
-  "what_established": "Meera articulated a core value proposition: SpendNest consolidates invoices, vendor payments, and documents into one dashboard.",
-  "what_not_established": "Prospect's company, prior discovery, interest level, deal value, any commitment, or call outcome.",
-  "next_action": "Confirm whether prospect discovery preceded the pitch; schedule a tailored follow-up demo addressing the prospect's specific finance workflow gaps.",
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "Good evening. Ravi here.",
+      "supports": "The spoken caller name differs from the metadata rep_name."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "We already have many of those things in place.",
+      "supports": "The prospect declined."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "The essential processes are automated and connected through our business management system.",
+      "supports": "The reason for no need."
+    },
+    {
+      "id": "E4",
+      "turn": null,
+      "quote": "If a particular need comes up later, we will reach out.",
+      "supports": "No follow-up was agreed; the prospect will initiate."
+    }
+  ],
+  "concise_output": "A cold call to Nikhil at a 120+ store business. The prospect says expense processes are automated and centrally managed, and declined. The caller calls himself Ravi while the record attributes the call to Meera, so attribution needs checking before coaching.",
+  "what_established": "The prospect has a mixed, largely automated model with head-office visibility, and is not interested now.",
+  "what_not_established": "Who actually placed the call. The meaning of the rep's final remark about \"a separate department here monitoring this\" is unclear in the adapted text.",
+  "next_action": "Confirm call attribution; log as not interested.",
   "owner": null,
   "confidence": "medium",
-  "uncertainty": "Only the pitch line is captured; prospect response, context, and call outcome are not evidenced."
+  "uncertainty": "The name conflict may come from adaptation or a shared line; it cannot be resolved from the package.",
+  "label_check": "Stored observed_outcome 'uninterested' agrees. Stored rep_name 'Meera' conflicts with the spoken name 'Ravi'.",
+  "label_agrees": false
 }

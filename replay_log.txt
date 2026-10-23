@@ -1,0 +1,63 @@
+=================================================================
+AGENTS.md REPLAY ACCEPTANCE TEST
+=================================================================
+
+[Step 1] Reset all app data
+  [OK]  DB cleared
+
+[Step 2] Import 01_initial.json
+  accepted=44 ignored=0 replaced=0 errors=0
+  [PASS]  44 records accepted on first import  (got 44)
+  [PASS]  No errors on first import
+  [PASS]  API reports 44 total records  (got 44)
+  [PASS]  M07 exists after initial import
+  [PASS]  M07 is revision 1 after initial import  (got 1)
+  [PASS]  17 usable texts after initial import  (got 17)
+
+[Step 3] Re-import 01_initial.json in REVERSED order (idempotency check)
+  accepted=0 ignored=44 replaced=0 errors=0
+  [PASS]  Re-import: 0 accepted (all same revision -> ignored)  (got 0)
+  [PASS]  Re-import: 44 ignored  (got 44)
+  [PASS]  API still shows 44 records after re-import  (got 44)
+
+[Step 4] Set M07 manual route -> internal_vendor_action
+  [PASS]  Manual route set (no HTTP error)  ({'source_type': 'meeting', 'source_id': '4f304fff-fd40-5cfc-a366-0a134c445c2a', 'manual_route': {'route_id': 'internal_vendor_action', 'rationale': 'Set by replay acceptance test to verify persistence', 'author': None, 'is_active': True, 'created_at': '2026-10-23T12:17:41.031148+05:30', 'reset_at': None}})
+  [PASS]  Manual route_id correct  (got internal_vendor_action)
+  [PASS]  M07 manual_route returned in detail  (manual_route={'route_id': 'internal_vendor_action', 'rationale': 'Set by replay acceptance test to verify persistence', 'author': None, 'is_active': True, 'created_at': '2026-10-23T12:17:41.031148+05:30', 'reset_at': None})
+  [PASS]  M07 manual route_id persisted in DB  (got internal_vendor_action)
+
+[Step 5] Import 02_update.json (M07 -> revision 2 + transcript)
+  accepted=0 ignored=0 replaced=1 errors=0
+  [PASS]  Update import: errors=0  ([])
+  [PASS]  Still 44 records after update (M07 updated, not duplicated)  (got 44)
+  [PASS]  M07 now at revision 2  (got 2)
+  [PASS]  18 usable texts after update import  (got 18)
+
+[Step 6] M07 manual route survives import update
+  [PASS]  M07 manual_route still present after update import  (manual_route={'route_id': 'internal_vendor_action', 'rationale': 'Set by replay acceptance test to verify persistence', 'author': None, 'is_active': True, 'created_at': '2026-10-23T12:17:41.031148+05:30', 'reset_at': None})
+  [PASS]  M07 manual route_id unchanged after update  (got internal_vendor_action)
+  [PASS]  M07 analysis is NOT shown as current after new text (awaiting analysis)  (analysis_state=pending)
+  [PASS]  Reviewed revision-2 analysis applied for M07  ({'source_type': 'meeting', 'source_id': '4f304fff-fd40-5cfc-a366-0a134c445c2a', 'status': 'applied', 'id': '9e4997a5-9c78-4d87-b972-689423968d68', 'source_revision': 2})
+  [PASS]  M07 analysis now current at revision 2
+  [PASS]  Manual route still in effect after analysis refresh  (['internal_vendor_action'])
+
+[Step 7] Re-import 01_initial.json -> M07 must stay at revision 2
+  accepted=0 ignored=44 replaced=0 errors=0
+  [PASS]  Re-import of older file: 0 errors
+  [PASS]  M07 still revision 2 (older revision ignored)  (got 2)
+  [PASS]  Still 44 records after re-import of old data  (got 44)
+
+[Step 8] Persistence check (manual route, revision, record count)
+  [PASS]  M07 manual route persists  (manual_route={'route_id': 'internal_vendor_action', 'rationale': 'Set by replay acceptance test to verify persistence', 'author': None, 'is_active': True, 'created_at': '2026-10-23T12:17:41.031148+05:30', 'reset_at': None})
+  [PASS]  M07 route_id persists  (got internal_vendor_action)
+  [PASS]  M07 revision=2 persists  (got 2)
+  [PASS]  44 total records persist  (got 44)
+
+[Step 8b] Export generation
+  [PASS]  Export created (no HTTP error)  (status=None detail=)
+  [PASS]  Export response has run_id or id  (keys=['run_id', 'bundle', 'bundle_path', 'manifest_path', 'zip_path', 'record_count', 'manifest_entry_count', 'output_file_count', 'route_assignment_count', 'manual_override_count', 'generated_at'])
+
+=================================================================
+RESULT: ALL CHECKS PASSED
+AGENTS.md replay acceptance test complete.
+=================================================================

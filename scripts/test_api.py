@@ -6,7 +6,7 @@ import json
 import urllib.request
 import urllib.error
 
-BASE = "http://127.0.0.1:8765"
+BASE = "http://127.0.0.1:8000"
 PASS = []
 FAIL = []
 

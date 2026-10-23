@@ -1,23 +1,107 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "meeting",
   "source_id": "b0f79b3d-37ba-52f9-b2bc-58b159dd6d91",
+  "record_ref": "M04",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Cedarwave (existing customer): card programme closing, cards will stop; customer's real need is credit — retention risk",
+  "priority": "high",
   "suggested_routes": [
     {
+      "route_id": "customer_follow_up",
+      "label": "Customer follow-up",
+      "rationale": "An existing customer must migrate before their current cards stop, and has stated that prepaid-only is their main issue.",
+      "evidence_ref": "M04 turn 11",
+      "is_manual": false,
+      "priority": "high",
+      "output": "Retention follow-up (owner: Team member A for the eligibility check, turn 23). (1) Confirm whether Cedarwave's already-issued bank credit cards can join the transaction feed (turn 23). (2) Confirm accounting-sync feasibility for those bank-card transactions (turn 21). (3) Send a migration plan: old programme closing \"in the coming weeks\" (turn 4), re-verification of identity for users (turn 6), new account set up in parallel. (4) Book the department/user clean-up session offered in turn 31. The customer will decide internally (turn 29).",
+      "owner": "Team member A (stated, turns 23 and 28)"
+    },
+    {
       "route_id": "internal_vendor_action",
-      "label": "Migration planning — time-sensitive operational action",
-      "rationale": "The opening statement 'I wanted to discuss the migration while there is still time to plan it' indicates this is an operational migration meeting. The phrase 'while there is still time' signals urgency. This is an internal or vendor operational matter requiring a concrete planning action.",
-      "evidence_ref": "b0f79b3d-37ba-52f9-b2bc-58b159dd6d91 turn 1",
-      "is_manual": false
+      "label": "Internal / product / vendor note",
+      "rationale": "Product and programme questions that the account owner could not answer on the call.",
+      "evidence_ref": "M04 turn 21",
+      "is_manual": false,
+      "priority": "medium",
+      "output": "Programme-team questions: are already-issued bank cards eligible for the transaction feed (turn 23)? Can source-balance reconciliation work for bank-card transactions (turn 21)? The available credit limit will not be visible for bank-issued cards (turn 25). Product signal: the customer wants credit, not indefinite prepaid (turns 9, 11), the same theme as M03 turn 6.",
+      "owner": null
+    },
+    {
+      "route_id": "human_review",
+      "label": "Human review",
+      "rationale": "A separate 'Migration discussion' meeting with Cedarwave (M13) has no notetaker; it may be related, but only the title suggests so.",
+      "evidence_ref": "M04 turn 1",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Possible association, not confirmed: M13 \"SpendNest <> Cedarwave Distribution - Migration discussion\" is organised by the same organiser 30 minutes earlier, with no transcript. Confirm whether it is the same conversation or a separate one before combining them.",
+      "owner": null
     }
   ],
-  "concise_output": "The meeting was opened with an explicit request to discuss a migration while there is still time to plan it. The urgency framing makes this a time-sensitive internal or vendor operational action.",
-  "what_established": "There is a migration to be planned and the initiator has flagged that time for planning is limited. The meeting was called to address this migration planning need.",
-  "what_not_established": "What is being migrated, which systems or vendors are involved, the migration deadline, who owns the migration, or meeting outcome.",
-  "next_action": "Identify the migration scope, systems involved, and deadline; assign a migration owner and create a planning timeline before the window closes.",
-  "owner": null,
-  "confidence": "medium",
-  "uncertainty": "The migration subject and timeline are not specified in the available evidence; only the urgency of planning is established."
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": 2,
+      "quote": "We have seen acceptance problems with the existing programme and are proposing a move to a different provider and card network.",
+      "supports": "Why the migration is happening."
+    },
+    {
+      "id": "E2",
+      "turn": 4,
+      "quote": "The plan is to close the old programme in the coming weeks",
+      "supports": "Time pressure."
+    },
+    {
+      "id": "E3",
+      "turn": 6,
+      "quote": "Users need to complete identity checks again because the provider changes.",
+      "supports": "Migration effort for users."
+    },
+    {
+      "id": "E4",
+      "turn": 10,
+      "quote": "The replacement I described is still prepaid.",
+      "supports": "No credit product in the replacement."
+    },
+    {
+      "id": "E5",
+      "turn": 11,
+      "quote": "moving from prepaid to credit is the main issue for us. At some stage we will have to consider another option for that.",
+      "supports": "Retention risk."
+    },
+    {
+      "id": "E6",
+      "turn": 21,
+      "quote": "I need the team to confirm feasibility for your bank-card transactions",
+      "supports": "Open accounting question."
+    },
+    {
+      "id": "E7",
+      "turn": 23,
+      "quote": "I cannot confirm the existing-card eligibility on this call.",
+      "supports": "Open eligibility question with a stated owner."
+    },
+    {
+      "id": "E8",
+      "turn": 26,
+      "quote": "Then what do we gain by adding SpendNest? We can already see transactions in the bank portal.",
+      "supports": "Value challenge."
+    },
+    {
+      "id": "E9",
+      "turn": 29,
+      "quote": "We are not deciding the whole migration on this call.",
+      "supports": "No decision made."
+    }
+  ],
+  "concise_output": "An existing customer was told its card programme is closing within weeks and all current cards will stop. The customer said its main problem is needing credit rather than prepaid, and may look elsewhere. SpendNest proposed connecting their bank credit cards, but eligibility and accounting sync are unconfirmed. This is the clearest retention risk in the set.",
+  "what_established": "Programme closure planned \"in the coming weeks\"; users must redo identity checks; the replacement is prepaid; credit is the customer's main issue; Team member A will check card-feed eligibility and accounting feasibility; the customer will decide internally.",
+  "what_not_established": "The closure date, whether the customer will churn, credit eligibility, or deal value. The INR 1.3 crore figure is the customer's existing bank credit line (turn 22), not SpendNest revenue.",
+  "next_action": "Answer eligibility and accounting questions quickly; send a migration plan; schedule the department clean-up session.",
+  "owner": "Team member A (stated)",
+  "confidence": "high",
+  "uncertainty": "Speaker-to-organiser mapping is not supplied; the association with M13 is title-based only.",
+  "label_check": null,
+  "label_agrees": null
 }

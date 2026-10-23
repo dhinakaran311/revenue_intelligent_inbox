@@ -97,6 +97,35 @@ def list_export_runs() -> list[dict]:
     ]
 
 
+@router.get("/export/current")
+def current_export() -> dict:
+    """Return the current bundle's manifest (JSON) for in-app inspection."""
+    root = Path(_export_root())
+    marker = root / "CURRENT"
+    if not marker.exists():
+        raise HTTPException(status_code=404, detail="No export generated yet")
+    name = marker.read_text(encoding="utf-8").strip()
+    manifest = root / name / "manifest.json"
+    if not manifest.exists():
+        raise HTTPException(status_code=404, detail="Current manifest missing on disk")
+    import json
+    return json.loads(manifest.read_text(encoding="utf-8"))
+
+
+@router.get("/export/current/zip")
+def download_current_zip():
+    """Download the current export bundle as a zip archive."""
+    root = Path(_export_root())
+    marker = root / "CURRENT"
+    if not marker.exists():
+        raise HTTPException(status_code=404, detail="No export generated yet")
+    name = marker.read_text(encoding="utf-8").strip()
+    zip_path = root / f"{name}.zip"
+    if not zip_path.exists():
+        raise HTTPException(status_code=404, detail="Current bundle zip missing on disk")
+    return FileResponse(path=str(zip_path), media_type="application/zip", filename=f"{name}.zip")
+
+
 @router.get("/export/download/{run_id}")
 def download_manifest(run_id: str):
     """Stream the manifest.json for a given export run.

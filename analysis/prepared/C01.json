@@ -1,30 +1,73 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "2ec4404c-beee-5377-a63c-aab701da08ed",
+  "record_ref": "C01",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Cold call rejected; prospect objected to how their number was obtained",
+  "priority": "medium",
   "suggested_routes": [
     {
-      "route_id": "deal_next_step",
-      "label": "Cold outbound — evaluate prospect fit",
-      "rationale": "Arun initiated an outbound call to Pranav and identified himself as calling from SpendNest. The call is at the very opening stage; no qualification has been completed, so a concrete next step is required to advance the opportunity.",
-      "evidence_ref": "2ec4404c-beee-5377-a63c-aab701da08ed — \"Hi Pranav, Arun calling from SpendNest.\"",
-      "is_manual": false
+      "route_id": "sales_coaching",
+      "label": "Sales coaching",
+      "rationale": "The prospect asked twice why Arun was calling before hearing a reason, then objected to being contacted on a work number.",
+      "evidence_ref": "C01 — \"no, I asked why you have called me\"",
+      "is_manual": false,
+      "priority": "medium",
+      "output": "Coaching note for Arun: state the reason for the call in the first sentence. Here the prospect had to ask \"Sorry, who is this?\" and then \"no, I asked why you have called me\" before the purpose was clear. Reinforce: Arun answered the data-source question honestly and closed politely when the prospect declined. Manager decision needed: whether this contact should be suppressed from further outreach, given \"I didn't ask for this call, and I'm not interested.\"",
+      "owner": null
     },
     {
-      "route_id": "sales_coaching",
-      "label": "Cold-call opener quality",
-      "rationale": "The available evidence shows only the opening line. Whether Arun delivered a value proposition or discovery question after the greeting is not established. A coaching review of the full call would verify opener effectiveness.",
-      "evidence_ref": "2ec4404c-beee-5377-a63c-aab701da08ed — \"Hi Pranav, Arun calling from SpendNest.\"",
-      "is_manual": false
+      "route_id": "log_only",
+      "label": "Log only",
+      "rationale": "Prospect declined clearly and gave a reason; no follow-up is supported.",
+      "evidence_ref": "C01 — \"I don't think this is something we need\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Log outcome: not interested; prospect states existing processes are already highly automated. No follow-up.",
+      "owner": null
     }
   ],
-  "concise_output": "Arun made an outbound cold call to Pranav introducing himself as calling from SpendNest. The call is at the very start; no prospect response or qualification is captured in the available evidence.",
-  "what_established": "Arun placed an outbound call to a contact named Pranav and introduced himself as representing SpendNest.",
-  "what_not_established": "Prospect's company, interest level, deal value, next meeting or demo commitment, outcome of the call, or any qualification details.",
-  "next_action": "Log the call outcome in CRM; if connected, schedule a discovery call or send introductory materials to Pranav.",
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "no, I asked why you have called me",
+      "supports": "The purpose of the call was not clear early enough."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "I didn't ask for this call, and I'm not interested.",
+      "supports": "Explicit rejection of the outreach."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "This number is for my work, not for people to sell things to me.",
+      "supports": "Prospect objected to the contact channel."
+    },
+    {
+      "id": "E4",
+      "turn": null,
+      "quote": "Through a professional networking outreach programme; that's how we obtained the contact information.",
+      "supports": "Rep disclosed the data source when asked."
+    },
+    {
+      "id": "E5",
+      "turn": null,
+      "quote": "Our processes are already very automated.",
+      "supports": "Stated reason for no need."
+    }
+  ],
+  "concise_output": "Arun's partnership cold call to Pranav (Harborlight Advisory) ended in a clear rejection. The prospect objected to being called on a work number and asked where their details came from. The useful output is a coaching point on opening clarity plus a suppression decision, not a deal action.",
+  "what_established": "Pranav said he was not interested, did not ask for the call, and considers their processes already very automated. Arun confirmed it was a cold call and named the contact source.",
+  "what_not_established": "Whether Harborlight Advisory would ever be a fit; Pranav's role or authority. Harborlight Advisory is not established to be related to Harborpath Advisory (M01) despite the similar name.",
+  "next_action": "Manager to decide whether to suppress this contact; share the opening-clarity coaching point with Arun.",
   "owner": null,
-  "confidence": "medium",
-  "uncertainty": "Only the opening line is available; the rest of the conversation and its outcome are unknown."
+  "confidence": "high",
+  "uncertainty": "Text is adapted and abridged; tone and exact wording of the opening may differ from the original call.",
+  "label_check": "Stored observed_outcome 'uninterested' agrees with the text.",
+  "label_agrees": true
 }

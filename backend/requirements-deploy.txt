@@ -1,0 +1,10 @@
+# Hosted API (Render): everything the app needs to serve the reviewed analyses,
+# imports, replay and exports. Excludes sentence-transformers/torch, which only
+# the optional runtime retrieval indexing uses (it is skipped when absent).
+fastapi
+uvicorn[standard]
+python-multipart
+psycopg2-binary
+supabase
+groq
+pinecone-client

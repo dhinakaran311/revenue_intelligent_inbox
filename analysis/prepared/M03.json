@@ -1,30 +1,107 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "meeting",
   "source_id": "398672e7-62dd-5afd-846d-0237d49792fb",
+  "record_ref": "M03",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Asterloom revisiting price with finance: prepaid-vs-credit surprise and a quote that rose from INR 26,000 to 39,000",
+  "priority": "high",
   "suggested_routes": [
     {
-      "route_id": "customer_follow_up",
-      "label": "Returning customer — finance stakeholder join, pricing revisit",
-      "rationale": "The contact states 'We spoke a while ago' (prior engagement confirmed) and that a finance colleague has joined specifically to understand implementation and revisit pricing. This is a multi-stakeholder customer follow-up meeting with active commercial discussion.",
-      "evidence_ref": "398672e7-62dd-5afd-846d-0237d49792fb turn 1",
-      "is_manual": false
+      "route_id": "deal_next_step",
+      "label": "Deal / partner next step",
+      "rationale": "A returning prospect, with a finance stakeholder present, wants a proposal; the CFO approves; a pilot of 4–5 employees.",
+      "evidence_ref": "M03 turn 28",
+      "is_manual": false,
+      "priority": "high",
+      "output": "Proposal (Team member A: \"I will send the cards proposal\", turn 35). Itemise recurring INR 26,000 + tax and one-time INR 13,000 integration separately (turns 22–24). Address the setup charge the customer asked to make attractive (turn 25). Scope a 4–5 employee pilot (turn 26) and state that card review is included without the reimbursement module (turn 32). The customer wants details first and will decide internally with the CFO before another call (turns 28, 36).",
+      "owner": "Team member A (stated, turn 35)"
     },
     {
-      "route_id": "deal_next_step",
-      "label": "Pricing discussion with finance stakeholder",
-      "rationale": "The explicit agenda includes revisiting the price, signalling an active commercial evaluation. A concrete pricing or proposal next step is required.",
-      "evidence_ref": "398672e7-62dd-5afd-846d-0237d49792fb turn 1",
-      "is_manual": false
+      "route_id": "sales_coaching",
+      "label": "Sales coaching",
+      "rationale": "The price surprise and the prepaid-vs-credit surprise both came from expectations not set earlier.",
+      "evidence_ref": "M03 turn 23",
+      "is_manual": false,
+      "priority": "high",
+      "output": "Coaching note: (1) quote recurring and one-time charges separately from the first conversation. The customer heard INR 26,000 before and INR 39,000 now (turn 23), which damages trust in a deal that has \"been discussing this for a long time\" (turn 25). (2) Say early that domestic cards are prepaid; the buyer expected a corporate credit card (turn 6). (3) Don't promise unbuilt functionality casually: automatic sync after approval was described as \"something we can build\" (turn 16).",
+      "owner": null
+    },
+    {
+      "route_id": "internal_vendor_action",
+      "label": "Internal / product / vendor note",
+      "rationale": "Product signal: credit demand and auto-sync-after-approval appear as gaps.",
+      "evidence_ref": "M03 turn 6",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Product note: the buyer expected credit, not prepaid (turn 6), the same theme as Cedarwave (M04 turn 11). Automatic accounting sync after approval is not available today (turn 16). The buyer needs to tell recorded spending apart from spending whose review is complete (turn 17).",
+      "owner": null
     }
   ],
-  "concise_output": "A customer who spoke with SpendNest previously returned with their finance colleague to understand implementation and revisit pricing. This is a multi-stakeholder deal re-engagement requiring a pricing or proposal follow-up.",
-  "what_established": "A prior conversation with this contact exists. The contact's finance colleague joined this meeting. The stated agenda is to understand how SpendNest would work in practice and to revisit pricing.",
-  "what_not_established": "The customer's company name, deal value or price discussed, implementation timeline, any commitment made, or meeting outcome.",
-  "next_action": "Prepare a tailored pricing proposal for the finance colleague's review; document implementation steps and schedule a follow-up to present the proposal.",
-  "owner": null,
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": 1,
+      "quote": "My finance colleague is joining today because we need to understand how this would actually work, and then revisit the price.",
+      "supports": "A re-engagement with finance present."
+    },
+    {
+      "id": "E2",
+      "turn": 6,
+      "quote": "Wait, these are prepaid? I had thought about a corporate credit card.",
+      "supports": "Expectation mismatch on credit."
+    },
+    {
+      "id": "E3",
+      "turn": 16,
+      "quote": "If you need automatic syncing after approval, that is something we can build.",
+      "supports": "Unbuilt capability offered."
+    },
+    {
+      "id": "E4",
+      "turn": 23,
+      "quote": "But you previously told me INR 26,000. Why has that become INR 39,000?",
+      "supports": "Price inconsistency noticed by the buyer."
+    },
+    {
+      "id": "E5",
+      "turn": 24,
+      "quote": "INR 26,000 plus tax is the recurring annual subscription, and INR 13,000 is the one-time accounting integration setup.",
+      "supports": "Price clarified."
+    },
+    {
+      "id": "E6",
+      "turn": 25,
+      "quote": "We have been discussing this for a long time and still need to decide whether it is the right tool.",
+      "supports": "Deal maturity and uncertainty."
+    },
+    {
+      "id": "E7",
+      "turn": 26,
+      "quote": "but would start with perhaps four or five employees.",
+      "supports": "Pilot scope."
+    },
+    {
+      "id": "E8",
+      "turn": 28,
+      "quote": "Our CFO approves the larger payments.",
+      "supports": "Approval path."
+    },
+    {
+      "id": "E9",
+      "turn": 36,
+      "quote": "Send the details first. We need time with the CFO and will tell you if another call is needed.",
+      "supports": "No next meeting agreed."
+    }
+  ],
+  "concise_output": "Asterloom returned with a finance colleague to understand the card workflow and revisit price. Two surprises came up mid-meeting: the cards are prepaid, not credit, and the quote rose from INR 26,000 to 39,000 because setup was bundled in. They want a written proposal and will decide with their CFO before scheduling more.",
+  "what_established": "Use case: domestic travel and small operating expenses; a pilot of 4–5 employees; CFO approval required; recurring INR 26,000 + tax and one-time INR 13,000 setup; the customer wants the proposal made attractive, including setup.",
+  "what_not_established": "A purchase commitment, timing, or deal value. Spend estimates (INR 10–13 lakh/month; vendor payments INR 26–39 lakh) are explicitly unverified (\"that needs checking\"). Whether a second meeting will happen.",
+  "next_action": "Send an itemised proposal scoped to the pilot; brief the rep on expectation-setting.",
+  "owner": "Team member A (stated, turn 35)",
   "confidence": "high",
-  "uncertainty": "Only turn 1 is available; the pricing discussion details and commitment are not evidenced."
+  "uncertainty": "Speaker-to-organiser mapping is not supplied. All amounts are as spoken in adapted text.",
+  "label_check": null,
+  "label_agrees": null
 }

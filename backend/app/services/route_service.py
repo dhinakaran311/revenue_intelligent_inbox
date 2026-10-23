@@ -10,18 +10,13 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 
+from app.analysis_contract import ROUTE_DEFINITIONS
 from app.config import KOLKATA, get_supabase_client
 
 logger = logging.getLogger(__name__)
 
-# All allowed route identifiers (DATA_CONTRACT)
-VALID_ROUTE_IDS: list[str] = [
-    "deal_next_step",
-    "customer_follow_up",
-    "sales_coaching",
-    "internal_vendor_action",
-    "human_review",
-]
+# All allowed route identifiers — one taxonomy shared with analysis and export.
+VALID_ROUTE_IDS: list[str] = list(ROUTE_DEFINITIONS)
 
 
 def _to_kolkata(ts: str | None) -> str | None:

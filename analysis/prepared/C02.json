@@ -1,30 +1,61 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "4b870624-8aad-5315-a60e-0db95981cf99",
+  "record_ref": "C02",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Reached a receptionist; intended contact absent, routed to voicemail",
+  "priority": "low",
   "suggested_routes": [
     {
-      "route_id": "deal_next_step",
-      "label": "Cold call — Fernhaven Group engaged",
-      "rationale": "The call was answered at Fernhaven Group ('Good morning, you've reached Fernhaven Group'). This confirms a live connection, making it a qualified cold call opportunity requiring a next step to advance.",
-      "evidence_ref": "4b870624-8aad-5315-a60e-0db95981cf99 — \"Good morning, you've reached Fernhaven Group.\"",
-      "is_manual": false
+      "route_id": "log_only",
+      "label": "Log only",
+      "rationale": "Only a receptionist was reached and the call was passed to voicemail; no prospect conversation took place.",
+      "evidence_ref": "C02 — \"Her voicemail would be fine, thank you.\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Log: receptionist at Fernhaven Group; intended contact (Leela) not in office; call transferred to voicemail. The voicemail itself is not in the supplied text, so nothing was committed.",
+      "owner": null
     },
     {
-      "route_id": "sales_coaching",
-      "label": "Response to gatekeeper or reception",
-      "rationale": "The opening line reads as a company reception or voicemail greeting. How Arun responded to this — whether he asked for the right contact or left a compelling message — is a coachable moment not captured in the evidence.",
-      "evidence_ref": "4b870624-8aad-5315-a60e-0db95981cf99 — \"Good morning, you've reached Fernhaven Group.\"",
-      "is_manual": false
+      "route_id": "human_review",
+      "label": "Human review",
+      "rationale": "The source flags this as a conversation, but the text shows only a receptionist hand-off.",
+      "evidence_ref": "C02 — \"It looks as though she isn't in the office today.\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Data-quality note: is_connected=true and is_conversation=true overstate what happened. Do not count this as a prospect conversation in transcript-based measures.",
+      "owner": null
     }
   ],
-  "concise_output": "Arun's call was answered at Fernhaven Group. The evidence captures only the company greeting; the substantive conversation and outcome are not available.",
-  "what_established": "The call reached Fernhaven Group (call was answered or reached voicemail). Fernhaven Group is a prospect being contacted.",
-  "what_not_established": "Contact person, deal value, interest level, any commitment, call outcome, or whether Arun was transferred to a decision-maker.",
-  "next_action": "Identify the correct contact at Fernhaven Group and log the call attempt; if voicemail, follow up with a targeted email.",
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "Good morning, you've reached Fernhaven Group. Kavya speaking.",
+      "supports": "The call was answered by a receptionist."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "It looks as though she isn't in the office today.",
+      "supports": "The intended contact was unavailable."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "Her voicemail would be fine, thank you.",
+      "supports": "The caller chose voicemail; no conversation with the contact."
+    }
+  ],
+  "concise_output": "Arun reached Fernhaven Group's receptionist, who said Leela was out and transferred him to voicemail. There is no prospect conversation to analyse.",
+  "what_established": "The intended contact was not in the office and the caller asked for voicemail.",
+  "what_not_established": "What the voicemail said, why Arun was calling, or any prospect interest. 'Leela' here is the person called; it is not established to be the SpendNest rep whose display name is also Leela.",
+  "next_action": "None beyond logging. Treat as an attempt, not a conversation.",
   "owner": null,
-  "confidence": "medium",
-  "uncertainty": "The evidence is limited to the greeting only; the rest of the conversation is unavailable."
+  "confidence": "high",
+  "uncertainty": "Short adapted text; the purpose of the call is never stated.",
+  "label_check": "Source flags is_conversation=true and observed_outcome 'ooo'. The text supports 'contact out of office', but not that a substantive conversation took place.",
+  "label_agrees": false
 }

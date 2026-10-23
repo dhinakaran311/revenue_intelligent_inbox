@@ -1,23 +1,63 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "meeting",
   "source_id": "337f297d-9385-5b82-9e54-5019c1ed912c",
+  "record_ref": "M10",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Internal billing-operations training (not a sales conversation): invoice timing and frozen-account recovery",
+  "priority": "low",
   "suggested_routes": [
     {
-      "route_id": "human_review",
-      "label": "Insufficient content — meeting not yet started",
-      "rationale": "The only available evidence is the organiser saying they are finishing another call and will join in a couple of minutes. No substantive conversation, topic, or participant role is established. Human review is required once more of the meeting content is available.",
-      "evidence_ref": "337f297d-9385-5b82-9e54-5019c1ed912c turn 1",
-      "is_manual": false
+      "route_id": "internal_vendor_action",
+      "label": "Internal / product / vendor note",
+      "rationale": "All speakers are SpendNest team members; this is internal process training, not customer or prospect activity.",
+      "evidence_ref": "M10 turn 18",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Internal knowledge note for finance/ops reporting: (1) the invoice month does not tell you when cash arrived; due periods vary to month-end or mid-next-month (turns 7–9). (2) Zero-value invoices are not missing payments (turn 13). (3) Failed wallet deductions retry on days 3, 7 and 10, then the account freezes (turns 15–17). (4) Recovery needs operations to clear the invoice and manually fix the next billing date (turn 18). Action: Team member A will request back-office access for the trainee (turn 20).",
+      "owner": "Team member A (stated, turn 20: back-office access request)"
     }
   ],
-  "concise_output": "The only captured content is the organiser indicating they are finishing another call and will join shortly. No meeting substance, topic, or participants are established — this record cannot be meaningfully routed without further content.",
-  "what_established": "The meeting organiser was on another call at the start of this session and indicated they would join in a couple of minutes.",
-  "what_not_established": "Meeting topic, attendees, customer or prospect involved, deal value, any discussion content, or outcome.",
-  "next_action": "Retrieve the remainder of the meeting transcript or recording; re-run analysis once substantive content is available.",
-  "owner": null,
-  "confidence": "low",
-  "uncertainty": "The meeting has effectively not started in the captured evidence; no routing decision can be made on a brief pre-meeting placeholder statement."
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": 4,
+      "quote": "I have access to a demo account as an administrator, but I do not have the back-office super-admin access you mentioned.",
+      "supports": "Access gap for the trainee."
+    },
+    {
+      "id": "E2",
+      "turn": 9,
+      "quote": "That explains why the invoice month alone does not tell us when the cash arrived.",
+      "supports": "A reporting pitfall."
+    },
+    {
+      "id": "E3",
+      "turn": 13,
+      "quote": "That is not automatically a missing payment.",
+      "supports": "Zero-value invoices."
+    },
+    {
+      "id": "E4",
+      "turn": 18,
+      "quote": "Operations also needs to adjust the next billing date manually.",
+      "supports": "Manual recovery step."
+    },
+    {
+      "id": "E5",
+      "turn": 20,
+      "quote": "I will request the back-office access separately for the next training session.",
+      "supports": "Stated action."
+    }
+  ],
+  "concise_output": "Internal billing-workflow training: no customer or prospect is present. Its value is operational knowledge. Invoice dates do not equal cash dates, zero-value invoices are expected, and frozen-account recovery needs a manual billing-date fix. It is excluded from sales coaching and from the deal/follow-up priorities.",
+  "what_established": "Speakers are all SpendNest team members; billing rules were explained; back-office access will be requested for the trainee.",
+  "what_not_established": "Any customer, deal, or sales activity. The example amounts (INR 6,240 / 6,110) are illustrations, not real transactions.",
+  "next_action": "File the knowledge note for finance/ops; follow up on the back-office access request.",
+  "owner": "Team member A (stated, turn 20)",
+  "confidence": "high",
+  "uncertainty": "Earlier drafts treated this as unroutable; the full text shows it is internal training.",
+  "label_check": null,
+  "label_agrees": null
 }

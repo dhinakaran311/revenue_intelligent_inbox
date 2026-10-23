@@ -6,8 +6,8 @@ Configuration:
   - Startup event logs app_env and base_url (no secrets logged)
   - All routers mounted with versioned-neutral prefixes
 
-Phase 4 note: analysis/refresh stubs return 501 Not Implemented;
-they are intentionally left for Phase 4 implementation.
+Analysis: reviewed (prepared) analyses are applied per source revision; an
+optional runtime path (Groq) is exposed at /records/{type}/{id}/analysis/refresh.
 """
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import ENV, app_env
-from app.routers import admin, exports, imports, metrics, records
+from app.routers import admin, brief, exports, imports, metrics, records
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -76,10 +76,12 @@ def create_app() -> FastAPI:
     # -------------------------------------------------------------------
     # CORS — exact origin only (DATA RULE 10: no wildcard)
     # -------------------------------------------------------------------
-    frontend_origin = ENV.get("FRONTEND_ORIGIN", "http://localhost:3000")
+    # FRONTEND_ORIGIN may list several exact origins, comma-separated
+    # (e.g. the Vercel URL and http://localhost:3000). Never a wildcard.
+    origins = [o.strip() for o in ENV.get("FRONTEND_ORIGIN", "http://localhost:3000").split(",") if o.strip()]
     _app.add_middleware(
         CORSMiddleware,
-        allow_origins=[frontend_origin],   # Exact match; no wildcard
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -115,6 +117,7 @@ def create_app() -> FastAPI:
     _app.include_router(imports.router)
     _app.include_router(exports.router)
     _app.include_router(admin.router)
+    _app.include_router(brief.router)
 
     # -------------------------------------------------------------------
     # Root probe (for load-balancer / k8s liveness)

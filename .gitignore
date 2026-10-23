@@ -18,7 +18,7 @@ backend/connectivity_report.json
 
 # ── Private assessment data ───────────────────────────────────
 # Raw source records are private; keep them local only.
-data/
+/data/
 # Export bundles contain derived private data
 backend/exports/
 
@@ -104,3 +104,10 @@ logs/
 *.bak
 *.swp
 *.swo
+
+# Raw assessment reading pack (conversation text) — keep local, never publish
+CONVERSATIONS.md
+index.html
+# Local run logs
+backend_server.log
+frontend_dev.log

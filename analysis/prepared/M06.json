@@ -1,30 +1,85 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "meeting",
   "source_id": "657b9e9d-9472-5b01-a127-a648ad7e8cf7",
+  "record_ref": "M06",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Early receivables-automation discovery with a branch finance lead; central team owns most processes",
+  "priority": "low",
   "suggested_routes": [
     {
-      "route_id": "internal_vendor_action",
-      "label": "Internal discovery — finance role alignment",
-      "rationale": "The SpendNest finance team member stated they wanted to understand the other party's role before jumping into the product. This is an internal or vendor discovery/networking session, not a customer-facing sales meeting.",
-      "evidence_ref": "657b9e9d-9472-5b01-a127-a648ad7e8cf7 turn 1",
-      "is_manual": false
+      "route_id": "deal_next_step",
+      "label": "Deal / partner next step",
+      "rationale": "Exploratory discovery with interest in receiving material; no meeting or evaluation agreed.",
+      "evidence_ref": "M06 turn 33",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Send the receivables and expense material plus the security/compliance documentation promised in turns 29 and 32. Before investing more, find out who in the central finance team owns collections. The contact handles one branch (turn 2), and \"the dedicated central team handles much of this today\" (turn 25).",
+      "owner": null
     },
     {
-      "route_id": "human_review",
-      "label": "Context ambiguity — internal or external?",
-      "rationale": "The phrasing 'understand your role before jumping into the product' could indicate an internal cross-team alignment meeting or an external partner/vendor introduction. Without more turns the distinction cannot be confirmed.",
-      "evidence_ref": "657b9e9d-9472-5b01-a127-a648ad7e8cf7 turn 1",
-      "is_manual": false
+      "route_id": "sales_coaching",
+      "label": "Sales coaching",
+      "rationale": "Discovery was thorough, but the buyer's authority was not established.",
+      "evidence_ref": "M06 turn 25",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Coaching note: the discovery questions on invoice flow and volume were good, and the rep corrected their own count-vs-value confusion (turns 13–15). Next time, qualify authority: the person is a branch finance lead and central teams own payables and collections (turns 7, 25).",
+      "owner": null
     }
   ],
-  "concise_output": "A SpendNest finance team member opened the meeting by wanting to understand the other attendee's role before a product discussion. The context is ambiguous — this may be internal role alignment or a vendor/partner discovery session.",
-  "what_established": "The meeting organiser works in finance at SpendNest. They initiated the meeting to understand the counterpart's role as a prerequisite to a product discussion.",
-  "what_not_established": "Who the counterpart is (internal or external), the product or system under discussion, meeting outcome, or whether a follow-up action was agreed.",
-  "next_action": "Clarify whether this is an internal or external meeting; if external, document the counterpart's role and identify whether a product demo or collaboration discussion is the right next step.",
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": 2,
+      "quote": "I handle finance for one branch of Mapletrail Services.",
+      "supports": "The contact's scope is a single branch."
+    },
+    {
+      "id": "E2",
+      "turn": 7,
+      "quote": "For supplier payments there is a dedicated team.",
+      "supports": "Payables are handled centrally."
+    },
+    {
+      "id": "E3",
+      "turn": 10,
+      "quote": "One expense-recovery invoice has been outstanding for months",
+      "supports": "Concrete collections pain."
+    },
+    {
+      "id": "E4",
+      "turn": 16,
+      "quote": "These are rough numbers in this conversation, not a report I have open.",
+      "supports": "Volumes are rough."
+    },
+    {
+      "id": "E5",
+      "turn": 25,
+      "quote": "But the dedicated central team handles much of this today.",
+      "supports": "Limited local ownership."
+    },
+    {
+      "id": "E6",
+      "turn": 31,
+      "quote": "Confidentiality is important. Payment information is sensitive.",
+      "supports": "Security is a requirement."
+    },
+    {
+      "id": "E7",
+      "turn": 33,
+      "quote": "Please send the information and we can stay in touch.",
+      "supports": "Soft close; no next meeting."
+    }
+  ],
+  "concise_output": "Discovery with a branch finance lead at Mapletrail Services about receivables automation. There is real collections pain (an invoice outstanding for months), but central teams own most processes, volumes are rough, and the close was 'send information and stay in touch'.",
+  "what_established": "Branch-level role; roughly 390–520 invoices a month company-wide (a rough estimate); manual tracking of contract terms and receipts; security is a concern; the contact asked for material.",
+  "what_not_established": "Buying authority, budget, timeline, or interest from the central finance team. Invoice volume is the contact's rough estimate.",
+  "next_action": "Send material with security docs; identify the central collections owner.",
   "owner": null,
-  "confidence": "low",
-  "uncertainty": "Only turn 1 is available and the meeting context (internal vs. external, and topic) is ambiguous."
+  "confidence": "medium",
+  "uncertainty": "Volumes were revised during the call; the speaker said they are rough.",
+  "label_check": null,
+  "label_agrees": null
 }

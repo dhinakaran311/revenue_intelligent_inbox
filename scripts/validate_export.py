@@ -1,137 +1,75 @@
-"""Validate the most recent export bundle.
+"""Validate the current export bundle (backend/exports/CURRENT).
 
 Checks:
-  1. 44 manifest entries
-  2. All output_path fields are non-null
-  3. All files exist at their relative paths
-  4. M07 has revision=2
-  5. 18 entries have analysis (analysis_state not no_text and analysis_source not null)
-  6. 26 entries with no_text analysis_state
-  7. All paths are relative (not absolute)
+  1. 44 manifest entries, one per unique (source_type, source_id)
+  2. Every entry lists at least its record dossier
+  3. Every listed output path (and shared output) exists and is relative POSIX
+  4. M07 is at applied revision 2
+  5. 18 entries have usable text; 26 do not; no-text entries have no route outputs
+  6. Each route output path sits in its route's folder; superseded routes have no file
+  7. manifest.csv has one row per listed output
 """
+import csv
+import io
 import json
-import os
 import sys
 from pathlib import Path
 
-# Resolve the exports directory relative to this script's location
-SCRIPT_DIR = Path(__file__).parent.resolve()
-PROJECT_ROOT = SCRIPT_DIR.parent
-EXPORTS_DIR = PROJECT_ROOT / "backend" / "exports"
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
-
-def find_latest_bundle() -> Path | None:
-    if not EXPORTS_DIR.exists():
-        return None
-    bundles = sorted(
-        [d for d in EXPORTS_DIR.iterdir() if d.is_dir() and d.name.startswith("export_")],
-        key=lambda d: d.name,
-        reverse=True,
-    )
-    return bundles[0] if bundles else None
+EXPORTS = Path(__file__).resolve().parent.parent / "backend" / "exports"
 
 
 def main() -> int:
-    bundle_dir = find_latest_bundle()
-    if not bundle_dir:
-        print("FAIL: No export bundle found in backend/exports/")
+    marker = EXPORTS / "CURRENT"
+    if not marker.exists():
+        print("FAIL: no CURRENT export marker")
         return 1
+    bundle = EXPORTS / marker.read_text(encoding="utf-8").strip()
+    manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    entries = manifest["entries"]
+    ok = True
 
-    manifest_path = bundle_dir / "manifest.json"
-    if not manifest_path.exists():
-        print(f"FAIL: manifest.json not found in {bundle_dir}")
-        return 1
+    def check(name, cond, detail=""):
+        nonlocal ok
+        ok &= bool(cond)
+        print(f"{'PASS' if cond else 'FAIL'}: {name}" + (f" — {detail}" if detail else ""))
 
-    with open(manifest_path, encoding="utf-8") as f:
-        manifest = json.load(f)
+    ids = {(e["source_type"], e["source_id"]) for e in entries}
+    check("44 entries, unique identities", len(entries) == 44 and len(ids) == 44, f"{len(entries)} entries")
+    check("every entry has a record dossier",
+          all(any(o["kind"] == "record_dossier" for o in e["outputs"]) for e in entries))
 
-    entries = manifest.get("entries", [])
-    all_pass = True
+    paths = [p for e in entries for p in e["output_paths"]] + [s["path"] for s in manifest["shared_outputs"]]
+    bad = [p for p in paths if p.startswith("/") or "\\" in p or ":" in p or ".." in p]
+    missing = [p for p in paths if not (bundle / p).is_file()]
+    check("all paths relative POSIX", not bad, str(bad[:3]))
+    check("all listed files exist", not missing, f"{len(paths)} paths; missing {missing[:3]}")
 
-    def check(name: str, ok: bool, detail: str = "") -> None:
-        nonlocal all_pass
-        status = "PASS" if ok else "FAIL"
-        if not ok:
-            all_pass = False
-        msg = f"{status}: {name}"
-        if detail:
-            msg += f" — {detail}"
-        print(msg)
+    m07 = [e for e in entries if e["source_id"] == "4f304fff-fd40-5cfc-a366-0a134c445c2a"]
+    check("M07 applied revision 2", m07 and m07[0]["applied_revision"] == 2,
+          f"rev={m07[0]['applied_revision'] if m07 else None}, manual={m07[0]['manual_route'] if m07 else None}, "
+          f"freshness={m07[0]['analysis_freshness'] if m07 else None}")
 
-    # Check 1: 44 entries
-    check("44 manifest entries", len(entries) == 44, f"got {len(entries)}")
+    text = [e for e in entries if e["has_usable_text"]]
+    check("18 with usable text / 26 without", len(text) == 18 and len(entries) - len(text) == 26, f"{len(text)}")
+    check("no-text entries have no route outputs",
+          all(len(e["output_paths"]) == 1 for e in entries if not e["has_usable_text"] and not e["manual_override"]))
 
-    # Check 2: all output_path non-null
-    null_paths = [e["source_id"] for e in entries if not e.get("output_path")]
-    check(
-        "All output_path non-null",
-        len(null_paths) == 0,
-        f"{len(null_paths)} null: {null_paths[:5]}" if null_paths else "",
-    )
+    folders = {k: v["folder"] for k, v in manifest["routes"].items()}
+    misplaced = [o["path"] for e in entries for o in e["outputs"]
+                 if o["kind"] == "route_output" and not o["path"].startswith(folders[o["route_id"]] + "/")]
+    check("route outputs in their route folders", not misplaced, str(misplaced[:3]))
+    leaked = [e["record_ref"] for e in entries
+              if any(o["route_id"] in e["superseded_suggested_routes"] for o in e["outputs"])]
+    check("superseded routes have no active file", not leaked, str(leaked))
 
-    # Check 3: all files exist
-    missing = []
-    for e in entries:
-        if e.get("output_path"):
-            full = bundle_dir / e["output_path"]
-            if not full.exists():
-                missing.append(e["output_path"])
-    check(
-        "All output files exist",
-        len(missing) == 0,
-        f"{len(missing)} missing: {missing[:5]}" if missing else "",
-    )
+    rows = list(csv.DictReader((bundle / "manifest.csv").open(encoding="utf-8")))
+    check("manifest.csv one row per output", len(rows) == len(paths) - len(manifest["shared_outputs"]), f"{len(rows)} rows")
 
-    # Check 4: M07 has revision=2
-    m07 = next(
-        (e for e in entries if e.get("source_type") == "meeting" and e.get("source_id") == "M07"),
-        None,
-    )
-    if m07:
-        check("M07 revision=2", m07.get("revision") == 2, f"got {m07.get('revision')}")
-    else:
-        check("M07 revision=2", False, "M07 not found in manifest")
-
-    # Check 5: 18 entries with analysis
-    with_analysis = [
-        e for e in entries
-        if e.get("analysis_state") != "no_text" and e.get("analysis_source") is not None
-    ]
-    check(
-        "18 entries with analysis",
-        len(with_analysis) == 18,
-        f"got {len(with_analysis)}",
-    )
-
-    # Check 6: 26 entries with no_text
-    no_text = [e for e in entries if e.get("processing_state", {}).get("analysis_state") == "no_text"]
-    check(
-        "26 entries with no_text analysis_state",
-        len(no_text) == 26,
-        f"got {len(no_text)}",
-    )
-
-    # Check 7: all paths are relative
-    absolute_paths = [
-        e["output_path"]
-        for e in entries
-        if e.get("output_path") and os.path.isabs(e["output_path"])
-    ]
-    check(
-        "All paths relative",
-        len(absolute_paths) == 0,
-        f"{len(absolute_paths)} absolute: {absolute_paths[:3]}" if absolute_paths else "",
-    )
-
-    print()
-    print("\n".join([
-        f"Bundle    : {bundle_dir}",
-        f"Entries   : {len(entries)}",
-        f"Generated : {manifest.get('generated_at', 'unknown')}",
-    ]))
-    print()
-    print("ALL CHECKS PASSED" if all_pass else "SOME CHECKS FAILED")
-    return 0 if all_pass else 1
+    print(f"\nBundle: {bundle}")
+    print("ALL CHECKS PASSED" if ok else "SOME CHECKS FAILED")
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

@@ -1,30 +1,67 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "129497b2-8e1d-5e01-919c-e8a852b5ff68",
+  "record_ref": "C08",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Referred to the people-operations lead, who 'may have been looking at a solution'",
+  "priority": "medium",
   "suggested_routes": [
     {
-      "route_id": "customer_follow_up",
-      "label": "Inbound inquiry or gatekeeper interaction",
-      "rationale": "The evidence ('What is it regarding? I'm from SpendNest.') suggests Meera either answered an inbound call (acting as SpendNest representative) or encountered a gatekeeper asking the purpose of her call. Either scenario may involve an existing customer or a prospect requiring follow-up.",
-      "evidence_ref": "129497b2-8e1d-5e01-919c-e8a852b5ff68 — \"What is it regarding? I'm from SpendNest.\"",
-      "is_manual": false
+      "route_id": "deal_next_step",
+      "label": "Deal / partner next step",
+      "rationale": "The prospect referred Meera to a colleague who handles frontline processes and locations, and may already be evaluating.",
+      "evidence_ref": "C08 — \"If you send him a proposal and say you spoke with me, he can take a look.\"",
+      "is_manual": false,
+      "priority": "medium",
+      "output": "Next step (owner: Meera, stated): send the proposal to the confirmed address and reference Raghav, as he explicitly allowed. Ask the colleague what solution they were already evaluating.",
+      "owner": "Meera (stated: \"I'll send the information there\")"
     },
     {
-      "route_id": "human_review",
-      "label": "Ambiguous call direction — review needed",
-      "rationale": "The snippet is ambiguous: 'What is it regarding?' could be Meera fielding an inbound call or responding to a gatekeeper on an outbound call. The call direction, parties involved, and outcome are all unclear from the available evidence.",
-      "evidence_ref": "129497b2-8e1d-5e01-919c-e8a852b5ff68 — \"What is it regarding? I'm from SpendNest.\"",
-      "is_manual": false
+      "route_id": "sales_coaching",
+      "label": "Sales coaching",
+      "rationale": "Good practice worth reinforcing: clear positioning against the existing system and an email read-back.",
+      "evidence_ref": "C08 — \"We position it alongside one.\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Reinforce with Meera and the team: she positioned SpendNest alongside the prospect's existing system instead of as a replacement, and read the email back to confirm it.",
+      "owner": null
     }
   ],
-  "concise_output": "The call evidence is ambiguous — Meera may have been answering an inbound inquiry or navigating a gatekeeper on an outbound call. The call direction and outcome require human review.",
-  "what_established": "Meera identified herself as being from SpendNest and the phrase 'What is it regarding?' appears in the transcript.",
-  "what_not_established": "Call direction (inbound vs. outbound), the other party, company name, deal value, any commitment, or outcome.",
-  "next_action": "Retrieve the full call recording or CRM log to determine call direction and assign the appropriate next step.",
-  "owner": null,
-  "confidence": "low",
-  "uncertainty": "The snippet is ambiguous regarding call direction; both inbound and gatekeeper scenarios are plausible."
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "Is this an enterprise management system? We position it alongside one.",
+      "supports": "Clear positioning against the existing system."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "I think we may have been looking at a solution, but I don't know the details.",
+      "supports": "A possible active evaluation, unconfirmed."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "If you send him a proposal and say you spoke with me, he can take a look.",
+      "supports": "Referral with permission to use the name."
+    },
+    {
+      "id": "E4",
+      "turn": null,
+      "quote": "Let me read it back to make sure I have the right address",
+      "supports": "Email read-back."
+    }
+  ],
+  "concise_output": "Meera's cold call to Raghav produced a warm referral to the colleague handling people operations and locations, who may already be looking at a solution. A proposal is to be sent naming Raghav.",
+  "what_established": "Raghav asked for a proposal by email, gave permission to mention him, and said there have been some internal discussions.",
+  "what_not_established": "Whether an evaluation is actually active, its timing, or the colleague's authority.",
+  "next_action": "Meera emails the proposal naming Raghav; asks what was being evaluated.",
+  "owner": "Meera (stated on the call)",
+  "confidence": "high",
+  "uncertainty": "The prospect's knowledge of the internal evaluation is second-hand (\"I don't know the details\").",
+  "label_check": "Stored observed_outcome 'referred' agrees with the text.",
+  "label_agrees": true
 }

@@ -1,23 +1,51 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "bcdcbf56-d338-5c78-9a97-42c2fc1c9931",
+  "record_ref": "C04",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Voicemail to an evaluating prospect; earlier materials went to the wrong email",
+  "priority": "low",
   "suggested_routes": [
     {
       "route_id": "deal_next_step",
-      "label": "Follow-up call — Lanternpath Media opportunity",
-      "rationale": "Arun explicitly references a prior conversation about expense software for Lanternpath Media ('following up on our earlier conversation about expense software for Lanternpath Media'). This is an active prospect with a prior touchpoint, making a concrete deal next step appropriate.",
-      "evidence_ref": "bcdcbf56-d338-5c78-9a97-42c2fc1c9931 — \"Arun from SpendNest, following up on our earlier conversation about expense software for Lanternpath Media.\"",
-      "is_manual": false
+      "label": "Deal / partner next step",
+      "rationale": "One-way voicemail chasing a decision. The only actionable fact is that earlier information went to a wrong address.",
+      "evidence_ref": "C04 — \"My understanding is that our information first went to the wrong email address.\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Next step: confirm the corrected email address for Ritesh (Lanternpath Media) is the one on record, then wait for the requested callback. Do not treat this as an engaged opportunity; the prospect did not speak.",
+      "owner": null
     }
   ],
-  "concise_output": "Arun followed up on a prior conversation with Lanternpath Media about expense software. A previous engagement exists, indicating an active prospect that warrants a next commercial step.",
-  "what_established": "Arun had a prior conversation with someone at Lanternpath Media about expense software. This call is a follow-up to that discussion.",
-  "what_not_established": "Contact person's name or title at Lanternpath Media, deal value, stage of evaluation, any commitment made, or call outcome.",
-  "next_action": "Review CRM for prior notes on Lanternpath Media; confirm interest and schedule a product demo or proposal review.",
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "following up on our earlier conversation about expense software for Lanternpath Media",
+      "supports": "A prior evaluation is claimed by the caller."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "My understanding is that our information first went to the wrong email address.",
+      "supports": "A data-quality problem affected earlier follow-up."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "Please call me back to let me know where things stand.",
+      "supports": "The status is unknown; a callback was requested."
+    }
+  ],
+  "concise_output": "Arun left Ritesh a voicemail about Lanternpath Media's evaluation of the expense platform. He mentioned the earlier information first went to the wrong email. No one from the prospect spoke.",
+  "what_established": "A voicemail was left; the caller says earlier materials were re-sent to a corrected address.",
+  "what_not_established": "Whether Ritesh received the materials, is still evaluating, or has decided anything. All of it rests on the caller's own statement.",
+  "next_action": "Verify the contact email on record; await callback.",
   "owner": null,
-  "confidence": "medium",
-  "uncertainty": "Only the opening is available; the prospect's response and call outcome are not captured."
+  "confidence": "high",
+  "uncertainty": "Single-speaker voicemail; nothing is confirmed by the prospect.",
+  "label_check": "Stored is_connected=false / 'voicemail' agrees with the text.",
+  "label_agrees": true
 }

@@ -1,30 +1,107 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "meeting",
   "source_id": "cb5cecac-e68d-52b7-b10b-b0c748efc467",
+  "record_ref": "M01",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Harborpath Advisory wants to launch a referral offer quickly: needs written terms and a unique referral link",
+  "priority": "high",
   "suggested_routes": [
     {
       "route_id": "deal_next_step",
-      "label": "Partner channel exploration — Harborpath Advisory",
-      "rationale": "The Harborpath Advisory contact opened by stating they believed SpendNest helps clients open bank accounts remotely, which is not SpendNest's core offering. This product misunderstanding must be clarified before any partnership or deal can be evaluated.",
-      "evidence_ref": "cb5cecac-e68d-52b7-b10b-b0c748efc467 turn 1",
-      "is_manual": false
+      "label": "Deal / partner next step",
+      "rationale": "The partner asked to start onboarding and needs written terms, a unique referral link and a contact route to publish an offer.",
+      "evidence_ref": "M01 turn 24",
+      "is_manual": false,
+      "priority": "high",
+      "output": "Partner launch kit, to send (Team member A said \"I will send the documents\", turn 25): (1) partner memorandum to sign; (2) commission terms in writing: activation USD 260, card bonus tiers and volume bonus, as stated in turn 9; (3) customer pricing in writing (turn 10); (4) a unique referral link plus the tracking sheet (turns 17, 21); (5) referral requirements, including evidence of US operations (turn 13) and the bank-transfer-only receiving limitation (turn 23).",
+      "owner": "Team member A (stated, turn 25: \"I will send the documents\")"
+    },
+    {
+      "route_id": "internal_vendor_action",
+      "label": "Internal / product / vendor note",
+      "rationale": "A marketing follow-up was offered: a podcast and a partner-page feature.",
+      "evidence_ref": "M01 turn 27",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Internal note for marketing: the partner proposed a podcast (turn 26); Team member A offered a marketing introduction and a partner-page feature (turn 27). No date or owner on the marketing side is stated.",
+      "owner": null
     },
     {
       "route_id": "sales_coaching",
-      "label": "Positioning correction — product misunderstanding",
-      "rationale": "The prospect explicitly stated a misconception about the product (bank account opening remotely). How the SpendNest team member corrected this and pivoted to the actual value proposition is a key coaching moment not yet captured in the evidence.",
-      "evidence_ref": "cb5cecac-e68d-52b7-b10b-b0c748efc467 turn 1",
-      "is_manual": false
+      "label": "Sales coaching",
+      "rationale": "Good practice: the rep corrected the opening misunderstanding and set compliance expectations before the partner sends referrals.",
+      "evidence_ref": "M01 turn 13",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Reinforce: Team member A corrected the personal-vs-business misunderstanding immediately (turn 2) and volunteered the evidence-of-US-operations requirement (turn 13), so referred businesses are not surprised later.",
+      "owner": null
     }
   ],
-  "concise_output": "A contact from Harborpath Advisory opened the meeting believing SpendNest helps their clients open bank accounts remotely — a product misunderstanding that must be corrected. This suggests a partner exploration meeting that needs a positioning reset before a deal next step can be established.",
-  "what_established": "The contact works at or with Harborpath Advisory, wanted to explore SpendNest for remote bank account opening for clients, and the meeting was initiated as a partner exploration.",
-  "what_not_established": "Whether the misunderstanding was corrected, the SpendNest team member's identity, deal value, partnership terms, attendance count, or meeting outcome.",
-  "next_action": "Clarify SpendNest's actual product offering (expense management, not bank account opening); assess whether there is a genuine fit for Harborpath Advisory's client base and identify the correct use case.",
-  "owner": null,
-  "confidence": "medium",
-  "uncertainty": "Only turn 1 is available; the correction conversation and any outcome are not evidenced."
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": 1,
+      "quote": "My understanding was that you help people open bank accounts remotely.",
+      "supports": "The partner arrived with a misunderstanding."
+    },
+    {
+      "id": "E2",
+      "turn": 2,
+      "quote": "we work with registered businesses, not individuals opening personal accounts",
+      "supports": "Corrected immediately."
+    },
+    {
+      "id": "E3",
+      "turn": 6,
+      "quote": "Usually I receive nothing for the recommendation. If there is a sensible commercial arrangement here, that is interesting to me.",
+      "supports": "Commercial motivation."
+    },
+    {
+      "id": "E4",
+      "turn": 9,
+      "quote": "The activation payment is USD 260 when a referred company gets its account approved by our compliance partners.",
+      "supports": "Spoken commission term."
+    },
+    {
+      "id": "E5",
+      "turn": 12,
+      "quote": "No, let us get the partner onboarding started.",
+      "supports": "Partner commitment to start onboarding."
+    },
+    {
+      "id": "E6",
+      "turn": 13,
+      "quote": "Another important point is evidence of US operations or intended operations",
+      "supports": "A compliance requirement that may block new businesses."
+    },
+    {
+      "id": "E7",
+      "turn": 20,
+      "quote": "It cannot depend on me manually writing every email. This needs to scale",
+      "supports": "Requirement for a scalable referral mechanism."
+    },
+    {
+      "id": "E8",
+      "turn": 24,
+      "quote": "The main thing is to have all of that written down, with the link and contact route.",
+      "supports": "What the partner needs to launch."
+    },
+    {
+      "id": "E9",
+      "turn": 25,
+      "quote": "I will send the documents and the information discussed here.",
+      "supports": "Stated owner of the follow-up."
+    }
+  ],
+  "concise_output": "A partner (Harborpath Advisory) that already recommends account providers wants to publish a SpendNest referral offer quickly. The deal now depends on SpendNest sending written terms, pricing, requirements and a unique referral link.",
+  "what_established": "The partner asked to start onboarding; terms were stated verbally (USD 260 activation, card spend bonus tiers, volume bonus); the referral link route was agreed; Team member A will send documents.",
+  "what_not_established": "Signed memorandum, referral volumes, or revenue. The verbal terms are not yet confirmed in writing. Harborpath Advisory is not established to be related to Harborlight Advisory (C01).",
+  "next_action": "Send the partner launch kit (memorandum, written terms, referral link, requirements) and introduce marketing.",
+  "owner": "Team member A (speaker label; the organiser-to-speaker mapping is not supplied)",
+  "confidence": "high",
+  "uncertainty": "Speaker labels are local to this meeting; who 'Team member A' is in the CRM is not established.",
+  "label_check": null,
+  "label_agrees": null
 }

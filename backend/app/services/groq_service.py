@@ -27,48 +27,60 @@ logger = logging.getLogger(__name__)
 
 SYSTEM_PROMPT = """You are a revenue analysis assistant for SpendNest, an expense-management platform.
 
-Analyze the provided conversation excerpt and return a structured JSON analysis.
+Analyse ONE conversation and return a structured JSON analysis a sales manager can act on.
 
 Rules (strictly follow):
-1. Only reference evidence that appears verbatim (or very close) in the provided text.
-2. Cite CALL evidence as:  source_id — "exact quote from transcript"
-3. Cite MEETING evidence as:  source_id turn N  (N is 1-based turn index)
-4. Do NOT infer deal value, pipeline totals, account ownership, attendance, or speaker roles beyond what the text explicitly states.
-5. If there is insufficient evidence to be confident, set confidence=low and include human_review in suggested_routes.
-6. owner must be null unless the text explicitly names an owner.
-7. Return ONLY valid JSON matching the AnalysisOutput schema below. No markdown, no commentary.
+1. Every quote in "evidence" must be copied EXACTLY from the supplied text (verbatim substring).
+   Quotes are machine-checked; one unverifiable quote rejects the whole analysis.
+2. Meeting text is given as "Turn N | Speaker: text". Cite meeting evidence with "turn": N
+   and a quote taken from that turn only. Calls have no turns: use "turn": null.
+3. Do NOT infer deal value, pipeline totals, account ownership, attendance, staff roles or
+   speaker identities beyond what the text explicitly states. People outside SpendNest may be
+   prospects, customers, partners or suppliers; decide from the text.
+4. owner must be null unless the text states who will act (e.g. "I will send...").
+5. If the evidence is ambiguous, include a human_review route and say why.
+6. Each route gets its own "output": the destination-specific deliverable (coaching note,
+   follow-up task, defect ticket, vendor note). Do not repeat one generic summary.
+7. Return ONLY valid JSON matching the schema below. No markdown, no commentary.
 
-AnalysisOutput schema:
+Schema:
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call" | "meeting",
   "source_id": "<uuid>",
   "source_revision": <int>,
   "analysis_source": "runtime",
+  "headline": "<one line: what matters>",
+  "priority": "high" | "medium" | "low",
   "suggested_routes": [
     {
-      "route_id": "deal_next_step" | "customer_follow_up" | "sales_coaching" | "internal_vendor_action" | "human_review",
+      "route_id": "deal_next_step" | "customer_follow_up" | "sales_coaching" | "internal_vendor_action" | "human_review" | "log_only",
       "label": "<short label>",
       "rationale": "<why this route>",
-      "evidence_ref": "<source_id — \\"quote\\"  OR  source_id turn N>",
-      "is_manual": false
+      "evidence_ref": "<record_ref turn N>  OR  <record_ref — \\"exact quote\\">",
+      "is_manual": false,
+      "priority": "high" | "medium" | "low",
+      "output": "<the deliverable for this destination>",
+      "owner": null
     }
   ],
-  "concise_output": "<1-2 sentences: what happened and why it matters>",
+  "evidence": [ {"id": "E1", "turn": <int or null>, "quote": "<verbatim>", "supports": "<what it shows>"} ],
+  "concise_output": "<2-3 sentences: what happened and why it matters>",
   "what_established": "<facts directly supported by the text>",
-  "what_not_established": "<deal value, attendance, ownership, etc. not in text>",
-  "next_action": "<concrete recommended action>",
+  "what_not_established": "<what the text does not establish>",
+  "next_action": "<concrete next action>",
   "owner": null,
   "confidence": "high" | "medium" | "low",
   "uncertainty": "<what makes this uncertain>"
 }
 
 Route taxonomy:
-- deal_next_step      — evidence-backed commercial evaluation or concrete next action
-- customer_follow_up  — explicit request, problem, or commitment involving existing customer
-- sales_coaching      — specific, observable coaching opportunity
-- internal_vendor_action — operational, integration, billing, or supplier matter
-- human_review        — ambiguity, competing routes, no text, or unsupported ownership
+- deal_next_step         — prospect/partner evaluation with a concrete next step the text supports
+- customer_follow_up     — existing customer problem, request, or a commitment made to them
+- sales_coaching         — specific observable behaviour to correct or reinforce
+- internal_vendor_action — supplier evaluation, product defect/gap, or internal process knowledge
+- human_review           — ambiguity, conflicting labels, or unsupported conclusions
+- log_only               — conversation happened but no follow-up is supported
 """
 
 
@@ -99,7 +111,7 @@ def analyze_record(
         source_id: UUID string.
         source_revision: Integer revision number.
         text_context: Retrieved chunk text(s) concatenated.
-        record_ref: Human-readable ref (e.g. "C01") for log messages only.
+        record_ref: Human-readable ref (e.g. "C01") used in evidence_ref citations.
 
     Returns:
         Validated AnalysisOutput dict, or None if Groq fails or validation fails.
@@ -114,6 +126,7 @@ def analyze_record(
     )
 
     user_prompt = (
+        f"record_ref: {record_ref}\n"
         f"source_type: {source_type}\n"
         f"source_id: {source_id}\n"
         f"source_revision: {source_revision}\n\n"
@@ -129,7 +142,7 @@ def analyze_record(
                 {"role": "user", "content": user_prompt},
             ],
             temperature=0.1,
-            max_tokens=1500,
+            max_tokens=3000,
             response_format={"type": "json_object"},
         )
     except Exception as exc:
@@ -168,9 +181,9 @@ def analyze_record(
         else validate_evidence_ref_call
     )
     for route in output.suggested_routes:
-        if not validator(source_id, route.evidence_ref):
+        if not validator(source_id, route.evidence_ref, record_ref):
             logger.warning(
-                "evidence_ref missing source_id for %s route=%s — keeping but flagging",
+                "evidence_ref does not name the record for %s route=%s — keeping but flagging",
                 record_ref,
                 route.route_id,
             )

@@ -1,30 +1,67 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "428817fa-7e9e-5418-a7d4-bb396d28dfbf",
+  "record_ref": "C07",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Incorporation advisor already refers clients to account providers; proposal via chat app, Monday call agreed",
+  "priority": "medium",
   "suggested_routes": [
     {
       "route_id": "deal_next_step",
-      "label": "Cold outbound by Dev — evaluate prospect",
-      "rationale": "Dev identified himself as calling from SpendNest, indicating an outbound cold call. A next step is needed to log the outcome and advance the opportunity if the prospect engaged.",
-      "evidence_ref": "428817fa-7e9e-5418-a7d4-bb396d28dfbf — \"Dev calling from SpendNest.\"",
-      "is_manual": false
+      "label": "Deal / partner next step",
+      "rationale": "A partner prospect confirmed they already refer clients for business accounts and agreed to a proposal and a Monday call.",
+      "evidence_ref": "C07 — \"Yes, that is something we normally do.\"",
+      "is_manual": false,
+      "priority": "medium",
+      "output": "Partner next step (owner: Dev, stated): send the partnership proposal on the chat app to the same number, then call Monday. Reuse the Harborpath partner material from M01 (commission, onboarding requirements, referral link) so the offer is concrete.",
+      "owner": "Dev (stated: \"I'll send the details there\")"
     },
     {
-      "route_id": "human_review",
-      "label": "Minimal evidence — full call context needed",
-      "rationale": "Only the opener is available. The prospect, company, any response, and the call outcome are entirely unknown, making full routing uncertain.",
-      "evidence_ref": "428817fa-7e9e-5418-a7d4-bb396d28dfbf — \"Dev calling from SpendNest.\"",
-      "is_manual": false
+      "route_id": "sales_coaching",
+      "label": "Sales coaching",
+      "rationale": "Dev struggled to describe the product category when the prospect asked directly.",
+      "evidence_ref": "C07 — \"Similar in some respects, though not exactly the same.\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Coaching note for Dev: have a one-line description of the virtual business account ready, saying what it is and what it is not. The prospect had to ask three times what the product was.",
+      "owner": null
     }
   ],
-  "concise_output": "Dev placed an outbound call and introduced himself as calling from SpendNest. No further conversation content is available from the evidence.",
-  "what_established": "Dev made an outbound call identifying himself as representing SpendNest.",
-  "what_not_established": "Prospect name, company, interest level, deal value, qualification status, or call outcome.",
-  "next_action": "Review CRM for Dev's notes on this call; if a live connection was made, ensure a follow-up action is logged.",
-  "owner": null,
-  "confidence": "low",
-  "uncertainty": "Only the opener is evidenced; no prospect information or conversation outcome is available."
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "Do you currently refer clients to providers for that part of the process? Yes, that is something we normally do.",
+      "supports": "The referral behaviour already exists."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "could you message me on our chat app and send whatever proposal you have?",
+      "supports": "Requested channel for the proposal."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "could I call on Monday to see whether you'd like to discuss it further? Yes, that's fine.",
+      "supports": "Monday call agreed."
+    },
+    {
+      "id": "E4",
+      "turn": null,
+      "quote": "Similar in some respects, though not exactly the same.",
+      "supports": "Product positioning was vague."
+    }
+  ],
+  "concise_output": "Dev pitched a referral partnership to Aditya at Willowbank Advisory (incorporation services). Aditya confirmed they already refer clients to account providers and asked for a proposal on chat, with a Monday call agreed.",
+  "what_established": "Willowbank supports overseas incorporations and normally refers clients for accounts; proposal by chat app and Monday call agreed.",
+  "what_not_established": "Partnership terms, volumes, or interest beyond receiving a proposal. Willowbank Advisory is not established to be related to Willowfield Trust (M07).",
+  "next_action": "Dev sends proposal on chat app; calls Monday.",
+  "owner": "Dev (stated on the call)",
+  "confidence": "high",
+  "uncertainty": "The call was cut short (\"Hello?\") before the account type was clarified.",
+  "label_check": "Stored observed_outcome 'follow_up' agrees with the text.",
+  "label_agrees": true
 }

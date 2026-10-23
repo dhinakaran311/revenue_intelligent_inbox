@@ -6,6 +6,7 @@ Secrets are read from the environment and never printed by this module.
 """
 from __future__ import annotations
 
+import os
 from datetime import timedelta, timezone
 from pathlib import Path
 
@@ -34,7 +35,8 @@ def load_env() -> dict[str, str]:
     return env
 
 
-ENV: dict[str, str] = load_env()
+# Real environment variables (e.g. on Render) take precedence over the local file.
+ENV: dict[str, str] = {**load_env(), **{k: v for k, v in os.environ.items() if v}}
 
 
 def app_env() -> str:

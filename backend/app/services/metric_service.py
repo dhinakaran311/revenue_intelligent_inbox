@@ -1,145 +1,171 @@
 """Metric service — dashboard aggregation for the Revenue Intelligence Inbox.
 
+Every number is computed from the current imported state (one row per
+identity after revisions), so repeat imports can never inflate it. Filters
+(source_type, person) narrow the selected records; every denominator is the
+filtered selection unless a definition says otherwise.
+
 DATA RULES enforced:
-  4. Calls and meetings are NEVER merged: person_role='rep' (calls),
-     person_role='organizer' (meetings) are always listed separately.
-  5. No blending of call-rep metrics with meeting-organizer metrics.
-  3. All timestamps displayed in Asia/Kolkata (UTC+05:30).
+  4. Call reps (payload.rep_name) and meeting organisers (payload.organizer_email)
+     are listed separately and never merged; an organiser is not assumed to be
+     a salesperson or an attendee.
+  5. Source-reported connection status is reported only over calls with a
+     non-null is_connected, with unknowns shown, and is never combined with
+     transcript-based judgements.
+  3. Activity times are Asia/Kolkata (UTC+05:30).
 """
 from __future__ import annotations
 
 import logging
+from collections import Counter, defaultdict
 
-from app.config import get_supabase_client
+from app.analysis_contract import ROUTE_DEFINITIONS
+from app.services.record_service import load_state
 
 logger = logging.getLogger(__name__)
 
+DEFINITIONS = [
+    {"key": "selected_records", "label": "Selected records",
+     "definition": "Distinct (source_type, source_id) identities in the current state that match the filters. "
+                   "Repeat imports never add rows. This package is a selected sample, not a whole-team day."},
+    {"key": "period", "label": "Period",
+     "definition": "21 August 2026, Asia/Kolkata. Calls are dated by payload.started_at and meetings by payload.starts_at. "
+                   "Every record falls on that one date, so the hour chart and the person filter carry the detail."},
+    {"key": "usable_text", "label": "Usable supplied text",
+     "definition": "A call with a non-blank payload.transcript, or a meeting with at least one non-blank transcript turn. "
+                   "Coverage = usable ÷ selected records. A missing transcript does not mean the conversation did not happen."},
+    {"key": "people", "label": "Call reps vs meeting organisers",
+     "definition": "Calls are grouped by payload.rep_name and meetings by payload.organizer_email. An organiser is a calendar "
+                   "field, not proof of attendance or a sales role, so the two lists are never merged."},
+    {"key": "connection", "label": "Source-reported connection rate",
+     "definition": "Calls with is_connected = true ÷ calls with non-null is_connected (unknowns shown separately). This is an upstream "
+                   "classification, kept separate from transcript-based judgements, which can disagree with it."},
+    {"key": "routes", "label": "Route assignments",
+     "definition": "Effective routes: the manager's manual route when set, otherwise the suggested routes of an analysis of the "
+                   "CURRENT source revision. One record can carry several routes, so assignments can exceed routed records."},
+    {"key": "review_state", "label": "Review state",
+     "definition": "no_text: nothing to analyse. awaiting_analysis: text exists but no analysis reflects the current revision. "
+                   "needs_human_review: the suggestion includes Human review. manual_override: a manager chose the route. "
+                   "suggested: an automated or prepared suggestion not yet overridden."},
+    {"key": "label_conflicts", "label": "Source label conflicts",
+     "definition": "Records where the stored upstream label (e.g. observed_outcome) or rep_name disagrees with what the transcript shows."},
+]
 
-def get_dashboard_metrics() -> dict:
-    """Return aggregated dashboard metrics.
 
-    Returns a dict with:
-      - activity_by_person: [{person_name, person_role, source_type, record_count}]
-        (calls and meetings listed separately — never merged)
-      - text_coverage: {total, usable, not_usable, pct_usable}
-      - route_summary: {has_manual, has_analysis, pending_review, no_text}
-      - definitions: MetricDefinitions-compatible dict
-    """
-    client = get_supabase_client()
+def _pct(n: int, d: int) -> float | None:
+    return round(n / d * 100, 1) if d else None
 
-    # Fetch all source_records (just the fields we need)
-    sr_resp = client.table("source_records").select(
-        "source_type, source_id, person_name, person_role, has_usable_text, activity_date"
-    ).execute()
-    all_records: list[dict] = sr_resp.data or []
 
-    # Fetch all processing states
-    ps_resp = client.table("record_processing_state").select(
-        "source_type, source_id, analysis_state"
-    ).execute()
-    ps_map = {
-        (r["source_type"], r["source_id"]): r for r in (ps_resp.data or [])
+def get_dashboard_metrics(source_type: str | None = None, person: str | None = None) -> dict:
+    all_rows = load_state()
+    people = {
+        "call_reps": sorted({r["person_name"] for r in all_rows if r["source_type"] == "call" and r["person_name"]}),
+        "meeting_organisers": sorted({r["person_name"] for r in all_rows if r["source_type"] == "meeting" and r["person_name"]}),
     }
 
-    # Fetch active manual routes
-    mr_resp = client.table("manual_route_decisions").select(
-        "source_type, source_id"
-    ).eq("is_active", True).execute()
-    mr_set = {(r["source_type"], r["source_id"]) for r in (mr_resp.data or [])}
+    rows = all_rows
+    if source_type:
+        rows = [r for r in rows if r["source_type"] == source_type]
+    if person:
+        rows = [r for r in rows if r["person_name"] == person]
 
-    # Fetch latest analyses per identity (to know if analysis exists)
-    an_resp = client.table("analyses").select(
-        "source_type, source_id, source_revision, created_at"
-    ).order("created_at", desc=True).execute()
-    an_map: dict[tuple, dict] = {}
-    for a in (an_resp.data or []):
-        key = (a["source_type"], a["source_id"])
-        if key not in an_map:
-            an_map[key] = a
+    calls = [r for r in rows if r["source_type"] == "call"]
+    meetings = [r for r in rows if r["source_type"] == "meeting"]
+    usable = [r for r in rows if r["has_usable_text"]]
 
-    # --- activity_by_person (calls and meetings separate) ---
-    # Group by (person_name, person_role, source_type)
-    person_counts: dict[tuple, int] = {}
-    for rec in all_records:
-        group_key = (
-            rec.get("person_name"),
-            rec.get("person_role"),      # 'rep' | 'organizer'
-            rec.get("source_type"),      # 'call' | 'meeting'
-        )
-        person_counts[group_key] = person_counts.get(group_key, 0) + 1
+    # Activity by day and hour (Asia/Kolkata)
+    by_day: dict[str, Counter] = defaultdict(Counter)
+    by_hour: dict[str, Counter] = defaultdict(Counter)
+    for r in rows:
+        by_day[r["activity_date"] or "unknown"][r["source_type"]] += 1
+        hour = (r.get("activity_at") or "")[11:13]
+        if hour:
+            by_hour[f"{hour}:00"][r["source_type"]] += 1
 
-    activity_by_person = [
-        {
-            "person_name": k[0],
-            "person_role": k[1],
-            "source_type": k[2],
-            "record_count": v,
-        }
-        for k, v in sorted(person_counts.items(), key=lambda x: -(x[1]))
-    ]
+    def person_rows(items: list[dict]) -> list[dict]:
+        grouped: dict[str, list[dict]] = defaultdict(list)
+        for r in items:
+            grouped[r["person_name"] or "(not supplied)"].append(r)
+        out = []
+        for name, rs in grouped.items():
+            known = [r for r in rs if r.get("is_connected") is not None]
+            out.append({
+                "person": name,
+                "records": len(rs),
+                "with_text": sum(r["has_usable_text"] for r in rs),
+                "needs_attention": sum(
+                    r["review_state"] in ("needs_human_review", "awaiting_analysis") or r.get("priority") == "high"
+                    for r in rs
+                ),
+                "connected_source_reported": sum(r.get("is_connected") is True for r in known),
+                "connection_known": len(known),
+            })
+        return sorted(out, key=lambda x: (-x["records"], x["person"]))
 
-    # --- text_coverage ---
-    total = len(all_records)
-    usable = sum(1 for r in all_records if r.get("has_usable_text", False))
-    not_usable = total - usable
-    pct_usable = round((usable / total * 100), 1) if total > 0 else 0.0
+    # Text coverage and no-text reasons
+    reasons = Counter(r["text_status"] for r in rows if not r["has_usable_text"])
 
-    text_coverage = {
-        "total": total,
-        "usable": usable,
-        "not_usable": not_usable,
-        "pct_usable": pct_usable,
-    }
+    # Source-reported connection (calls only)
+    known = [r for r in calls if r.get("is_connected") is not None]
+    connected = sum(r["is_connected"] is True for r in known)
 
-    # --- route_summary ---
-    # Fetch also the source_records revision to match against analysis revision
-    sr_rev_resp = client.table("source_records").select(
-        "source_type, source_id, revision, has_usable_text"
-    ).execute()
-    sr_rev_map = {
-        (r["source_type"], r["source_id"]): r for r in (sr_rev_resp.data or [])
-    }
+    # Routes
+    route_counts = Counter(rid for r in rows for rid in r["effective_route_ids"])
+    routed_records = sum(1 for r in rows if r["effective_route_ids"])
 
-    counts = {"has_manual": 0, "has_analysis": 0, "pending_review": 0, "no_text": 0}
-    for rec in all_records:
-        key = (rec["source_type"], rec["source_id"])
-        has_usable = rec.get("has_usable_text", False)
-
-        if not has_usable:
-            counts["no_text"] += 1
-            continue
-
-        if key in mr_set:
-            counts["has_manual"] += 1
-        elif key in an_map:
-            counts["has_analysis"] += 1
-        else:
-            counts["pending_review"] += 1
-
-    route_summary = {
-        "has_manual": counts["has_manual"],
-        "has_analysis": counts["has_analysis"],
-        "pending_review": counts["pending_review"],
-        "no_text": counts["no_text"],
-    }
-
-    # --- definitions ---
-    definitions = {
-        "scope": "All imported source records",
-        "period": "All-time (no date filter applied)",
-        "timezone": "Asia/Kolkata (UTC+05:30, fixed offset)",
-        "denominator_note": "Percentages use total imported record count as denominator",
-        "call_person_note": "Call metrics use person_role='rep' (rep_name field)",
-        "meeting_person_note": "Meeting metrics use person_role='organizer' (organizer_email field)",
-        "text_coverage_note": (
-            "has_usable_text: calls require non-blank payload.transcript; "
-            "meetings require >=1 non-blank turn.text in transcript_payload"
-        ),
-    }
+    attention = sorted(
+        [r for r in rows if r["has_usable_text"] and (
+            r.get("priority") == "high" or r["review_state"] in ("needs_human_review", "awaiting_analysis"))],
+        key=lambda r: ({"awaiting_analysis": 0}.get(r["review_state"], 1),
+                       {"high": 0, "medium": 1, "low": 2}.get(r.get("priority") or "low", 3),
+                       r["record_ref"] or ""),
+    )
 
     return {
-        "activity_by_person": activity_by_person,
-        "text_coverage": text_coverage,
-        "route_summary": route_summary,
-        "definitions": definitions,
+        "filters": {"source_type": source_type, "person": person},
+        "people": people,
+        "totals": {"records": len(rows), "calls": len(calls), "meetings": len(meetings)},
+        "activity_by_day": [
+            {"date": d, "calls": c["call"], "meetings": c["meeting"], "total": c["call"] + c["meeting"]}
+            for d, c in sorted(by_day.items())
+        ],
+        "activity_by_hour": [
+            {"hour": h, "calls": c["call"], "meetings": c["meeting"]} for h, c in sorted(by_hour.items())
+        ],
+        "call_reps": person_rows(calls),
+        "meeting_organisers": person_rows(meetings),
+        "text_coverage": {
+            "usable": len(usable),
+            "total": len(rows),
+            "pct": _pct(len(usable), len(rows)),
+            "calls": {"usable": sum(r["has_usable_text"] for r in calls), "total": len(calls)},
+            "meetings": {"usable": sum(r["has_usable_text"] for r in meetings), "total": len(meetings)},
+            "no_text_reasons": [{"reason": k, "count": v} for k, v in reasons.most_common()],
+        },
+        "connection": {
+            "connected": connected,
+            "known": len(known),
+            "unknown": len(calls) - len(known),
+            "pct": _pct(connected, len(known)),
+        },
+        "review_states": dict(Counter(r["review_state"] for r in rows)),
+        "freshness": dict(Counter(r["analysis_state"] for r in rows)),
+        "manual_overrides": sum(r["has_manual_route"] for r in rows),
+        "routes": [
+            {"route_id": rid, "label": d["label"], "definition": d["definition"], "records": route_counts.get(rid, 0)}
+            for rid, d in ROUTE_DEFINITIONS.items()
+        ],
+        "route_assignments": sum(route_counts.values()),
+        "routed_records": routed_records,
+        "label_conflicts": [
+            {"record_ref": r["record_ref"], "source_type": r["source_type"], "source_id": r["source_id"],
+             "source_label": r["source_label"]}
+            for r in rows if r.get("label_agrees") is False
+        ],
+        "attention": [
+            {k: r[k] for k in ("record_ref", "source_type", "source_id", "person_name", "headline",
+                               "priority", "review_state", "effective_route_ids", "has_manual_route")}
+            for r in attention
+        ],
+        "definitions": DEFINITIONS,
     }

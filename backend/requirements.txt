@@ -3,6 +3,7 @@
 # Core dependencies
 fastapi
 uvicorn[standard]
+python-multipart
 python-dotenv
 psycopg2-binary
 supabase

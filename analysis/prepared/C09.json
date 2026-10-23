@@ -1,30 +1,67 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "4a1de681-f884-55e8-b1ad-de22d17cd959",
+  "record_ref": "C09",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "In-house software; referred to the business head, but 'please don't use my name'",
+  "priority": "low",
   "suggested_routes": [
     {
       "route_id": "deal_next_step",
-      "label": "Outbound intro — SpendNest expense platform",
-      "rationale": "Meera identified herself and described SpendNest as an expense platform, indicating an outbound pitch call. A next step is needed to qualify the prospect and advance if there is interest.",
-      "evidence_ref": "4a1de681-f884-55e8-b1ad-de22d17cd959 — \"I'm with SpendNest, an expense platform.\"",
-      "is_manual": false
+      "label": "Deal / partner next step",
+      "rationale": "A cold referral to the business head via a networking site, with an explicit constraint on using the contact's name.",
+      "evidence_ref": "C09 — \"No, please don't use my name.\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Next step: approach Mr Rishabh (business head) through the professional networking site without mentioning Vedant. Lead with the open question of whether the in-house system executes payments or only records them.",
+      "owner": null
     },
     {
       "route_id": "sales_coaching",
-      "label": "Pitch specificity — generic category vs. differentiated value",
-      "rationale": "The available evidence shows Meera described SpendNest only as 'an expense platform' without a differentiated hook. Coaching should review whether she followed up with a specific value statement tied to the prospect's context.",
-      "evidence_ref": "4a1de681-f884-55e8-b1ad-de22d17cd959 — \"I'm with SpendNest, an expense platform.\"",
-      "is_manual": false
+      "label": "Sales coaching",
+      "rationale": "Good practice: the rep asked permission before using the contact's name and respected the refusal.",
+      "evidence_ref": "C09 — \"Would it be all right if I mentioned your name when contacting him?\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Reinforce: ask before using a referrer's name, as Meera did here. The answer changes how the next touch is written.",
+      "owner": null
     }
   ],
-  "concise_output": "Meera introduced SpendNest as an expense platform during an outbound call. The opening line provides limited differentiation; the rest of the call and its outcome are not evidenced.",
-  "what_established": "Meera introduced SpendNest as an expense platform on this call.",
-  "what_not_established": "Prospect's company, deal value, interest level, qualification, any commitment, or call outcome.",
-  "next_action": "Log the call in CRM; if a live connection was made, review whether a value-differentiation point was delivered and schedule follow-up.",
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "We have developed our own software internally, so at present we aren't looking for anything outside the organisation.",
+      "supports": "The prospect has no current need."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "you can find our business head, Mr Rishabh, on a professional networking site.",
+      "supports": "Referral to a decision-maker."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "Would it be all right if I mentioned your name when contacting him?",
+      "supports": "The rep asked permission."
+    },
+    {
+      "id": "E4",
+      "turn": null,
+      "quote": "No, please don't use my name.",
+      "supports": "Constraint on the next touch."
+    }
+  ],
+  "concise_output": "A 130-location business uses internally built software and is not looking externally. Vedant pointed Meera to the business head, Mr Rishabh, but asked not to be named.",
+  "what_established": "In-house system; Vedant does not know whether it executes payments; business head named; name use refused.",
+  "what_not_established": "Any gap in the in-house software or interest from the business head.",
+  "next_action": "Approach the business head without referencing Vedant.",
   "owner": null,
-  "confidence": "medium",
-  "uncertainty": "Only the opening intro is available; prospect details, conversation content, and outcome are not captured."
+  "confidence": "high",
+  "uncertainty": "Referral to a cold contact; low likelihood of near-term need.",
+  "label_check": "Stored observed_outcome 'referred' agrees with the text.",
+  "label_agrees": true
 }

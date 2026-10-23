@@ -1,0 +1,365 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-08-21",
+  "timezone": "Asia/Kolkata",
+  "analysis_source": "prepared",
+  "basis": "Written after reviewing all 18 usable supplied conversations in the final post-update state (M07 at revision 2). It is fixed to this date and does not change with dashboard filters. Activity numbers on the brief page are computed live from the current imported state.",
+  "summary": "The most urgent work today is with existing customers, not prospects. Willowfield Trust has reimbursements stuck in Processing, with a 1–2 hour update promised. Cedarwave's card programme is closing, and the customer says credit, not prepaid, is its main issue. Brookmint's login is still blocked. On the new-business side, two warm next steps need written follow-through (Harborpath partner kit, Asterloom proposal), and four call follow-ups have stated owners. Coaching themes are opening clarity, discovery over feature-listing, respecting a declined follow-up, and quoting recurring and one-time prices separately.",
+  "priorities": [
+    {
+      "rank": 1,
+      "title": "Willowfield Trust: reimbursements stuck in Processing; a 1–2 hour update was promised",
+      "why": "An existing customer's released payments show as Processing for more than one user. Team member A promised an update within an hour or two and reproduced three further defects live.",
+      "action": "Confirm the promised update was sent; raise three defect tickets with the shown steps; send one consolidated status message.",
+      "owner": "Team member A (stated, M07 turns 19, 27)",
+      "refs": [
+        {
+          "record_ref": "M07",
+          "cite": "turn 19",
+          "quote": "I expect an update or resolution in an hour or two, and I will inform you when they confirm."
+        },
+        {
+          "record_ref": "M07",
+          "cite": "turn 22",
+          "quote": "The amount from the previous item appears in the next one."
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Cedarwave: card programme closing; customer says credit is the main issue (retention risk)",
+      "why": "Current cards will stop when the programme closes 'in the coming weeks'. The replacement is still prepaid, and the customer said they will have to consider another option for credit.",
+      "action": "Answer the two open questions (eligibility of already-issued bank cards for the feed; accounting sync) and send a migration plan with dates.",
+      "owner": "Team member A (stated, M04 turns 23, 28)",
+      "refs": [
+        {
+          "record_ref": "M04",
+          "cite": "turn 11",
+          "quote": "moving from prepaid to credit is the main issue for us. At some stage we will have to consider another option for that."
+        },
+        {
+          "record_ref": "M04",
+          "cite": "turn 23",
+          "quote": "I cannot confirm the existing-card eligibility on this call."
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Brookmint Holdings: still locked out; fresh reset link says 'token expired'",
+      "why": "The company with most of the customer's employees cannot log in. An update was promised today or Monday.",
+      "action": "Diagnose the expired-token defect and update the customer by the stated deadline.",
+      "owner": "Team member A (stated, M09 turn 31)",
+      "refs": [
+        {
+          "record_ref": "M09",
+          "cite": "turn 21",
+          "quote": "It says the token has expired. This is the fresh message we just received."
+        },
+        {
+          "record_ref": "M09",
+          "cite": "turn 24",
+          "quote": "Brookmint Holdings has most of the employees."
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Asterloom: send an itemised proposal; repair trust after the 26,000 → 39,000 price surprise",
+      "why": "The buyer brought finance and wants a written proposal for CFO approval (4–5 employee pilot). Mid-meeting they discovered the cards are prepaid and that the quoted price had grown.",
+      "action": "Send the proposal with recurring INR 26,000 + tax and one-time INR 13,000 itemised; no next meeting until they ask.",
+      "owner": "Team member A (stated, M03 turn 35)",
+      "refs": [
+        {
+          "record_ref": "M03",
+          "cite": "turn 23",
+          "quote": "But you previously told me INR 26,000. Why has that become INR 39,000?"
+        },
+        {
+          "record_ref": "M03",
+          "cite": "turn 36",
+          "quote": "Send the details first. We need time with the CFO and will tell you if another call is needed."
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Harborpath Advisory: partner ready to launch once terms and referral link are in writing",
+      "why": "The partner asked to start onboarding and will publish the offer as soon as it has the documents, link and contact route.",
+      "action": "Send the memorandum, written commission and pricing terms, unique referral link and referral requirements.",
+      "owner": "Team member A (stated, M01 turn 25)",
+      "refs": [
+        {
+          "record_ref": "M01",
+          "cite": "turn 24",
+          "quote": "The main thing is to have all of that written down, with the link and contact route."
+        }
+      ]
+    }
+  ],
+  "follow_ups": [
+    {
+      "record_ref": "C03",
+      "owner": "Kiran (stated)",
+      "action": "Email 'Developer access and event notifications — follow-up'; call Monday or Tuesday. Low urgency; price-sensitive.",
+      "cite": "Send the email and we can speak Monday or Tuesday."
+    },
+    {
+      "record_ref": "C07",
+      "owner": "Dev (stated)",
+      "action": "Send partnership proposal on the chat app; call Monday (agreed).",
+      "cite": "could I call on Monday to see whether you'd like to discuss it further? Yes, that's fine."
+    },
+    {
+      "record_ref": "C08",
+      "owner": "Meera (stated)",
+      "action": "Email proposal to the people-operations colleague, mentioning Raghav (permission given).",
+      "cite": "If you send him a proposal and say you spoke with me, he can take a look."
+    },
+    {
+      "record_ref": "C09",
+      "owner": "Not stated",
+      "action": "Approach the business head via the networking site without mentioning the referrer.",
+      "cite": "No, please don't use my name."
+    },
+    {
+      "record_ref": "C10",
+      "owner": "Not stated",
+      "action": "Send a brief on the messaging app only. No call: the prospect declined one.",
+      "cite": "No. I said I will contact you if there is anything to discuss."
+    },
+    {
+      "record_ref": "M02",
+      "owner": "Supplier sends template (turn 36); SpendNest owner not stated",
+      "action": "Complete LedgerBridge volume template, separating certain (AP) and estimated (AR) volumes; request written pricing.",
+      "cite": "turn 18"
+    }
+  ],
+  "coaching": [
+    {
+      "theme": "Say why you are calling in the first sentence",
+      "detail": "The prospect had to ask twice before the purpose was clear, then objected to the contact channel.",
+      "refs": [
+        {
+          "record_ref": "C01",
+          "cite": "no, I asked why you have called me"
+        }
+      ]
+    },
+    {
+      "theme": "When the prospect already has a tool, switch from features to discovery",
+      "detail": "Each feature was answered 'we already have that'. Ask what the current tool does badly instead.",
+      "refs": [
+        {
+          "record_ref": "C05",
+          "cite": "We have that too."
+        },
+        {
+          "record_ref": "C06",
+          "cite": "We already have many of those things in place."
+        }
+      ]
+    },
+    {
+      "theme": "Respect a declined follow-up",
+      "detail": "The prospect set the terms (send a brief, he will reach out); the rep pushed for a call and was refused.",
+      "refs": [
+        {
+          "record_ref": "C10",
+          "cite": "No. I said I will contact you if there is anything to discuss."
+        }
+      ]
+    },
+    {
+      "theme": "Quote recurring and one-time charges separately, and say 'prepaid' early",
+      "detail": "Both surprises in M03 came from expectations not set earlier, in a deal that has run 'for a long time'.",
+      "refs": [
+        {
+          "record_ref": "M03",
+          "cite": "turn 6"
+        },
+        {
+          "record_ref": "M03",
+          "cite": "turn 23"
+        }
+      ]
+    },
+    {
+      "theme": "Reinforce: read-backs, permission to use names, expectation-setting",
+      "detail": "Good practice worth repeating: email read-back (C08), asking before using a referrer's name (C09), and stating compliance requirements before referrals start (M01 turn 13).",
+      "refs": [
+        {
+          "record_ref": "C08",
+          "cite": "Let me read it back to make sure I have the right address"
+        },
+        {
+          "record_ref": "C09",
+          "cite": "Would it be all right if I mentioned your name when contacting him?"
+        },
+        {
+          "record_ref": "M01",
+          "cite": "turn 13"
+        }
+      ]
+    }
+  ],
+  "product_signals": [
+    {
+      "signal": "Credit demand that prepaid cards do not meet",
+      "detail": "Two separate organisations (a prospect and an existing customer) expected or need credit rather than prepaid.",
+      "refs": [
+        {
+          "record_ref": "M03",
+          "cite": "turn 6"
+        },
+        {
+          "record_ref": "M04",
+          "cite": "turn 11"
+        }
+      ]
+    },
+    {
+      "signal": "Reproducible defects reported by customers",
+      "detail": "Description edit not displayed, Recreate payment attachment, Mark as paid amount carry-over, Processing stuck (M07); expired reset token (M09).",
+      "refs": [
+        {
+          "record_ref": "M07",
+          "cite": "turn 25"
+        },
+        {
+          "record_ref": "M09",
+          "cite": "turn 21"
+        }
+      ]
+    }
+  ],
+  "data_quality": [
+    {
+      "issue": "Stored labels that disagree with the text",
+      "detail": "C10 is labelled 'follow_up' but the prospect declined a follow-up call. C05 'follow_up' is a deck for a hypothetical switch. C02 is flagged as a conversation but reached only a receptionist. Routing never uses these labels as truth.",
+      "refs": [
+        {
+          "record_ref": "C10"
+        },
+        {
+          "record_ref": "C05"
+        },
+        {
+          "record_ref": "C02"
+        }
+      ]
+    },
+    {
+      "issue": "Caller identity conflict",
+      "detail": "C06 is attributed to rep 'Meera' but the caller says 'Ravi here'. Per-person coaching for this call is held for human review.",
+      "refs": [
+        {
+          "record_ref": "C06",
+          "cite": "Good evening. Ravi here."
+        }
+      ]
+    },
+    {
+      "issue": "Possible duplicate meeting, not merged",
+      "detail": "M13 'SpendNest <> Cedarwave Distribution - Migration discussion' has no notetaker and the same organiser as M04, 30 minutes earlier. The association rests on the title only.",
+      "refs": [
+        {
+          "record_ref": "M13"
+        },
+        {
+          "record_ref": "M04"
+        }
+      ]
+    },
+    {
+      "issue": "Similar names are not the same organisation",
+      "detail": "Harborlight Advisory (C01) vs Harborpath Advisory (M01); Willowbank Advisory (C07) vs Willowfield Trust (M07). No link is assumed.",
+      "refs": [
+        {
+          "record_ref": "C01"
+        },
+        {
+          "record_ref": "M01"
+        },
+        {
+          "record_ref": "C07"
+        },
+        {
+          "record_ref": "M07"
+        }
+      ]
+    }
+  ],
+  "not_established": [
+    "No deal values, pipeline totals or purchase commitments are established by any conversation; spoken amounts are shown only as stated.",
+    "26 of 44 records have no usable supplied text. 20 background calls have no transcript, and 6 meetings have none (3 recorded with nobody speaking, 2 with the notetaker cancelled, 1 never scheduled). Nothing is inferred about them.",
+    "Meeting speaker labels ('Team member A') are local to each meeting and are not mapped to organiser emails, so meeting follow-ups are owned by a speaker label, not a named person.",
+    "M10 is internal billing training; it is excluded from sales priorities and coaching."
+  ],
+  "records": {
+    "C01": {
+      "source_type": "call",
+      "source_id": "2ec4404c-beee-5377-a63c-aab701da08ed"
+    },
+    "C02": {
+      "source_type": "call",
+      "source_id": "4b870624-8aad-5315-a60e-0db95981cf99"
+    },
+    "C03": {
+      "source_type": "call",
+      "source_id": "20d509ba-d589-5334-9aef-ea4ce6105b1a"
+    },
+    "C05": {
+      "source_type": "call",
+      "source_id": "75a6b94f-7717-5cfb-9e41-0acc94415e17"
+    },
+    "C06": {
+      "source_type": "call",
+      "source_id": "12216d5c-e254-52c6-b344-47de4c6e1ae5"
+    },
+    "C07": {
+      "source_type": "call",
+      "source_id": "428817fa-7e9e-5418-a7d4-bb396d28dfbf"
+    },
+    "C08": {
+      "source_type": "call",
+      "source_id": "129497b2-8e1d-5e01-919c-e8a852b5ff68"
+    },
+    "C09": {
+      "source_type": "call",
+      "source_id": "4a1de681-f884-55e8-b1ad-de22d17cd959"
+    },
+    "C10": {
+      "source_type": "call",
+      "source_id": "b747f592-810e-583c-9b81-8db5ab035806"
+    },
+    "M01": {
+      "source_type": "meeting",
+      "source_id": "cb5cecac-e68d-52b7-b10b-b0c748efc467"
+    },
+    "M02": {
+      "source_type": "meeting",
+      "source_id": "1a21c409-c050-5787-90af-2667e057e1b6"
+    },
+    "M03": {
+      "source_type": "meeting",
+      "source_id": "398672e7-62dd-5afd-846d-0237d49792fb"
+    },
+    "M04": {
+      "source_type": "meeting",
+      "source_id": "b0f79b3d-37ba-52f9-b2bc-58b159dd6d91"
+    },
+    "M07": {
+      "source_type": "meeting",
+      "source_id": "4f304fff-fd40-5cfc-a366-0a134c445c2a"
+    },
+    "M09": {
+      "source_type": "meeting",
+      "source_id": "4b5b9192-f3fc-505a-8e77-4d2ffaa54594"
+    },
+    "M13": {
+      "source_type": "meeting",
+      "source_id": "794a9d1c-889d-5957-873f-8a1271b03455"
+    }
+  }
+}

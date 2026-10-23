@@ -1,30 +1,67 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "75a6b94f-7717-5cfb-9e41-0acc94415e17",
+  "record_ref": "C05",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "Multi-store prospect already covered by StoreHarbor; deck requested 'if we ever' switch",
+  "priority": "low",
   "suggested_routes": [
     {
-      "route_id": "deal_next_step",
-      "label": "Outbound intro — evaluate prospect",
-      "rationale": "Meera introduced herself as being from SpendNest, indicating an outbound call. A next step is needed to determine whether a discovery conversation took place and what follow-on actions are required.",
-      "evidence_ref": "75a6b94f-7717-5cfb-9e41-0acc94415e17 — \"I'm with SpendNest.\"",
-      "is_manual": false
+      "route_id": "sales_coaching",
+      "label": "Sales coaching",
+      "rationale": "Each feature pitched was answered with 'we already have that'; the call stayed a feature list rather than a search for a gap.",
+      "evidence_ref": "C05 — \"We have that too.\"",
+      "is_manual": false,
+      "priority": "medium",
+      "output": "Coaching note for Meera: after the first \"We already have that\", switch from listing features to discovery. Ask what the current tools do badly: approvals across stores, reconciliation, or card controls. Reinforce: she asked which platform they use and confirmed the email address before sending.",
+      "owner": null
     },
     {
-      "route_id": "human_review",
-      "label": "Minimal evidence — review full call recording",
-      "rationale": "The available evidence is a single introductory phrase. Without more context it is impossible to determine if this was inbound or outbound, what the prospect situation is, or what the outcome was.",
-      "evidence_ref": "75a6b94f-7717-5cfb-9e41-0acc94415e17 — \"I'm with SpendNest.\"",
-      "is_manual": false
+      "route_id": "deal_next_step",
+      "label": "Deal / partner next step",
+      "rationale": "The prospect asked for the presentation, conditional on a future switch.",
+      "evidence_ref": "C05 — \"If we ever decide to change the providers we already have, we could consider it then.\"",
+      "is_manual": false,
+      "priority": "low",
+      "output": "Send the presentation to the confirmed address. No call was agreed; treat this as nurture, not pipeline.",
+      "owner": null
     }
   ],
-  "concise_output": "Meera identified herself as being from SpendNest in this call. The extremely limited evidence means the call type, prospect details, and outcome are all unknown.",
-  "what_established": "Meera mentioned she is with SpendNest during this call.",
-  "what_not_established": "Whether the call was inbound or outbound, the prospect's company or name, deal value, any qualification, interest level, or call outcome.",
-  "next_action": "Retrieve and review the full call recording or CRM notes to determine call type, prospect details, and required next step.",
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "We already have that.",
+      "supports": "Vendor management is already covered."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "We have that too.",
+      "supports": "Store-level payments are already covered."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "One is StoreHarbor, and we use others too.",
+      "supports": "Named incumbent provider."
+    },
+    {
+      "id": "E4",
+      "turn": null,
+      "quote": "If we ever decide to change the providers we already have, we could consider it then.",
+      "supports": "Interest is conditional and distant."
+    }
+  ],
+  "concise_output": "Meera pitched store expense controls to a multi-store retailer. Each capability was met with 'we already have that' (StoreHarbor among others). The prospect asked for the presentation only for a possible future switch.",
+  "what_established": "The prospect uses StoreHarbor and other tools that already execute vendor payments and store-level payments; they asked for the presentation by email.",
+  "what_not_established": "Any dissatisfaction with the incumbent, timing, or decision-maker. 'Follow-up' here is a deck send, not an agreed meeting.",
+  "next_action": "Send the deck; log as nurture; use the coaching note in Meera's next 1:1.",
   "owner": null,
-  "confidence": "low",
-  "uncertainty": "Only a single-phrase introduction is available; no context, direction, or outcome is evidenced."
+  "confidence": "high",
+  "uncertainty": "Echo and audio issues at the start; the adapted text is abridged.",
+  "label_check": "Stored observed_outcome 'follow_up' overstates intent: the only follow-up is a deck for a hypothetical future switch.",
+  "label_agrees": false
 }

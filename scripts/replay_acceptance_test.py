@@ -70,14 +70,17 @@ def api_post(path: str, body: dict) -> dict:
 
 
 # ── Import helper ─────────────────────────────────────────────────────────────
-def do_import(filename: str) -> dict:
+def do_import(filename: str, reorder: bool = False) -> dict:
     path = DATA_DIR / filename
     raw = path.read_bytes()
     data = json.loads(raw.decode("utf-8"))
     revision = data.get("revision")
     checksum = hashlib.sha256(raw).hexdigest()
+    records = data.get("records", [])
+    if reorder:
+        records = list(reversed(records))
     return importer.import_delivery(
-        data.get("records", []), revision, filename=str(path), checksum=checksum
+        records, revision, filename=path.name + (" (reordered)" if reorder else ""), checksum=checksum
     )
 
 
@@ -149,8 +152,8 @@ def main() -> int:
     check("17 usable texts after initial import", usable == 17, f"got {usable}")
 
     # ── Step 3: Re-import initial (idempotency) ───────────────────────────────
-    print("\n[Step 3] Re-import 01_initial.json (idempotency check)")
-    r3 = do_import("01_initial.json")
+    print("\n[Step 3] Re-import 01_initial.json in REVERSED order (idempotency check)")
+    r3 = do_import("01_initial.json", reorder=True)
     print(f"  accepted={r3.get('accepted')} ignored={r3.get('ignored')} "
           f"replaced={r3.get('replaced')} errors={len(r3.get('errors', []))}")
     check("Re-import: 0 accepted (all same revision -> ignored)", r3.get("accepted") == 0,
@@ -208,6 +211,19 @@ def main() -> int:
     if mr2:
         check("M07 manual route_id unchanged after update", mr2.get("route_id") == "internal_vendor_action",
               f"got {mr2.get('route_id')}")
+
+    check("M07 analysis is NOT shown as current after new text (awaiting analysis)",
+          m7_route_check.get("analysis_state") in ("pending", "stale")
+          and m7_route_check.get("current_analysis") is None,
+          f"analysis_state={m7_route_check.get('analysis_state')}")
+    ap = api_post(f"/records/meeting/{M07_ID}/analysis/prepared", {})
+    check("Reviewed revision-2 analysis applied for M07", ap.get("status") == "applied", f"{ap}")
+    m7_an = api_get(f"/records/meeting/{M07_ID}")
+    check("M07 analysis now current at revision 2",
+          m7_an.get("analysis_state") == "current"
+          and (m7_an.get("current_analysis") or {}).get("source_revision") == 2)
+    check("Manual route still in effect after analysis refresh",
+          m7_an.get("effective_route_ids") == ["internal_vendor_action"], f"{m7_an.get('effective_route_ids')}")
 
     # ── Step 7: Re-import initial (older revision ignored for M07) ────────────
     print(f"\n[Step 7] Re-import 01_initial.json -> M07 must stay at revision 2")

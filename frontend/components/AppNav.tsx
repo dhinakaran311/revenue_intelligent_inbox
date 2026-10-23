@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { href: "/inbox", label: "Inbox" },
   { href: "/brief", label: "Brief" },
   { href: "/export", label: "Export" },
+  { href: "/data", label: "Data & replay" },
 ]
 
 export function AppNav() {

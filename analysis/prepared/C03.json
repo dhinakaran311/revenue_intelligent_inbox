@@ -1,30 +1,63 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "source_type": "call",
   "source_id": "20d509ba-d589-5334-9aef-ea4ce6105b1a",
+  "record_ref": "C03",
   "source_revision": 1,
   "analysis_source": "prepared",
+  "headline": "API-access prospect: price was the blocker; email follow-up and Monday call agreed",
+  "priority": "medium",
   "suggested_routes": [
     {
       "route_id": "deal_next_step",
-      "label": "Cold outbound to Milan — evaluate fit",
-      "rationale": "Kiran initiated an outbound call to a contact named Milan and introduced herself as calling from SpendNest. This is a live cold-call connection requiring a next step to qualify and advance.",
-      "evidence_ref": "20d509ba-d589-5334-9aef-ea4ce6105b1a — \"Hello? Hi Milan, Kiran here from SpendNest.\"",
-      "is_manual": false
-    },
-    {
-      "route_id": "sales_coaching",
-      "label": "Opener hesitation on cold call",
-      "rationale": "The opener begins with 'Hello?' which may indicate Kiran was uncertain whether the call connected before identifying herself. This is a minor but observable coaching point on cold-call confidence.",
-      "evidence_ref": "20d509ba-d589-5334-9aef-ea4ce6105b1a — \"Hello? Hi Milan, Kiran here from SpendNest.\"",
-      "is_manual": false
+      "label": "Deal / partner next step",
+      "rationale": "A returning prospect with a known price concern agreed to an email and a Monday/Tuesday call.",
+      "evidence_ref": "C03 — \"Send the email and we can speak Monday or Tuesday.\"",
+      "is_manual": false,
+      "priority": "medium",
+      "output": "Next step (owner: Kiran, stated on the call): send the email titled \"Developer access and event notifications — follow-up\". Restate the earlier offer to work to the prospect's budget, then call Monday or Tuesday. Expect low urgency: the prospect said the functionality \"isn't essential enough for us to spend much on it.\"",
+      "owner": "Kiran (stated: \"I can email you... I'll also try you on Monday\")"
     }
   ],
-  "concise_output": "Kiran placed an outbound call to Milan and identified herself as being from SpendNest. Only the opening line is evidenced; the conversation content and outcome are unknown.",
-  "what_established": "Kiran made an outbound call to a contact named Milan, representing SpendNest.",
-  "what_not_established": "Milan's company, deal value, interest level, qualification outcome, any commitment, or call result.",
-  "next_action": "Log call outcome; if connected and interested, schedule a discovery session with Milan.",
-  "owner": null,
+  "evidence": [
+    {
+      "id": "E1",
+      "turn": null,
+      "quote": "We discussed developer access a while ago, and you asked for about five weeks before following up.",
+      "supports": "This is a timed follow-up on an earlier conversation."
+    },
+    {
+      "id": "E2",
+      "turn": null,
+      "quote": "We did ask about some developer functionality, but it isn't essential enough for us to spend much on it.",
+      "supports": "Interest exists but is low priority and price-sensitive."
+    },
+    {
+      "id": "E3",
+      "turn": null,
+      "quote": "When we last spoke, price was a concern.",
+      "supports": "Price is the known blocker."
+    },
+    {
+      "id": "E4",
+      "turn": null,
+      "quote": "Developer access and event notifications",
+      "supports": "Agreed email subject the prospect will look for."
+    },
+    {
+      "id": "E5",
+      "turn": null,
+      "quote": "Send the email and we can speak Monday or Tuesday.",
+      "supports": "Prospect agreed to the next step."
+    }
+  ],
+  "concise_output": "Kiran followed up with Milan on API/developer access after a requested five-week gap. The prospect remembers the evaluation, says it is not essential enough to spend much on, and agreed to an email plus a Monday/Tuesday call. Poor audio limited the conversation.",
+  "what_established": "Earlier evaluation of developer access; price was a concern; Milan agreed to receive an email and speak Monday or Tuesday; Kiran said he would email and call.",
+  "what_not_established": "Budget, decision process, or whether the team still wants the capability (\"perhaps we are still interested\"). No deal value.",
+  "next_action": "Kiran sends the agreed email today and calls Monday/Tuesday; ask for a budget range as previously offered.",
+  "owner": "Kiran (stated on the call)",
   "confidence": "medium",
-  "uncertainty": "Only the opening line is captured; the rest of the conversation and its outcome are unknown."
+  "uncertainty": "Audio problems on both sides; the prospect's recollection is uncertain (\"I can't quite remember\").",
+  "label_check": "Stored observed_outcome 'follow_up' agrees with the text.",
+  "label_agrees": true
 }
