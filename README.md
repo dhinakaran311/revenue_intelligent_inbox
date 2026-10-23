@@ -201,6 +201,8 @@ Currently deployed at the links at the top: the API on Render, the web app on Ve
 2. Root directory `frontend`.
 3. Environment variable `NEXT_PUBLIC_API_BASE_URL=https://<your-api>.onrender.com`.
 
-**Data on a hosted deployment.** The raw data is not in git. The hosted app reads the same Supabase database, so it opens in whatever state was last loaded. To replay there, use **Data & replay → upload a delivery file**.
+**Data on a hosted deployment.** The raw data is not in git. The hosted app reads the same Supabase database, so it opens in whatever state was last loaded.
+
+To make the replay buttons and demo-load work on Render, add `01_initial.json` and `02_update.json` as **Secret Files** (Render → Environment → Secret Files) and set `DATA_DIR=/etc/secrets`. Without them, demo-load refuses and resets nothing, and you can still replay with **Data & replay → upload a delivery file**.
 
 `render.yaml` describes the API service.

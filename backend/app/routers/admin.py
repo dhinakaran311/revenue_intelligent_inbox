@@ -100,7 +100,7 @@ def _import_sample(name: str, reorder: bool) -> dict:
         raise HTTPException(status_code=404, detail=f"Unknown sample '{name}' (use initial or update)")
     path = _data_dir() / SAMPLE_FILES[name]
     if not path.exists():
-        raise HTTPException(status_code=404, detail=f"{SAMPLE_FILES[name]} not found in the data directory")
+        raise HTTPException(status_code=404, detail=f"{SAMPLE_FILES[name]} is not on this server. Use the upload box, or add it as a Render Secret File with DATA_DIR=/etc/secrets.")
     raw = path.read_bytes()
     delivery = json.loads(raw.decode("utf-8"))
     records = delivery.get("records", [])
@@ -155,6 +155,16 @@ def demo_load() -> dict:
     from app.services.analysis_service import apply_all_prepared
 
     _forbid_in_production()
+    # Check the delivery files BEFORE deleting anything: a host without the
+    # private data directory must fail without wiping the current state.
+    missing = [f for f in SAMPLE_FILES.values() if not (_data_dir() / f).exists()]
+    if missing:
+        raise HTTPException(
+            status_code=409,
+            detail=(f"Data files not on this server ({', '.join(missing)}); nothing was reset. "
+                    "Upload them with 'Or upload a delivery file', or add them as Render Secret Files "
+                    "and set DATA_DIR=/etc/secrets."),
+        )
     try:
         _reset_all()
     except Exception as exc:
