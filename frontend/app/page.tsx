@@ -1,101 +1,173 @@
-import Image from "next/image";
+import Link from "next/link"
+import { api } from "@/lib/api"
+import { RouteBadge } from "@/components/RouteBadge"
+import { FreshnessChip } from "@/components/FreshnessChip"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
+import { Button } from "@/components/ui/button"
+import { DashboardChart } from "@/components/DashboardChart"
 
-export default function Home() {
+export const dynamic = "force-dynamic"
+
+export default async function DashboardPage() {
+  let metrics
+  try {
+    metrics = await api.dashboard()
+  } catch {
+    return (
+      <div className="text-red-400 text-sm p-4">
+        Could not load dashboard — is the backend running on port 8000?
+      </div>
+    )
+  }
+
+  const { text_coverage, activity_by_person, route_summary, analysis_state_counts, definitions } = metrics
+  const usablePct = text_coverage.total > 0
+    ? Math.round((text_coverage.usable / text_coverage.total) * 100)
+    : 0
+  const noText = text_coverage.total - text_coverage.usable
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl font-semibold text-zinc-100">
+          21 Aug 2026 · Revenue Intelligence Review
+        </h1>
+        <p className="text-xs text-zinc-500 mt-1">
+          All times in Asia/Kolkata (UTC+05:30) · Activity date from call started_at / meeting starts_at
+        </p>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Stat bar */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <Card className="bg-zinc-900 border-zinc-800">
+          <CardHeader className="pb-1 pt-4 px-4">
+            <CardTitle className="text-xs text-zinc-400 font-normal">Total Records</CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <div className="text-3xl font-semibold text-zinc-100">{text_coverage.total}</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-zinc-900 border-zinc-800">
+          <CardHeader className="pb-1 pt-4 px-4">
+            <CardTitle className="text-xs text-zinc-400 font-normal">Calls</CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <div className="text-3xl font-semibold text-zinc-100">{activity_by_person.calls_total}</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-zinc-900 border-zinc-800">
+          <CardHeader className="pb-1 pt-4 px-4">
+            <CardTitle className="text-xs text-zinc-400 font-normal">Meetings</CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <div className="text-3xl font-semibold text-zinc-100">{activity_by_person.meetings_total}</div>
+          </CardContent>
+        </Card>
+        <Card className="bg-zinc-900 border-zinc-800">
+          <CardHeader className="pb-1 pt-4 px-4">
+            <CardTitle className="text-xs text-zinc-400 font-normal">Usable Text</CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <div className="text-3xl font-semibold text-zinc-100">
+              {text_coverage.usable}
+              <span className="text-base text-zinc-500 ml-1">/ {usablePct}%</span>
+            </div>
+            <Progress value={usablePct} className="mt-2 h-1" />
+          </CardContent>
+        </Card>
+        <Card className="bg-zinc-900 border-zinc-800">
+          <CardHeader className="pb-1 pt-4 px-4">
+            <CardTitle className="text-xs text-zinc-400 font-normal">No Text</CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <div className="text-3xl font-semibold text-zinc-500">{noText}</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Three-column grid */}
+      <div className="grid md:grid-cols-3 gap-4">
+        {/* Activity by person chart — spans 2 cols */}
+        <div className="md:col-span-2">
+          <Card className="bg-zinc-900 border-zinc-800 h-full">
+            <CardHeader className="px-5 pt-5 pb-2">
+              <CardTitle className="text-sm font-medium text-zinc-300">Activity by Person</CardTitle>
+            </CardHeader>
+            <CardContent className="px-5 pb-5">
+              <DashboardChart data={activity_by_person.by_person} />
+              <p className="text-xs text-zinc-600 mt-2">
+                Calls: rep name. Meetings: organiser email. Fields not combined.
+              </p>
+            </CardContent>
+          </Card>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Right column */}
+        <div className="space-y-4">
+          <Card className="bg-zinc-900 border-zinc-800">
+            <CardHeader className="px-5 pt-5 pb-2">
+              <CardTitle className="text-sm font-medium text-zinc-300">Route Summary</CardTitle>
+            </CardHeader>
+            <CardContent className="px-5 pb-5 space-y-2">
+              {route_summary.map((r) => (
+                <Link
+                  key={r.route_state}
+                  href={`/inbox?route_state=${encodeURIComponent(r.route_state)}`}
+                  className="flex items-center justify-between hover:bg-zinc-800/50 rounded px-1 py-0.5 transition-colors"
+                >
+                  <RouteBadge routeId={r.route_state} />
+                  <span className="text-sm text-zinc-300 font-medium">{r.count}</span>
+                </Link>
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card className="bg-zinc-900 border-zinc-800">
+            <CardHeader className="px-5 pt-5 pb-2">
+              <CardTitle className="text-sm font-medium text-zinc-300">Analysis State</CardTitle>
+            </CardHeader>
+            <CardContent className="px-5 pb-5 space-y-2">
+              {analysis_state_counts.map((s) => (
+                <div key={s.analysis_state} className="flex items-center justify-between">
+                  <FreshnessChip state={s.analysis_state} />
+                  <span className="text-sm text-zinc-300 font-medium">{s.count}</span>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Definitions */}
+      {definitions && Object.keys(definitions).length > 0 && (
+        <details className="rounded-lg border border-zinc-800 bg-zinc-900 px-5 py-4">
+          <summary className="cursor-pointer text-sm text-zinc-400 hover:text-zinc-200">
+            ℹ️ Metric definitions
+          </summary>
+          <div className="mt-3 space-y-2 text-xs text-zinc-400">
+            {Object.entries(definitions).map(([k, v]) => (
+              <div key={k}>
+                <span className="font-medium text-zinc-300">{k}:</span> {v}
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
+
+      {/* CTA row */}
+      <div className="flex flex-wrap gap-3">
+        <Button asChild variant="outline" className="border-zinc-700 text-zinc-300 hover:text-zinc-100">
+          <Link href="/inbox">View Inbox →</Link>
+        </Button>
+        <Button asChild variant="outline" className="border-zinc-700 text-zinc-300 hover:text-zinc-100">
+          <Link href="/brief">Manager Brief →</Link>
+        </Button>
+        <Button asChild variant="outline" className="border-zinc-700 text-zinc-300 hover:text-zinc-100">
+          <Link href="/export">Generate Export →</Link>
+        </Button>
+      </div>
     </div>
-  );
+  )
 }
