@@ -1,15 +1,30 @@
 # Revenue Intelligence Inbox
 
-A workspace for a sales manager reviewing one day (21 August 2026, Asia/Kolkata) of calls, meetings and transcripts. It answers four questions on the first screen:
+A workspace for a sales manager reviewing one day (21 August 2026, Asia/Kolkata) of calls, meetings and transcripts: 44 records, 18 of them with usable text.
 
-1. **What happened?** Activity by hour and by person. Call reps and meeting organisers are kept separate.
+| | |
+|---|---|
+| **Live app** | <https://revenue-intelligent-inbox-phi.vercel.app> |
+| **API docs** | <https://revenue-intelligent-inbox-518o.onrender.com/docs> (free tier: the first request after idle takes 30–60 s) |
+| **Stack** | Next.js 14 · FastAPI · Supabase Postgres · Groq (optional) · Pinecone (optional) |
+| **Analysis** | Prepared and human-reviewed, with every quote machine-checked; runtime AI is optional and labelled (see §6) |
+
+## Review it in 5 minutes
+
+1. **Dashboard:** headline numbers, each with its definition underneath. Try the person filter (for example, Meera).
+2. **Needs attention → M04:** one record with three routes, each with its own output. Click **E5** to jump to the cited passage (turn 11).
+3. **Brief:** the 21 August manager brief. Every item links to its source passage.
+4. **Data & replay:** run steps 0–8 (table in §2) and watch the counters: 44 records, 17 → 18 texts, M07 at revision 2, and M07's manual route preserved.
+5. **Export:** Generate, then **Download current bundle (.zip)**.
+
+The first screen answers four questions:
+
+1. **What happened?** Activity by hour and by person, with call reps and meeting organisers kept separate.
 2. **What needs me?** A ranked attention list.
 3. **Why should I believe it?** Every recommendation links to the exact transcript passage behind it.
 4. **What did the system decide, and what did I decide?** Suggested routes and manual routes are stored and shown separately.
 
-**Live demo (private link):** app <https://revenue-intelligent-inbox-phi.vercel.app> · API <https://revenue-intelligent-inbox-518o.onrender.com/docs>. The API is on Render's free tier, so the first request after idle can take 30–60 s.
-
-**Stack:** Next.js 14 (frontend) · FastAPI (API, imports and exports) · Supabase Postgres (system of record) · Groq (optional runtime analysis) · Pinecone (optional retrieval index).
+**Contents:** 1 Run locally · 2 Replay checks · 3 Outputs · 4 Metrics · 5 Routing · 6 AI usage · 7 Findings · 8 Rejected decision · 9 Limitations · 10 Deploy
 
 ---
 
@@ -95,7 +110,7 @@ These are shown in the app under **Dashboard → Metric definitions**, and as a 
 - **Usable supplied text.** A non-blank call `payload.transcript`, or at least one non-blank meeting turn. Coverage = usable ÷ selected records in the same filter (18/44 in the final state: 10/30 calls, 8/14 meetings).
 - **Call reps vs meeting organisers.** Calls group by `rep_name`; meetings group by `organizer_email`. They are never merged, and an organiser is not assumed to be a salesperson or an attendee.
 - **Connected calls (source-reported).** `is_connected = true` ÷ calls with non-null `is_connected`, with unknowns shown separately. It is never combined with transcript judgements.
-- **Route assignments vs routed records.** A record can have several routes: 35 assignments on 18 records in the final state. A manual route replaces the suggestions.
+- **Route assignments vs routed records.** A record can have several routes: 35 assignments on 18 records with suggestions only. A manual route replaces the suggestions, so a manual route on M07 (which has two suggestions) shows 34.
 - **Review state.** One of: `no_text`, `awaiting_analysis` (new or changed text without an analysis of the current revision), `needs_human_review`, `manual_override` or `suggested`. All 44 records have one.
 
 ## 5. Routing taxonomy
@@ -166,6 +181,8 @@ The model had reasoned from the opening chunk only.
 **Approximate time spent:** _fill in before submitting_.
 
 ## 10. Deploy (private demo)
+
+Currently deployed at the links at the top: the API on Render, the web app on Vercel, both using the same Supabase database.
 
 **API on Render**
 1. New → Web Service → this repo.
