@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "meeting",
+  "source_id": "398672e7-62dd-5afd-846d-0237d49792fb",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "customer_follow_up",
+      "label": "Returning customer — finance stakeholder join, pricing revisit",
+      "rationale": "The contact states 'We spoke a while ago' (prior engagement confirmed) and that a finance colleague has joined specifically to understand implementation and revisit pricing. This is a multi-stakeholder customer follow-up meeting with active commercial discussion.",
+      "evidence_ref": "398672e7-62dd-5afd-846d-0237d49792fb turn 1",
+      "is_manual": false
+    },
+    {
+      "route_id": "deal_next_step",
+      "label": "Pricing discussion with finance stakeholder",
+      "rationale": "The explicit agenda includes revisiting the price, signalling an active commercial evaluation. A concrete pricing or proposal next step is required.",
+      "evidence_ref": "398672e7-62dd-5afd-846d-0237d49792fb turn 1",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "A customer who spoke with SpendNest previously returned with their finance colleague to understand implementation and revisit pricing. This is a multi-stakeholder deal re-engagement requiring a pricing or proposal follow-up.",
+  "what_established": "A prior conversation with this contact exists. The contact's finance colleague joined this meeting. The stated agenda is to understand how SpendNest would work in practice and to revisit pricing.",
+  "what_not_established": "The customer's company name, deal value or price discussed, implementation timeline, any commitment made, or meeting outcome.",
+  "next_action": "Prepare a tailored pricing proposal for the finance colleague's review; document implementation steps and schedule a follow-up to present the proposal.",
+  "owner": null,
+  "confidence": "high",
+  "uncertainty": "Only turn 1 is available; the pricing discussion details and commitment are not evidenced."
+}

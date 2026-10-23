@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "meeting",
+  "source_id": "4b5b9192-f3fc-505a-8e77-4d2ffaa54594",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "customer_follow_up",
+      "label": "Onboarding access issue — Brookmint Holdings invitation failure",
+      "rationale": "The contact reported that an invitation sent to Brookmint Holdings did not work when they tried to use it, and proposed attempting the invitation again together. This is a concrete onboarding or access problem involving an existing or onboarding customer that requires immediate follow-up.",
+      "evidence_ref": "4b5b9192-f3fc-505a-8e77-4d2ffaa54594 turn 1",
+      "is_manual": false
+    },
+    {
+      "route_id": "internal_vendor_action",
+      "label": "Investigate invitation/access system issue",
+      "rationale": "The failed invitation may indicate an underlying system or configuration problem (expired link, permissions issue). An internal technical investigation is warranted to prevent the same issue recurring for other customers.",
+      "evidence_ref": "4b5b9192-f3fc-505a-8e77-4d2ffaa54594 turn 1",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "A contact reported that the invitation for Brookmint Holdings failed — either expired or otherwise broken — and suggested retrying the invitation together during this session. This is an urgent onboarding access issue requiring immediate resolution and an internal root-cause investigation.",
+  "what_established": "An invitation was sent to Brookmint Holdings. When the recipient tried to use it, it did not work. The meeting was called to retry the invitation and resolve the access issue.",
+  "what_not_established": "Whether Brookmint Holdings is an existing or prospective customer, the cause of the invitation failure, deal value, or whether the retry succeeded.",
+  "next_action": "Resend a fresh invitation to Brookmint Holdings during or after the session; investigate why the original invitation failed (expiry, permissions, link generation bug) and fix the root cause.",
+  "owner": null,
+  "confidence": "high",
+  "uncertainty": "The cause of the invitation failure and the outcome of the retry are not captured in the available evidence."
+}

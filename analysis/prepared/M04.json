@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "source_type": "meeting",
+  "source_id": "b0f79b3d-37ba-52f9-b2bc-58b159dd6d91",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "internal_vendor_action",
+      "label": "Migration planning — time-sensitive operational action",
+      "rationale": "The opening statement 'I wanted to discuss the migration while there is still time to plan it' indicates this is an operational migration meeting. The phrase 'while there is still time' signals urgency. This is an internal or vendor operational matter requiring a concrete planning action.",
+      "evidence_ref": "b0f79b3d-37ba-52f9-b2bc-58b159dd6d91 turn 1",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "The meeting was opened with an explicit request to discuss a migration while there is still time to plan it. The urgency framing makes this a time-sensitive internal or vendor operational action.",
+  "what_established": "There is a migration to be planned and the initiator has flagged that time for planning is limited. The meeting was called to address this migration planning need.",
+  "what_not_established": "What is being migrated, which systems or vendors are involved, the migration deadline, who owns the migration, or meeting outcome.",
+  "next_action": "Identify the migration scope, systems involved, and deadline; assign a migration owner and create a planning timeline before the window closes.",
+  "owner": null,
+  "confidence": "medium",
+  "uncertainty": "The migration subject and timeline are not specified in the available evidence; only the urgency of planning is established."
+}

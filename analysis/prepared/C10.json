@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "b747f592-810e-583c-9b81-8db5ab035806",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Product demo — payments and approval workflow pitch",
+      "rationale": "Meera articulated a specific product capability: scheduled payments and approval workflows with manager visibility across operations and finance. This is a substantive product-fit pitch that warrants a next step to confirm prospect interest and progress the deal.",
+      "evidence_ref": "b747f592-810e-583c-9b81-8db5ab035806 — \"SpendNest brings together scheduled payments and approval workflows so managers can see more of what is happening across operations and finance.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "sales_coaching",
+      "label": "Feature pitch — ensure pain-point anchoring",
+      "rationale": "The pitch targets financial visibility and approval workflows. Coaching should confirm that Meera anchored this capability to a specific pain the prospect expressed, rather than leading with features unprompted.",
+      "evidence_ref": "b747f592-810e-583c-9b81-8db5ab035806 — \"SpendNest brings together scheduled payments and approval workflows so managers can see more of what is happening across operations and finance.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Meera delivered a targeted product pitch covering SpendNest's payment scheduling and approval workflow capabilities, emphasising manager visibility across operations and finance. The prospect's response and any commitment are not captured.",
+  "what_established": "Meera communicated specific product capabilities: scheduled payments, approval workflows, and operational/financial visibility for managers.",
+  "what_not_established": "Prospect company, deal value, whether the prospect confirmed these capabilities address their needs, any demo booked, or call outcome.",
+  "next_action": "Follow up with the prospect to confirm whether the scheduled payments and approval workflow features address their current challenges; offer a live demo or trial.",
+  "owner": null,
+  "confidence": "medium",
+  "uncertainty": "The pitch is captured but the prospect's response and any resulting commitment are not evidenced."
+}

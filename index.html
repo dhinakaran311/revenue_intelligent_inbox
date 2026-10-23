@@ -1,0 +1,745 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><title>Revenue Intelligence Inbox</title><style>body{margin:0;background:#f5f7fa;color:#1d2b3a;font:16px/1.65 system-ui,sans-serif}nav{background:#142c3c;padding:20px 5%;display:flex;gap:24px;flex-wrap:wrap;position:sticky;top:0}nav a{color:white;text-decoration:none}main{max-width:1000px;padding:32px 24px;margin:auto}section{background:white;border:1px solid #e0e5eb;border-radius:14px;padding:32px 40px;margin-bottom:24px;scroll-margin-top:90px}h1{font-size:34px;line-height:1.2;letter-spacing:-.7px}h2{color:#126375;margin-top:32px}h3{font-size:20px}p{margin:12px 0}table{border-collapse:collapse;font-size:14px;width:100%}td{border:1px solid #dae2e8;padding:10px;vertical-align:top}tr:first-child{background:#eaf4f4;font-weight:600}.table{overflow:auto}details{border-top:1px solid #ddd;padding:16px 0}summary{cursor:pointer;color:#126375;font-weight:650}pre{white-space:pre-wrap}@media(max-width:650px){section{padding:22px}main{padding:14px}h1{font-size:28px}nav{position:static;gap:14px}}</style></head><body><nav><a href="#brief">Assignment</a><a href="#contract">Import rules</a><a href="#dictionary">Dictionary</a><a href="#conversations">Conversations</a></nav><main><section id="brief"><h1>Build a Revenue Intelligence Inbox</h1>
+<h2>Your challenge</h2>
+<p>A sales manager receives calls, meeting records, transcripts and automated notes from several systems. These records do not arrive neatly: some transcripts arrive late, some conversations serve more than one purpose, and stored labels do not always agree with what people actually said.</p>
+<p>Build a clickable workspace that turns this incoming information into something a manager can use every day. Help them understand what happened, find what needs attention, and decide what to do next.</p>
+<p>This is a paid exercise. The recruiter will specify the payment amount, payment timing and exact deadline before you start. You have <strong>24 hours from the agreed start time to submit</strong>. We expect <strong>6–8 hours of work</strong>. You may use ChatGPT, coding assistants, templates and other tools. There is no live interview or live coding component in this exercise. We will review your submitted product, source files and explanation.</p>
+<h2>Start here</h2>
+<p>1. Read this brief and the data dictionary.</p>
+<p>2. Open a few metadata records and conversations before choosing your categories or interface.</p>
+<p>3. Decide which manager questions your first screen should answer.</p>
+<p>4. Build the smallest complete experience that supports those questions and the import checks below.</p>
+<p>5. Explain important decisions and limitations honestly.</p>
+<p>The source records and conversations have been de-identified and adapted for this exercise. Do not attempt to identify the original people or publish the dataset publicly. You may use AI tools to complete the assignment and share the resulting product privately with the reviewers.</p>
+<p>You do not need prior sales experience. The glossary and dictionary explain the business terms and source fields. There is no single correct page layout, folder tree or routing taxonomy.</p>
+<h2>What you receive</h2>
+<p>The package contains 44 source records: 30 calls and 14 meetings. Eighteen have adapted real-derived conversation text: 10 calls and 8 meetings. Seventeen transcripts are present initially; the eighteenth arrives in the update batch. The other records intentionally have no usable supplied text. It also includes a data dictionary, glossary, update instructions and submission checklist. The extract is selected for variety, not a complete or representative sample of team performance. Use the pair (source_type, source_id) as record identity. See DATA_CONTRACT.md for the exact import rules. Names, record_ref and array positions are not identities. Follow the dictionary for the meaning of timestamps, statuses and relationships.</p>
+<p>Treat source records as evidence to inspect. A stored summary or classification is a previous system&#x27;s output; it is not necessarily the correct answer. A missing transcript does not establish that a conversation never happened. Use only relationships supported by the supplied data.</p>
+<h2>Build one connected experience</h2>
+<h3>1. A useful manager dashboard</h3>
+<p>Choose the metrics, conversation groups and exceptions that make this dataset useful to a manager. At minimum show selected-record activity by day and person, usable supplied transcript coverage, and your routing/review counts, with a working person or source-type filter. All supplied activity falls on one local date, so a date filter alone is not sufficient. Define each denominator. Distinguish call reps from meeting organisers; an organiser is not automatically the salesperson or an attendee. Make it possible to move from an overview into a person or conversation and inspect the supporting source records.</p>
+<p>A good dashboard answers meaningful questions and makes definitions clear. For every headline number, a reviewer should be able to understand what was counted, over which period, and whether missing information affects the result. Use the dictionary&#x27;s units. Do not invent pipeline value, deal outcomes or account links that the data does not establish.</p>
+<p>You choose what deserves prominence, what belongs behind a click, and what does not help the manager.</p>
+<h3>2. Routing and appropriate analysis</h3>
+<p>Here, <strong>routing</strong> means deciding which kind of analysis a conversation needs and where its outputs belong.</p>
+<p>Design your own categories and rules. A conversation may need one destination, several destinations, or a human decision. Explain the reason for each route and let the manager correct it.</p>
+<p>Do not generate the same generic summary for every conversation. Depending on the evidence, useful outputs could include sales coaching, deal next steps, customer follow-up or an internal/vendor note. These are suggestions, not a required taxonomy.</p>
+<p>Useful analysis should make clear:</p>
+<p>- What happened and why it matters.</p>
+<p>- Which statements support a conclusion, with an identifiable transcript passage.</p>
+<p>- What the evidence does not establish.</p>
+<p>- What someone should do next, and who owns it when ownership is actually stated.</p>
+<p>Include a manager brief for 21 August 2026 (Asia/Kolkata). Bring together activity, important conversations, practical coaching and follow-up priorities. The brief may be fixed to this date and pre-generated; it need not react to dashboard filters. Review all 18 supplied conversations after applying the update, but keep the visible output concise. Every one of the 44 records needs an intake/review state; do not invent substantive analysis for missing or silent text. Let the manager inspect the evidence behind its recommendations.</p>
+<h3>3. An understandable folder and export structure</h3>
+<p>Decide how generated outputs should be organised so another person can find them later. Implement a downloadable archive or a local output folder. Include a machine-readable manifest in JSON or CSV.</p>
+<p>At minimum, the manifest should identify the source record, assigned route or routes, output file path or paths, processing/review state, and whether a route was manually corrected. You may add useful fields.</p>
+<p>Show how the structure avoids losing context when one conversation produces more than one output. Do not merely draw a proposed folder tree: produce the exported files.</p>
+<h3>4. Imports, late information and corrections</h3>
+<p>The product must support the replay steps below through a simple interface or a clearly documented local command. Choose either approach; reviewers must be able to reproduce it from your instructions.</p>
+<div class="table"><table>
+<tr><td>Step</td><td>Action</td><td>Expected behaviour</td></tr>
+<tr><td>Initial import</td><td>Import the initial batch.</td><td>Each logical source record is represented once. Missing or unusable material is visible.</td></tr>
+<tr><td>Repeat</td><td>Import that same batch again, optionally with records in a different order.</td><td>No duplicate source records or inflated activity counts.</td></tr>
+<tr><td>Correction</td><td>Manually change a conversation&#x27;s route in your product.</td><td>The correction is saved and visible.</td></tr>
+<tr><td>Update</td><td>Import the supplied update batch.</td><td>Apply the newer information to the existing source record. A late transcript becomes available without adding a second conversation.</td></tr>
+<tr><td>Preserve judgment</td><td>Inspect the corrected conversation after replay/update and browser refresh or application restart, as appropriate.</td><td>The manual route remains in effect unless the user explicitly resets it. New source information remains inspectable.</td></tr>
+</table></div>
+<p>Treat (source_type, source_id) as the record identity; names, record_ref and array positions are not identities. The dictionary describes the update format and revision ordering. Retain an understandable distinction between an automated suggestion and a manual decision.</p>
+<p>Updated content does not have to trigger a paid AI service. Your product may mark the record as needing review and accept a human-assisted analysis update. Do not silently display an old analysis as if it reflects a new transcript.</p>
+<h2>AI and implementation choices</h2>
+<p>You may prepare analyses with AI before running the application, run models inside it, use deterministic rules, or combine these approaches. <strong>Pre-generated analysis is allowed.</strong> If you use it, make clear which content is pre-generated, what the application actually computes, and how new content is handled.</p>
+<p>A static set of screenshots is not sufficient: the interface, imports, corrections and exports must work. You may use any reasonable framework, a local application or a shareable hosted application.</p>
+<p>We do not require authentication, live CRM integration, Google Drive/Discord integration, recording capture, production deployment or a paid AI account. Never include API keys or credentials in your submission. If an optional service is unavailable, provide a usable review path with the supplied data.</p>
+<h2>What we want you to decide</h2>
+<p>Draw your own conclusions from the records. Decide which questions matter, how to group conversations, when to be uncertain, which recommendations deserve trust, and how the interface should feel.</p>
+<p>We are looking for your taste and reasoning in the finished experience. Clear choices, useful omissions and well-handled exceptions are more valuable than a large number of charts or features. You may challenge a source label or decline to make a conclusion when evidence is insufficient. Explain why.</p>
+<h2>Submit</h2>
+<p>1. <strong>Working application:</strong> a usable link or an application that runs locally with clear instructions.</p>
+<p>2. <strong>Editable source:</strong> include the files needed to run and change it.</p>
+<p>3. <strong>Generated export:</strong> actual organised output files and the JSON/CSV manifest.</p>
+<p>4. <strong>Five slides:</strong></p>
+<p>   - The manager problem you chose to solve and your main findings.</p>
+<p>   - Your interface choices and what you deliberately left out.</p>
+<p>   - Your routing/folder design and one difficult case.</p>
+<p>   - How you checked a key number and a key analytical conclusion.</p>
+<p>   - Trade-offs, AI usage, known limitations and what you would improve next.</p>
+<p>5. <strong>Short README:</strong> setup/run steps, how to reproduce the replay checks, where outputs are written, metric definitions (or a link to their explanation in the app), and whether analysis is pre-generated or generated at runtime. Include the approximate time you spent.</p>
+<h3>Include these three things in your first submission</h3>
+<p>1. <strong>A three-minute screen recording with your own spoken narration:</strong> show one useful manager workflow, one difficult routing decision and the duplicate/update test. Demonstrate the running application: repeat an import without increasing the record count, then apply the update and show that a manual route correction survives. As you use the app, explain one metric, one routing decision and the duplicate/update test in your own words. Captions may support your narration, but they cannot replace it. Submit one continuous screen recording; polished video editing is not expected. We assess your reasoning, not your accent or audio quality.</p>
+<p>2. <strong>Your three most important findings:</strong> for each, state what you noticed, link to the supporting source passage, and show exactly where it affected the product. Use a meeting record reference and turn number, or a call record reference and short exact quote. Name the relevant screen, rule or output so we can check it. Draw your own conclusions; repeating the brief is not a finding.</p>
+<p>3. <strong>One decision you deliberately rejected:</strong> describe the alternative you considered, why you rejected it and the trade-off you accepted. Point to the resulting choice in your product.</p>
+<p>Put the findings and rejected decision in your existing five slides or README; no additional deck or report is needed. Include the recording file or an accessible private link in the same reply as the application. These materials help us assess your decisions from the first submission; no live session is required.</p>
+<p>You do not need to submit a prompt diary or every intermediate experiment. Include enough explanation for us to assess the decisions you made.</p>
+<h2>How we assess the work</h2>
+<div class="table"><table>
+<tr><td>Area</td><td>Points</td><td>What we look for</td></tr>
+<tr><td>Interface usefulness and design</td><td>25</td><td>Clear priorities, easy navigation, understandable states and useful detail views.</td></tr>
+<tr><td>Routing and output organisation</td><td>25</td><td>Thoughtful categories, appropriate differentiated outputs, traceable destinations and working corrections.</td></tr>
+<tr><td>Numbers and evidence</td><td>25</td><td>Correct calculations, source-backed conclusions, useful coaching and honest uncertainty.</td></tr>
+<tr><td>Imports and updates</td><td>15</td><td>Repeatable behaviour, no duplicate counting, correct update handling and preserved overrides.</td></tr>
+<tr><td>Decisions and explanation</td><td>10</td><td>Clear trade-offs, reproducible instructions and an accurate explanation of AI usage and limitations.</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>100</strong></td><td></td></tr>
+</table></div>
+<p>The four numbered capabilities above are required. Within each, keep the implementation small. Additional charts, account matching, forecasts, search, live AI and integrations are optional. Stop after eight hours and disclose unfinished work.</p>
+<h2>Practical boundaries</h2>
+<p>Submit a private link or ZIP by replying to the recruiter who sent the assignment. Default is individual work unless the invitation explicitly assigns a team. No live session is required. For team submissions identify each person’s contribution.</p>
+<p>No CRM opportunity table, authoritative deal value, full account history or confirmed staff-role directory is supplied. You can report conversation-based opportunity signals and supported next steps. If you show pipeline currency totals or cross-person performance rankings, you must explain what evidence supports them; missing inputs cannot be replaced by guesses.</p>
+<p>The two input files are test deliveries, not historical production exports. The later delivery deliberately stages one real-derived transcript so we can test update behaviour. The public replay contract is the complete required behavioural test.</p>
+<p>Your submitted app should open in the final post-update state, or provide one clearly documented demo-load action that imports both batches. Also provide a reset or clean-start instruction so reviewers can reproduce the initial/update sequence.</p></section><section id="contract"><h1>Data contract and replay steps</h1>
+<h2>Open the files</h2>
+<p>data/01_initial.json is the initial delivery. data/02_update.json is a later delivery for one of the same meetings. Do not add their record counts together. The full state after both contains 44 unique source records, not 45.</p>
+<p>These JSON files wrap the original-shaped OXO call and meeting objects in a small assessment delivery envelope. No database is required. A JSON object is a set of named fields; an array is a list. Null means no supplied value, not zero or false.</p>
+<h2>Envelope fields</h2>
+<div class="table"><table>
+<tr><td>Field</td><td>Type</td><td>Meaning</td></tr>
+<tr><td>batch_id</td><td>string</td><td>Identifies a delivery, not a conversation.</td></tr>
+<tr><td>revision</td><td>integer</td><td>Delivery version. Apply the higher revision to each matching source record.</td></tr>
+<tr><td>exported_at</td><td>timestamp</td><td>Assessment delivery time. It is not the time the conversation occurred.</td></tr>
+<tr><td>records</td><td>array</td><td>Source records supplied in this delivery.</td></tr>
+<tr><td>records[].record_ref</td><td>string</td><td>Short reading reference such as M07 or C01. Convenience only, not an identity key or route label.</td></tr>
+<tr><td>records[].source_type</td><td>string</td><td>call or meeting.</td></tr>
+<tr><td>records[].source_id</td><td>string</td><td>Same as payload.id. Unique together with source_type.</td></tr>
+<tr><td>records[].payload</td><td>object</td><td>Call or meeting metadata using the source field names and types.</td></tr>
+<tr><td>records[].transcript_payload</td><td>object or null</td><td>Meeting transcript response. For calls it is null because text is in payload.transcript.</td></tr>
+</table></div>
+<h2>Import rules</h2>
+<p>1. Identity is the pair (source_type, source_id). Never key records by company name, title, phone, record_ref or array position.</p>
+<p>2. Initial revision is 1. Update revision is 2. Store the last applied revision per record. Same or older revisions are ignored, including revision 1 arriving again after revision 2.</p>
+<p>3. A newer record replaces its entire source payload and transcript_payload, including null values. It is not a partial field merge. Other records are unchanged. There are no deletion events in this exercise.</p>
+<p>4. Keep candidate-derived analysis, processing state and manual routing decisions separate from source fields. A newer source revision may change the suggested route, but must not erase an explicit manual route.</p>
+<p>5. When source text changes, refresh the analysis or mark it stale/pending review. Pre-generated analysis may be updated with human-assisted content. No automatic model call is required. Show whether an analysis reflects the current source revision.</p>
+<p>6. Persist state across browser refresh or local application restart, according to how your app runs. Local storage or a local file is sufficient.</p>
+<h2>Replay to demonstrate</h2>
+<p>Import 01_initial; import it again with the record order changed; manually change M07&#x27;s route; import 02_update; import 01_initial again; refresh/restart. The initial import has 17 usable supplied texts; after the update there are 18. The unique record count stays 44 throughout. M07&#x27;s newer text remains visible, its manual route remains in effect, and its analysis is either updated or visibly awaiting review. Other source records remain unchanged.</p>
+<p>Your export should reflect the current state. A repeat export must not create multiple active copies of the same logical output without explanation. You may keep explicit versions if you identify which is current. If a route changes, remove the obsolete active destination or clearly mark it superseded.</p>
+<h2>Export manifest</h2>
+<p>Use JSON or CSV. Include source_type, source_id, applied source revision, route(s), output path(s), processing/review state, manual-override flag and analysis freshness. Field names in your manifest are your choice if their meaning is clear. Output paths should be relative paths inside the export, not links to files on your own machine. Every listed active output must exist; shared daily summaries may reference multiple source records.</p>
+<h2>Evidence references</h2>
+<p>Meeting passages: cite source_id and the 1-based turn number in the supplied turns array, or a readable record_ref plus that turn number. Timecodes may repeat and are not unique IDs. Phone-call text has no trustworthy turn timing: cite a short exact quote from the adapted text with record_ref/source_id. Do not invent speaker timecodes or talk ratios. In your interface make the supporting text findable.</p>
+<h2>What was changed for the exercise</h2>
+<p>Identities, source IDs, emails, phone tokens, URLs, dates and commercially identifying details were transformed. Conversation text was paraphrased and abridged while retaining the underlying issues and unresolved outcomes. Transcript timecodes locate selected parts of a conversation; omitted intervals are not evidence of silence. Dates were shifted consistently by whole weeks. Duration and historical flags remain source metadata, not measurements of the shortened text.</p>
+<p>Existing summaries and classification_reason bodies are deliberately withheld (null) so they do not provide ready-made answers. Their source processing-status fields remain as received. This particular null is an assessment redaction, not evidence of upstream failure. Other null fields retain their source meaning. Meeting redacted is set true to identify the adaptation. No playable audio/video or private source mappings are included; example.invalid URLs and PHONE tokens are non-operational.</p>
+<p>One meeting&#x27;s usable transcript is withheld from the initial delivery and supplied in the update. That delivery timing is a constructed test fixture. Other no-speech responses are preserved source conditions. Do not generalise the batch timing to how the real connector operates.</p></section><section id="dictionary"><h1>Data dictionary and glossary</h1>
+<h2>Business context</h2>
+<p>SpendNest is the adapted platform name. Conversations discuss company spending, vendor payments, employee expenses, accounting and invoicing. Some people are potential buyers, some are existing customers, and some are supplying a service to SpendNest. Do not assume everyone outside SpendNest is a prospect. Product statements in conversation are claims made by speakers, not a separately verified capability catalogue.</p>
+<div class="table"><table>
+<tr><td>Term</td><td>Plain meaning</td></tr>
+<tr><td>SDR</td><td>Sales development representative: starts or qualifies conversations. Actual job titles are not supplied for all callers.</td></tr>
+<tr><td>AE</td><td>Account executive: helps a prospect evaluate and buy. Meeting organisers are not automatically AEs.</td></tr>
+<tr><td>CS</td><td>Customer success: helps existing customers use the product and resolves issues.</td></tr>
+<tr><td>CRM</td><td>System holding customer and opportunity records. No authoritative CRM deal table is supplied here.</td></tr>
+<tr><td>Pipeline</td><td>Potential sales being worked on. Interest in a conversation is not a signed purchase.</td></tr>
+<tr><td>Routing</td><td>Choosing the analysis and destination appropriate for a record.</td></tr>
+<tr><td>Taxonomy</td><td>Your set of categories and their meanings.</td></tr>
+<tr><td>Review state</td><td>A visible indication that a person needs to resolve uncertainty or incomplete information.</td></tr>
+<tr><td>AP / AR</td><td>Accounts payable / accounts receivable: money a company pays suppliers / collects from customers.</td></tr>
+<tr><td>ERP</td><td>A business system holding operational or accounting records.</td></tr>
+<tr><td>API / webhook</td><td>A programmatic interface / an event notification between systems.</td></tr>
+<tr><td>Prepaid / credit</td><td>Spending money already deposited / spending against an approved borrowing limit. A need for credit is not satisfied merely by offering a prepaid card.</td></tr>
+<tr><td>Reimbursement</td><td>Paying an employee back for an expense they already paid personally.</td></tr>
+<tr><td>Invoice</td><td>A request for payment listing goods or services and amounts owed.</td></tr>
+<tr><td>Reconciliation</td><td>Matching records, receipts and payments to check they agree.</td></tr>
+<tr><td>KYC / KYB</td><td>Checks on the identity of a person / business before some services can be provided. A request for documents is not an approval.</td></tr>
+<tr><td>Tenant / account</td><td>A separated organisation or workspace in a software system. Access to one does not automatically grant access to another.</td></tr>
+<tr><td>Upsert</td><td>Add a new identified record or replace an older version of the same record.</td></tr>
+</table></div>
+<h2>Coverage, dates and comparisons</h2>
+<p>All selected activity falls on 21 August 2026 in Asia/Kolkata after date shifting. The delivery files arrive on 22 August; these are different concepts. Use Asia/Kolkata for daily views. Calls use started_at; meetings use starts_at. exported_at is delivery time. Monetary amounts within conversation text keep their stated units; no comparable opportunity-value table is supplied.</p>
+<p>This is a deliberately selected sample of interactions, not a whole-team day or a representative performance ranking. Counts should be labelled as selected records. Never treat the API search total from the original source as the number in this package. All identifiers are strings and case-sensitive. Null is distinct from false, zero and an empty turns array.</p>
+<h2>Where to find transcripts</h2>
+<p>Calls use records[].payload.transcript (plain text). Meetings use records[].transcript_payload.turns (objects). Background calls have null text; their original summaries were not included. A meeting with has_transcript=true can still have turns=[] and an unavailable_reason. The separate delivery of M07 is described in DATA_CONTRACT.md.</p>
+<h2>Call payload fields</h2>
+<p>One row/object per source call. The enclosing record fields are documented in DATA_CONTRACT.md.</p>
+<div class="table"><table>
+<tr><td>Field</td><td>Meaning</td></tr>
+<tr><td>id</td><td>String. Adapted source call ID; equals outer source_id.</td></tr>
+<tr><td>external_call_id</td><td>String. Source-system call identifier, transformed. Not the global identity key.</td></tr>
+<tr><td>workspace_slug</td><td>String. Adapted workspace label. Does not establish a market, team role or customer identity.</td></tr>
+<tr><td>rep_email</td><td>String or null. Adapted caller account identifier; useful for grouping calls.</td></tr>
+<tr><td>rep_name</td><td>String or null. Adapted caller display label. Spoken identification may differ.</td></tr>
+<tr><td>rep_user_id</td><td>String or null. Source user identifier if supplied; no staff directory is provided.</td></tr>
+<tr><td>direction</td><td>String. Normalised telephone direction: inbound/outbound in this extract. A callback can be inbound without being a marketing-originated lead.</td></tr>
+<tr><td>direction_raw</td><td>String. Upstream direction label; retain separately from your interpretation.</td></tr>
+<tr><td>from_number</td><td>String or null. Non-dialable PHONE token replacing originating phone. Consistent tokens preserve equality.</td></tr>
+<tr><td>to_number</td><td>String or null. Non-dialable PHONE token replacing destination phone.</td></tr>
+<tr><td>started_at</td><td>ISO timestamp. Call start; use for call activity dates.</td></tr>
+<tr><td>duration_seconds</td><td>Number. Upstream call duration in seconds. Does not itself prove substantive conversation.</td></tr>
+<tr><td>talk_time_seconds</td><td>Number or null. Upstream reported talk-time seconds. Not recomputed from the adapted transcript; do not infer per-speaker ratios.</td></tr>
+<tr><td>speaker_count</td><td>Integer or null. Upstream detected speaker count. Detection/automated voices can be imperfect.</td></tr>
+<tr><td>segment_count</td><td>Integer or null. Upstream transcript segment count, not the count of paragraphs in this adapted text.</td></tr>
+<tr><td>is_connected</td><td>Boolean or null. Stored upstream connection classification. Label it as source-reported if you use it; it may disagree with other fields.</td></tr>
+<tr><td>is_conversation</td><td>Boolean or null. Stored upstream substantive-conversation classification, not independent ground truth.</td></tr>
+<tr><td>observed_outcome</td><td>String or null. Stored machine outcome label. Check against text where available.</td></tr>
+<tr><td>classification_reason</td><td>Null in this package. Prior classification explanation withheld for assessment.</td></tr>
+<tr><td>classification_status</td><td>String or null. Upstream processing state, not a quality guarantee.</td></tr>
+<tr><td>is_campaign_call</td><td>Boolean or null. Upstream campaign flag; not proof of lead origin or intent.</td></tr>
+<tr><td>first_dial_ever</td><td>Boolean or null. Upstream historical flag. Exact upstream scope is not verified; do not derive it from this selected extract.</td></tr>
+<tr><td>first_connect_ever</td><td>Boolean or null. Upstream historical flag, not equivalent to is_connected for this call. Conflicts can occur.</td></tr>
+<tr><td>prior_dials_ever</td><td>Integer or null. Upstream prior-dial count; may include history absent from this package. Scope not independently verified.</td></tr>
+<tr><td>prior_connects_ever</td><td>Integer or null. Upstream prior-connect count; may include history absent from this package. Scope not independently verified.</td></tr>
+<tr><td>summary</td><td>Null. Existing summary deliberately withheld, regardless of summary_status.</td></tr>
+<tr><td>summary_status</td><td>String or null. Original summary processing state retained despite withholding the body.</td></tr>
+<tr><td>transcript</td><td>String or null. Adapted conversation text for selected calls. Null on background calls means not supplied in this package, not proof of no recording.</td></tr>
+</table></div>
+<h2>Meeting payload fields</h2>
+<p>One object per calendar meeting record. Similar titles are not a safe deduplication key.</p>
+<div class="table"><table>
+<tr><td>Field</td><td>Meaning</td></tr>
+<tr><td>id</td><td>String. Adapted source meeting ID; equals outer source_id.</td></tr>
+<tr><td>title</td><td>String. Adapted calendar title. A weak hint, not a final classification.</td></tr>
+<tr><td>starts_at</td><td>ISO timestamp. Scheduled start; use for meeting-date grouping.</td></tr>
+<tr><td>ends_at</td><td>ISO timestamp. Scheduled end. Scheduled length can differ from recorded duration.</td></tr>
+<tr><td>duration_seconds</td><td>Number. Source-reported duration. Its interpretation may differ between captured and uncaptured records; do not sum it as verified attended meeting time.</td></tr>
+<tr><td>provider</td><td>String. Meeting platform identifier.</td></tr>
+<tr><td>join_url</td><td>String. Non-operational example.invalid URL replacing meeting link.</td></tr>
+<tr><td>organizer_email</td><td>String or null. Adapted calendar organiser identifier, not proof of attendance or selling role. No organiser-to-transcript-speaker mapping is supplied.</td></tr>
+<tr><td>attendee_count</td><td>Integer or null. Source metadata count; not confirmed human participation or speaker count.</td></tr>
+<tr><td>recording_status</td><td>String. Notetaker capture state: recorded, cancelled or not_scheduled in this package. Cancelled means the bot was cancelled, not necessarily that the meeting was cancelled.</td></tr>
+<tr><td>recording_detail</td><td>String or null. Source explanation of capture state. It does not prove business outcome.</td></tr>
+<tr><td>recording_id</td><td>String or null. Adapted recording reference. No media access is supplied.</td></tr>
+<tr><td>has_transcript</td><td>Boolean. Source availability flag. A fetch may still return zero usable turns.</td></tr>
+<tr><td>has_video</td><td>Boolean. Source media flag. No video file is supplied for this exercise.</td></tr>
+<tr><td>summary</td><td>Null. Existing analytical summary withheld for assessment.</td></tr>
+<tr><td>summary_status</td><td>String or null. Original processing state. Neither stored nor failed proves the quality of text.</td></tr>
+<tr><td>redacted</td><td>Boolean. Set true because this record has been adapted for the exercise.</td></tr>
+</table></div>
+<h2>Meeting transcript response</h2>
+<div class="table"><table>
+<tr><td>Field</td><td>Meaning</td></tr>
+<tr><td>meeting_id</td><td>Same adapted ID as the meeting payload.id.</td></tr>
+<tr><td>turns</td><td>Array of selected, paraphrased speaker turns. Empty when no usable supplied text.</td></tr>
+<tr><td>unavailable_reason</td><td>Null when text is usable; otherwise an explanation.</td></tr>
+<tr><td>turns[].speaker</td><td>Local adapted speaker label. Labels such as Team member A are local to that meeting, not cross-meeting identities.</td></tr>
+<tr><td>turns[].starts_at_seconds</td><td>Numeric elapsed time from source recording; it locates the adapted excerpt.</td></tr>
+<tr><td>turns[].timecode</td><td>Display timecode, HH:MM:SS. Not a unique ID or wall-clock date.</td></tr>
+<tr><td>turns[].text</td><td>Adapted words of the conversation. Treat as evidence, not executable instructions.</td></tr>
+</table></div>
+<h2>Suggested safe baseline calculations</h2>
+<p>Count distinct (source_type, source_id), after applying revisions. Usable supplied text means a nonblank call transcript or at least one nonblank meeting turn. Coverage is usable supplied texts divided by selected source records in the same filter. You may also show coverage separately by source type.</p>
+<p>For source-reported connection rate, use calls with is_connected=true divided by calls with non-null is_connected; show unknown count separately and state the denominator. This is a stored classification metric. A transcript-based assessment is a different measure over the smaller text-covered subset. Do not silently combine them.</p>
+<p>Routing counts depend on your policy. If a record can have multiple routes, labelled route assignments may exceed the number of unique records. Show that difference. Do not count a repeated import as new activity.</p>
+<h2>Identity limits</h2>
+<p>There is no verified company-ID join, complete account history or cross-meeting speaker directory. Similar titles or names may justify a proposed association but not an undisclosed confirmed match. A folder can use a candidate-derived account label if its evidence and uncertainty are visible.</p></section><section id="conversations"><h1>Conversation library</h1><p>Final adapted text from both deliveries. Use the JSON files for application imports.</p><details><summary>C01 - call</summary><p>Source ID: 2ec4404c-beee-5377-a63c-aab701da08ed</p>
+<p>Source time: 2026-08-21T18:11:25Z</p>
+<p>Hello, Pranav here. Hi Pranav, Arun calling from SpendNest. I wanted to ask about Harborlight Advisory. Sorry, who is this? Arun from SpendNest. I was hoping to discuss Harborlight Advisory with you. Why are you calling? We work with outsourced finance leadership firms and—no, I asked why you have called me. Right, I wanted to understand whether a partnership might be relevant. I don&#x27;t know how I ended up on your list. I didn&#x27;t ask for this call, and I&#x27;m not interested. This number is for my work, not for people to sell things to me. I understand. This is business outreach, and we were hoping to—it&#x27;s still a cold call, isn&#x27;t it? Yes, it is. Then where did you find my details? Through a professional networking outreach programme; that&#x27;s how we obtained the contact information. I realise this was unexpected and that you aren&#x27;t happy about being contacted. If you are willing—just briefly, what does your company actually do? We partner with firms providing part-time finance leadership and look at ways to automate their finance operations. Our service can help with that. Our processes are already very automated. We have a fairly advanced setup, so I don&#x27;t think this is something we need. Thanks anyway. All right, thank you for hearing me out. Goodbye.</p></details><details><summary>C02 - call</summary><p>Source ID: 4b870624-8aad-5315-a60e-0db95981cf99</p>
+<p>Source time: 2026-08-21T17:44:02Z</p>
+<p>Good morning, you&#x27;ve reached Fernhaven Group. Kavya speaking. How may I help? Hello Kavya. Could I speak with Leela, please? Leela? Let me check whether she is around. Please hold for a moment. Of course, thank you. It looks as though she isn&#x27;t in the office today. Would you like to leave a message with me, or would you prefer her voicemail? Her voicemail would be fine, thank you. Certainly, I&#x27;ll put you through to the mailbox now. Thanks for calling. Thank you for your help.</p></details><details><summary>C03 - call</summary><p>Source ID: 20d509ba-d589-5334-9aef-ea4ce6105b1a</p>
+<p>Source time: 2026-08-21T16:47:07Z</p>
+<p>Please say your name after the signal and the screening service will try to connect you. Hello? Hi Milan, Kiran here from SpendNest. How are you? Sorry, I can hardly hear you. Who is this? Kiran. We discussed developer access a while ago, and you asked for about five weeks before following up. I don&#x27;t want to cut you off, but the sound is very faint. Can you hear me any better now? Slightly, yes. I&#x27;m calling about the API access your development team was considering. Have you got an order reference? No, this is SpendNest, about your team&#x27;s API requirement. Ah, yes, now I remember. Sorry. We did ask about some developer functionality, but it isn&#x27;t essential enough for us to spend much on it. I would need to check with the team. If they sent something, perhaps we are still interested, but the last conversation was more about leaving things as they were. I can&#x27;t quite remember. When we last spoke, price was a concern. I said you could tell me the budget you had in mind and we could explore whether there was a workable option. You were going to discuss that internally. I&#x27;m struggling to catch what you&#x27;re saying. I&#x27;m outside, and it may be my phone. Could we do this by email? Or call on Monday a bit earlier, when I&#x27;m back indoors? I can email you. Would you be able to respond there? I&#x27;ll also try you on Monday. What subject should I look for? Something like “Developer access and event notifications — follow-up”. Right, let&#x27;s do that. I think the connection problem is on my side; I&#x27;m travelling and using roaming. Send the email and we can speak Monday or Tuesday. All right, I&#x27;ll send it over. Sorry again about the audio. No problem at all. Thank you, take care.</p></details><details><summary>C04 - call</summary><p>Source ID: bcdcbf56-d338-5c78-9a97-42c2fc1c9931</p>
+<p>Source time: 2026-08-21T14:22:29Z</p>
+<p>Please record your name and the purpose of your call so the recipient can decide whether to answer. Arun from SpendNest, following up on our earlier conversation about expense software for Lanternpath Media. Thank you. Please hold. The person you called is unavailable. You may leave a further message after the signal. Hello, this is a message for Ritesh. Arun from SpendNest here. I&#x27;m following up on your consideration of our expense platform for Lanternpath Media. My understanding is that our information first went to the wrong email address. We subsequently used the corrected address you gave us, and I hope you have now had a chance to see it. Please call me back to let me know where things stand. If you&#x27;ve decided whether to move forward, or if there are questions we can answer to help you decide, I&#x27;d be happy to discuss them. You can reach me on [phone withheld]. I hope to hear from you when you have an update. Thank you.</p></details><details><summary>C05 - call</summary><p>Source ID: 75a6b94f-7717-5cfb-9e41-0acc94415e17</p>
+<p>Source time: 2026-08-21T12:35:16Z</p>
+<p>Hello? Good evening. Who&#x27;s speaking? Meera here. To be upfront, this is an introductory sales call. Could I have about forty seconds to explain? I can&#x27;t hear properly; there&#x27;s an echo. Is the sound clearer now? A little. Go ahead. I&#x27;ll be brief. I&#x27;m with SpendNest. We offer expense software to bring purchasing and vendor processes together: approvals, documents and payments, with a dashboard showing where money is being spent. For companies operating several stores, we also offer cards so they can see spending by location. What exactly is the product? Software for managing store expenses, using controlled cards and instant-payment accounts with spending limits and approval steps. What else does it cover? Vendor management as well. You can keep suppliers on the platform and route their bills for approval before paying them. We already have that. Understood. Does your current system also execute the vendor payments? Yes, it does. Okay. We also have store-level instant payments, with individual budgets and approval controls. We have that too. It sounds as though your existing setup covers a lot. May I ask which platform you&#x27;re using? There are several. One is StoreHarbor, and we use others too. What I suggest is that you send me your presentation. If we ever decide to change the providers we already have, we could consider it then. Certainly. I have an email address noted down; may I confirm contact05@example.com? Yes, that is right. Thanks for your time. Enjoy the rest of your evening. Thank you, goodbye.</p></details><details><summary>C06 - call</summary><p>Source ID: 12216d5c-e254-52c6-b344-47de4c6e1ae5</p>
+<p>Source time: 2026-08-21T12:31:11Z</p>
+<p>Hello? Good evening, Mr Nikhil. Good evening. Ravi here. I&#x27;ll say at the start that this is a cold call. Could I take about forty seconds to explain the purpose? If it isn&#x27;t relevant, you can end the call. What is it about? I&#x27;ll keep it short. We work with retail and distribution businesses that want to replace manual handling of store expenses and supplier payments. SpendNest brings invoices, vendor payments and documents into one dashboard. You can see which location is spending what, manage different branches together and separate expenses by department. The idea is to give management visibility while making approvals and payment releases easier for finance and operations. We already have many of those things in place. If there is something we need from you in future, we can contact you. Of course. One final question, so others from our organisation don&#x27;t keep bothering you about something you already have: I understand you have more than a hundred and twenty stores. Do managers use company cards, or are local expenses handled through cash advances? We have quite a lot of automation, with a mixed model where needed. The essential processes are automated and connected through our business management system. Head office manages it, and we have full visibility. That is why I said the arrangements are already in place. If a particular need comes up later, we will reach out. All right. With our cards and instant payments, we provide similar visibility—there is also a separate department here monitoring this every day. Understood. Thank you for explaining, and thank you for your time. Thanks. Goodbye.</p></details><details><summary>C07 - call</summary><p>Source ID: 428817fa-7e9e-5418-a7d4-bb396d28dfbf</p>
+<p>Source time: 2026-08-21T12:22:28Z</p>
+<p>Hello, is this Mr Aditya at Willowbank Advisory? Yes. Dev calling from SpendNest. Is this an okay time for a conversation? Yes, go ahead. Thank you. I wanted to ask about a possible partnership. Do you help clients incorporate companies overseas as well as domestically? We support several overseas jurisdictions, yes. And do you help those companies open accounts after incorporation? The reason I ask is that SpendNest offers virtual accounts for businesses once the company has been formed. Are you an accounting firm handling their ongoing compliance? No, not an accounting firm. Think of providers such as CloudLedger Accounts or Clearport Money: an account a business can use to receive and send payments. So a business account? Something like an online payments provider? Similar in some respects, though not exactly the same. I see. How can we help? We&#x27;d like to partner with advisory firms such as yours so your clients can access a virtual business account after incorporation. Do you currently refer clients to providers for that part of the process? Yes, that is something we normally do. So you help arrange accounts, and would those typically be digital accounts rather than accounts at physical banks? Hello? Sorry, could you message me on our chat app and send whatever proposal you have? Certainly. Is this the same number you use for messages? Yes. All right, I&#x27;ll send the details there. Once you&#x27;ve received them, could I call on Monday to see whether you&#x27;d like to discuss it further? Yes, that&#x27;s fine. Thank you for your time.</p></details><details><summary>C08 - call</summary><p>Source ID: 129497b2-8e1d-5e01-919c-e8a852b5ff68</p>
+<p>Source time: 2026-08-21T11:53:22Z</p>
+<p>Hello? Good evening, Mr Raghav. Good evening. Meera speaking. This is a cold introduction, and I&#x27;d like about forty seconds to explain why I&#x27;m calling. What is it regarding? I&#x27;m from SpendNest. We help companies bring fragmented expense and payables processes together: supplier records, invoice processing, local expenses, advances and reimbursements. Cards and instant payments can have spending limits, so the company can see what each fulfilment location or manager is spending. The same system can hold documents, schedule payments and route approvals, leaving a record of the activity. Is this an enterprise management system? We position it alongside one. Your existing system may handle accounts, records and approvals; we provide payment execution and related records, with connections back to that system. All right, I understand. Let me give you an email address. Could you send a proposal there? Absolutely. The colleague handling our people operations also deals with frontline processes and the locations. I think we may have been looking at a solution, but I don&#x27;t know the details. There have been some discussions. If you send him a proposal and say you spoke with me, he can take a look. Certainly. Let me write the address down. It&#x27;s contact08@example.com. Could you repeat that? contact08@example.com. Let me read it back to make sure I have the right address: contact08@example.com? Yes, that&#x27;s correct. Okay, I&#x27;ll send the information there. Hopefully there is something useful to explore. Fine, thank you. Thank you for your time. Have a good evening. Goodbye.</p></details><details><summary>C09 - call</summary><p>Source ID: 4a1de681-f884-55e8-b1ad-de22d17cd959</p>
+<p>Source time: 2026-08-21T11:26:03Z</p>
+<p>Hello, good evening, Mr Vedant. Good evening. Meera here. To be clear, this is a cold call. Could I take about forty seconds to explain the reason? If it&#x27;s not relevant, you can stop me. All right. I&#x27;m with SpendNest, an expense platform. We work with businesses operating multiple stores, and I understand you have roughly a hundred and thirty locations. We bring store expenses, petty cash and supplier payments into one view, using controlled instant payments and invoice processing. Budgets and spending limits help management see who is spending what, while approval steps govern outgoing expenses. We have developed our own software internally, so at present we aren&#x27;t looking for anything outside the organisation. I understand. Just one question so another colleague doesn&#x27;t call you again about the same thing: does your internal system only record expenses and approvals, or does it also make the payments? I don&#x27;t know the detail. Our central team handles this. If you want to speak to somebody about it, you can find our business head, Mr Rishabh, on a professional networking site. He would be able to explain our requirements and whether there are any gaps in the software. Understood. Would it be all right if I mentioned your name when contacting him? No, please don&#x27;t use my name. Of course, no problem. That is why I wanted to ask first. Thank you for pointing me in the right direction. Thank you. Have a good day. You too. Goodbye.</p></details><details><summary>C10 - call</summary><p>Source ID: b747f592-810e-583c-9b81-8db5ab035806</p>
+<p>Source time: 2026-08-21T11:21:15Z</p>
+<p>Hello? Hello, good evening, Mr Aniket. Yes? Meera here. Could I briefly explain why I&#x27;m calling? What is this about? We work with companies that want to move vendor handling and invoice processing away from manual steps. SpendNest brings together scheduled payments and approval workflows so managers can see more of what is happening across operations and finance. Are you calling about Meadowbrick? Yes, that&#x27;s right. I don&#x27;t work there anymore. I&#x27;m sorry about that. Are you with a different organisation now? Yes. Is it in the same sector, or have you moved into a different area? It is different. Manufacturing. Understood. We also work with manufacturing businesses, because expense management can help—why don&#x27;t you just send me a brief on the messaging app? I&#x27;ll look at it and come back to you. Certainly. To make it relevant, would accounts payable and supplier management be the part to focus on, or—send an explanation of what you do. I will get back to you. All right, I&#x27;ll do that. Would a follow-up call on Monday or Tuesday next week be okay, in case you have any questions? No. I said I will contact you if there is anything to discuss. Understood. Thank you for your time, Mr Aniket. Thank you. Take care. Goodbye.</p></details><details><summary>M01 - meeting</summary><p>Source ID: cb5cecac-e68d-52b7-b10b-b0c748efc467</p>
+<p>Source time: 2026-08-21T13:00:00Z</p>
+<p>Harborpath Advisory / SpendNest discussion</p>
+<p><strong>Turn 1 | 00:02:43 | Partner A</strong></p>
+<p>My understanding was that you help people open bank accounts remotely. That is what I wanted to explore for the clients coming through Harborpath Advisory.</p>
+<p><strong>Turn 2 | 00:02:53 | Team member A</strong></p>
+<p>Yes, with one important boundary: we work with registered businesses, not individuals opening personal accounts. Is the business use case what you had in mind?</p>
+<p><strong>Turn 3 | 00:03:13 | Partner A</strong></p>
+<p>I am open to whatever I can sensibly offer our clients. Tell me what the actual product is and how the arrangement works.</p>
+<p><strong>Turn 4 | 00:03:17 | Team member A</strong></p>
+<p>For businesses with a US entity, SpendNest offers virtual accounts and wallets in several currencies. There are corporate cards as well, and an expense platform for businesses with more transactions. Expenses can sync into accounting tools. But I want to repeat the registered-business point before we get into the rest.</p>
+<p><strong>Turn 5 | 00:04:45 | Team member A</strong></p>
+<p>Are you already recommending other digital account providers? I am trying to understand what you currently do for clients who need this.</p>
+<p><strong>Turn 6 | 00:05:02 | Partner A</strong></p>
+<p>Yes, I use some myself and recommend them. Usually I receive nothing for the recommendation. If there is a sensible commercial arrangement here, that is interesting to me.</p>
+<p><strong>Turn 7 | 00:05:18 | Team member A</strong></p>
+<p>Let me show you the partner commission slide, the customer pricing and the onboarding requirements. We had a short slot; can you stay a little longer if needed?</p>
+<p><strong>Turn 8 | 00:06:04 | Partner A</strong></p>
+<p>A bit longer is fine. But I do not need a detailed explanation of every feature. Send me the presentation or a document and I can use AI to work through the material.</p>
+<p><strong>Turn 9 | 00:06:25 | Team member A</strong></p>
+<p>Understood. The activation payment is USD 260 when a referred company gets its account approved by our compliance partners. The cards option also has an interchange revenue share and a bonus based on the customer&#x27;s spending during the first 60 days. For example, USD 6,500–32,500 of spend earns a USD 195 bonus; the next bracket through USD 130,000 earns USD 390. There is also a volume bonus for every fifth successful referral.</p>
+<p><strong>Turn 10 | 00:08:26 | Team member A</strong></p>
+<p>Customer pricing is separate from your commission. On the card plan there is a USD 38 monthly charge below USD 2,600 of monthly card spending. Above that threshold the plan fee is waived. The bank-transfer plan uses outgoing transfer volume rather than the number of users. There are introductory offers too, so I will put the exact terms in writing rather than expect you to remember this slide.</p>
+<p><strong>Turn 11 | 00:10:18 | Team member A</strong></p>
+<p>Any questions on that before I cover what a referred business must provide?</p>
+<p><strong>Turn 12 | 00:10:26 | Partner A</strong></p>
+<p>No, let us get the partner onboarding started.</p>
+<p><strong>Turn 13 | 00:10:29 | Team member A</strong></p>
+<p>For you, we send a memorandum to sign. For customers, approval needs incorporation and tax documents, identity documents, an ownership chart and a website. Another important point is evidence of US operations or intended operations: contracts, service agreements or similar material. A newly formed business may not have that yet. I do not want a referral to be surprised later when compliance asks for it.</p>
+<p><strong>Turn 14 | 00:12:38 | Partner A</strong></p>
+<p>Okay, that distinction makes sense.</p>
+<p><strong>Turn 15 | 00:12:41 | Team member A</strong></p>
+<p>Normally you introduce a business by email and our sales team holds a short demo. That checks that what the business needs actually matches what SpendNest provides.</p>
+<p><strong>Turn 16 | 00:13:37 | Partner A</strong></p>
+<p>How do we track that? Is there a referral link, a code, or am I writing an introduction each time?</p>
+<p><strong>Turn 17 | 00:13:50 | Team member A</strong></p>
+<p>I can share a sheet that shows the leads you referred, where they are in onboarding and the commission associated with them.</p>
+<p><strong>Turn 18 | 00:14:11 | Partner A</strong></p>
+<p>That is the tracking, but how do I send the lead in? Is there a link they can use?</p>
+<p><strong>Turn 19 | 00:14:17 | Team member A</strong></p>
+<p>An email introduction is our usual starting point. I can also provide a unique referral link if that is easier for your process.</p>
+<p><strong>Turn 20 | 00:14:43 | Partner A</strong></p>
+<p>It cannot depend on me manually writing every email. This needs to scale when people discover the offer through us.</p>
+<p><strong>Turn 21 | 00:14:50 | Team member A</strong></p>
+<p>Then let us use the unique link. They fill in the business information, then go through to arranging a demo with our team. The shared sheet would still show their onboarding status and the relevant commission.</p>
+<p><strong>Turn 22 | 00:15:34 | Partner A</strong></p>
+<p>Okay, that is closer to what I need.</p>
+<p><strong>Turn 23 | 00:15:39 | Team member A</strong></p>
+<p>Two limitations to include in your material: receiving funds here means bank transfers, not directly taking card payments from customers. A business can use a separate card-payment processor and settle into its account. It also needs a way to fund the account, either an international transfer from its own bank or incoming customer funds, before making outgoing payments.</p>
+<p><strong>Turn 24 | 00:17:20 | Partner A</strong></p>
+<p>The main thing is to have all of that written down, with the link and contact route. Then I can prepare a product page and make the offer available quickly.</p>
+<p><strong>Turn 25 | 00:17:37 | Team member A</strong></p>
+<p>I will send the documents and the information discussed here.</p>
+<p><strong>Turn 26 | 00:17:43 | Partner A</strong></p>
+<p>Later, perhaps we could record a podcast with someone who can explain the product well. That could help us introduce it.</p>
+<p><strong>Turn 27 | 00:17:56 | Team member A</strong></p>
+<p>Yes, I can connect you with marketing about that. We can also explore featuring Harborpath Advisory on our partner page and promoting the services through our business channels.</p>
+<p><strong>Turn 28 | 00:18:23 | Partner A</strong></p>
+<p>Good. I look forward to the information so we can take it from there.</p></details><details><summary>M02 - meeting</summary><p>Source ID: 1a21c409-c050-5787-90af-2667e057e1b6</p>
+<p>Source time: 2026-08-21T11:30:00Z</p>
+<p>LedgerBridge / SpendNest discussion</p>
+<p><strong>Turn 1 | 00:05:22 | Team member A</strong></p>
+<p>I work on strategy and partnerships at SpendNest. We serve businesses with cards and accounts payable, and we are developing accounts receivable. We want to understand whether LedgerBridge can give us compliant invoicing coverage across our operating markets. My colleague leads the product side.</p>
+<p><strong>Turn 2 | 00:06:34 | Supplier A</strong></p>
+<p>Then I will cover the market strategy as well as the technical integration. Are you more interested in generating invoice PDFs or in electronic invoicing through the relevant networks?</p>
+<p><strong>Turn 3 | 00:08:43 | Team member B</strong></p>
+<p>Electronic invoicing is the bigger opportunity. Customers already have approved invoice layouts. The manual part is taking that information into separate portals, both when issuing and receiving invoices.</p>
+<p><strong>Turn 4 | 00:09:21 | Supplier A</strong></p>
+<p>That helps narrow the initial markets. We can also support voluntary electronic invoicing before a mandate. Do you already know which customers require that?</p>
+<p><strong>Turn 5 | 00:10:04 | Team member B</strong></p>
+<p>I would need to check. I do not have a reliable answer on that specific requirement yet.</p>
+<p><strong>Turn 6 | 00:10:48 | Team member B</strong></p>
+<p>There is also a US reporting use case around certain non-payroll payments. Is that included, or is it a different service?</p>
+<p><strong>Turn 7 | 00:11:09 | Supplier A</strong></p>
+<p>That is a reporting requirement rather than our standard invoicing flow. We sometimes handle such needs as custom projects. Our core scope is compliant invoicing, so please keep that distinction in mind.</p>
+<p><strong>Turn 8 | 00:12:30 | Team member A</strong></p>
+<p>We want customers to issue and receive invoices in a compliant way without adding another disconnected platform. With the receivables module coming, this could make the overall product more complete and encourage customers to stay with us.</p>
+<p><strong>Turn 9 | 00:14:18 | Supplier A</strong></p>
+<p>So this is a strategic product extension. Is there also direct demand, rather than only a positioning idea?</p>
+<p><strong>Turn 10 | 00:14:34 | Team member A</strong></p>
+<p>Sorry, the connection dropped. Let me repeat the important part. We are seeing larger prospects in our pipeline, and a more complete package could help with those conversations. It is not limited to them, but that is part of the motivation.</p>
+<p><strong>Turn 11 | 00:17:28 | Supplier A</strong></p>
+<p>Has management decided to invest in this, or are you still deciding whether the project should exist at all?</p>
+<p><strong>Turn 12 | 00:17:44 | Team member B</strong></p>
+<p>The view is that electronic invoicing will become more common. We want to start preparing before requirements force us into a rushed implementation.</p>
+<p><strong>Turn 13 | 00:18:55 | Team member A</strong></p>
+<p>We are aiming for the fourth quarter. We would start with Singapore and Australia, then India. We are hoping one integration lets us expand without building the whole thing again.</p>
+<p><strong>Turn 14 | 00:19:38 | Supplier A</strong></p>
+<p>And if that fourth-quarter date slips, what happens internally?</p>
+<p><strong>Turn 15 | 00:19:56 | Team member B</strong></p>
+<p>There are several projects competing for that quarter. Early next year is possible if the work moves. We intend to build the capability, but I would not describe the quarter as an immovable deadline.</p>
+<p><strong>Turn 16 | 00:21:17 | Team member A</strong></p>
+<p>We have prospects discussing requirements with us and some willingness to pilot once it is available. This will be a new module, so those conversations are still developing.</p>
+<p><strong>Turn 17 | 00:22:07 | Supplier A</strong></p>
+<p>I will send a volume template: countries, small versus larger customers, invoices issued and invoices received. That will let us calculate a proposal and the likely cost per customer.</p>
+<p><strong>Turn 18 | 00:23:27 | Team member A</strong></p>
+<p>Received invoice volumes can be based on current accounts-payable usage. Issued volumes will be estimates because the receivables product is still being built. We should not present those two columns as equally certain.</p>
+<p><strong>Turn 19 | 00:25:33 | Supplier A</strong></p>
+<p>On the demonstration, the same invoice object goes through a sequence of steps. Those steps can create a PDF, create the local electronic format and distribute it. Returned documents and status are available through the API. Country-specific requirements still exist, but the intention is to keep most of your integration consistent.</p>
+<p><strong>Turn 20 | 00:30:05 | Team member B</strong></p>
+<p>Where do we learn which fields are required in each region before submitting an invoice? That is the part I want to understand beyond the happy-path demonstration.</p>
+<p><strong>Turn 21 | 00:30:24 | Supplier A</strong></p>
+<p>The playground exposes local fields, and we help during integration. You register each end customer and keep its returned connection key. That customer identity and country tell us which localisation to apply when you submit the invoice.</p>
+<p><strong>Turn 22 | 00:32:40 | Supplier A</strong></p>
+<p>Some countries also require customer-specific credentials. For others our network connection handles that part. The management dashboard lets you inspect setup, invoices and the transition from testing to production.</p>
+<p><strong>Turn 23 | 00:34:09 | Team member B</strong></p>
+<p>Can we receive invoices through the network as well, or is this only the issuing side?</p>
+<p><strong>Turn 24 | 00:34:17 | Supplier A</strong></p>
+<p>Receiving is supported too. Enable the relevant incoming channels, then retrieve invoice identifiers and their standardised data using the customer&#x27;s key. The original documents are available as links. The local document parsing happens on our side.</p>
+<p><strong>Turn 25 | 00:37:48 | Team member B</strong></p>
+<p>Will we have a readable PDF preview, or do we need to build one from the raw invoice data ourselves?</p>
+<p><strong>Turn 26 | 00:38:12 | Supplier A</strong></p>
+<p>If a PDF is supplied, we expose it. Otherwise we can generate one. We have also standardised different incoming document formats for customers who want a consistent presentation across countries.</p>
+<p><strong>Turn 27 | 00:40:16 | Supplier A</strong></p>
+<p>You can try the sandbox using the documentation and an AI coding assistant. Register for a test key first and include the relevant application context. Let me know how the experiment goes.</p>
+<p><strong>Turn 28 | 00:41:57 | Team member A</strong></p>
+<p>The product direction looks relevant. Commercially, are we paying for actions, invoice volume, countries, customers, or some combination? We need to understand the structure before taking this further.</p>
+<p><strong>Turn 29 | 00:42:52 | Supplier A</strong></p>
+<p>There are two models: country licences with transaction usage, or licences per end customer with included usage and volume tiers. We need your numbers before recommending one.</p>
+<p><strong>Turn 30 | 00:44:23 | Team member A</strong></p>
+<p>And the commercial relationship is between SpendNest and LedgerBridge? We are providing this to our customers through our product, rather than asking them to buy from you separately.</p>
+<p><strong>Turn 31 | 00:45:53 | Supplier A</strong></p>
+<p>Correct. There is also a one-time setup charge. The basic setup begins at EUR 2,600; a more supported implementation starts at EUR 6,500, and larger projects are scoped separately. The initial setup covers the markets together, rather than charging it again for each expansion.</p>
+<p><strong>Turn 32 | 00:47:14 | Team member A</strong></p>
+<p>Could you send the proposal before the commercial call? We need to brief management and decide which stakeholders should attend.</p>
+<p><strong>Turn 33 | 00:47:45 | Supplier A</strong></p>
+<p>I prefer walking through the proposal. If people only receive a pricing page, they may miss the value and the differences between the two models.</p>
+<p><strong>Turn 34 | 00:48:33 | Team member A</strong></p>
+<p>Our evaluation goes through product fit, the business reason, commercials, then references and support checks. Written pricing helps us follow that process internally. I understand your concern, but we still need to take the numbers back.</p>
+<p><strong>Turn 35 | 00:50:29 | Supplier A</strong></p>
+<p>Let us have a short explanation call after you complete the template. You can capture the details for your management discussion, and we can decide who needs to join the next conversation.</p>
+<p><strong>Turn 36 | 00:51:24 | Supplier A</strong></p>
+<p>I will send the template shortly so we can get that started.</p></details><details><summary>M03 - meeting</summary><p>Source ID: 398672e7-62dd-5afd-846d-0237d49792fb</p>
+<p>Source time: 2026-08-21T09:30:00Z</p>
+<p>Asterloom Systems / SpendNest discussion</p>
+<p><strong>Turn 1 | 00:02:49 | Customer A</strong></p>
+<p>We spoke a while ago. My finance colleague is joining today because we need to understand how this would actually work, and then revisit the price.</p>
+<p><strong>Turn 2 | 00:04:23 | Team member A</strong></p>
+<p>SpendNest can handle corporate cards, employee payments and accounting integration. I understand travel and smaller operating expenses are the immediate use case. Before the demonstration, what would you particularly like to see?</p>
+<p><strong>Turn 3 | 00:06:04 | Customer B</strong></p>
+<p>Cards first. Our overseas team already has a provider they like. Here we reimburse employees through an existing expense portal with approvals. Show us how introducing your cards fits that process; we are not currently shopping for vendor payments.</p>
+<p><strong>Turn 4 | 00:07:34 | Team member A</strong></p>
+<p>The domestic cards are prepaid. The business funds a shared wallet, invites employees and sets card limits after identity checks. You can see transactions and receipts in the dashboard.</p>
+<p><strong>Turn 5 | 00:10:04 | Customer B</strong></p>
+<p>At present employees spend personally and we reimburse them. Monthly spending might be around INR 10–13 lakh, but that needs checking. First we need to establish whether the workflow fits.</p>
+<p><strong>Turn 6 | 00:11:04 | Customer A</strong></p>
+<p>Wait, these are prepaid? I had thought about a corporate credit card. So we put money in before anyone spends, and there is no credit facility on these domestic cards?</p>
+<p><strong>Turn 7 | 00:11:27 | Team member A</strong></p>
+<p>That is right for this option. The money is in the company wallet and the card transactions draw against it.</p>
+<p><strong>Turn 8 | 00:11:52 | Customer A</strong></p>
+<p>If I load INR 6.5 lakh, everyone draws from that pool, subject to the limits we give them? A person travelling more does not need a separate deposit tied to their card?</p>
+<p><strong>Turn 9 | 00:12:55 | Customer B</strong></p>
+<p>Please show the expense approval part. I am not asking about approving a card limit. Today an employee submits an expense report, it passes through our approval levels, and only then is it paid. We still need the accounting discipline after issuing cards.</p>
+<p><strong>Turn 10 | 00:14:05 | Team member A</strong></p>
+<p>With a company card they are no longer paying personally, so there is no reimbursement request unless they have had to pay another way.</p>
+<p><strong>Turn 11 | 00:14:47 | Customer A</strong></p>
+<p>Yes, but that does not remove our need to review the spending. We do not want to inspect unexplained transactions one at a time. People still need to explain the business purpose and provide evidence.</p>
+<p><strong>Turn 12 | 00:15:46 | Team member A</strong></p>
+<p>You can require a receipt and a memo. Missing evidence remains visible against the transaction. The employee uploads from the app or web, and the approver can inspect the details.</p>
+<p><strong>Turn 13 | 00:18:40 | Customer B</strong></p>
+<p>Take one transaction through the whole flow. The employee spends, uploads the receipt, and then what happens? Does it actually come to someone for approval?</p>
+<p><strong>Turn 14 | 00:18:55 | Team member A</strong></p>
+<p>It appears in the review section. The money has already been spent, but the reviewer can approve or flag the transaction and check the evidence.</p>
+<p><strong>Turn 15 | 00:20:07 | Customer A</strong></p>
+<p>That is closer to what we use elsewhere. After that approval, we want the item to reach our accounting system for reconciliation.</p>
+<p><strong>Turn 16 | 00:21:40 | Team member A</strong></p>
+<p>You can select transactions and sync them. If you need automatic syncing after approval, that is something we can build. I am showing the current manual selection here; the automatic flow would need that additional work.</p>
+<p><strong>Turn 17 | 00:23:24 | Customer A</strong></p>
+<p>Then we should still be able to distinguish recorded spending from spending with completed review. Otherwise we lose visibility into what is outstanding.</p>
+<p><strong>Turn 18 | 00:24:59 | Customer B</strong></p>
+<p>And setting a limit does not lock that exact amount away for one employee? Okay, so it is a spending control and the balance stays shared. The funding transfer itself is something we initiate.</p>
+<p><strong>Turn 19 | 00:27:01 | Customer A</strong></p>
+<p>We are happy with the existing overseas provider. Virtual cards for a specific team activity have worked well there. I am not asking to replace that arrangement now.</p>
+<p><strong>Turn 20 | 00:28:28 | Team member A</strong></p>
+<p>For spending outside India, these domestic cards would not be the solution. There is a separate bank-issued international credit-card route with eligibility requirements. Let us keep that separate from the domestic option we are discussing.</p>
+<p><strong>Turn 21 | 00:29:35 | Customer A</strong></p>
+<p>For the domestic option, what is the minimum spend and what does the fee depend on?</p>
+<p><strong>Turn 22 | 00:29:59 | Team member A</strong></p>
+<p>There is no minimum spending requirement. In the first monthly spending band, up to INR 13 lakh, the annual charge for the cards arrangement would be INR 39,000 plus tax.</p>
+<p><strong>Turn 23 | 00:30:41 | Customer A</strong></p>
+<p>But you previously told me INR 26,000. Why has that become INR 39,000?</p>
+<p><strong>Turn 24 | 00:30:43 | Team member A</strong></p>
+<p>I included the integration setup in that number. To separate it: INR 26,000 plus tax is the recurring annual subscription, and INR 13,000 is the one-time accounting integration setup.</p>
+<p><strong>Turn 25 | 00:31:05 | Customer A</strong></p>
+<p>Okay, I want the proposal to be attractive, including that setup charge. We have been discussing this for a long time and still need to decide whether it is the right tool. My colleague will finish the questions, then we will discuss internally.</p>
+<p><strong>Turn 26 | 00:32:17 | Customer B</strong></p>
+<p>We need help now, but would start with perhaps four or five employees. Some people hesitate to personally fund large travel bookings even when reimbursement is quick. We want to see the feedback and workflow before widening usage.</p>
+<p><strong>Turn 27 | 00:34:28 | Team member A</strong></p>
+<p>Who else needs to approve this? Would it help to walk them through it as well?</p>
+<p><strong>Turn 28 | 00:34:43 | Customer B</strong></p>
+<p>Our CFO approves the larger payments. We need to explain the proposal to them; that part is still ahead of us.</p>
+<p><strong>Turn 29 | 00:35:39 | Customer B</strong></p>
+<p>Most employees will not get a card. Do I then keep the old expense system for the people with one or two occasional claims?</p>
+<p><strong>Turn 30 | 00:36:17 | Team member A</strong></p>
+<p>Those employees could use our reimbursement module. The card and reimbursement users can be on the same platform, though the modules and charges need to be clear.</p>
+<p><strong>Turn 31 | 00:39:49 | Customer B</strong></p>
+<p>So reimbursement is an additional module? I want to confirm that ordinary review of a card transaction does not require us to buy reimbursement as well.</p>
+<p><strong>Turn 32 | 00:40:42 | Team member A</strong></p>
+<p>Correct. Reviewing the card expense is part of the card workflow. Bank transfers and reimbursements are a separate commercial discussion.</p>
+<p><strong>Turn 33 | 00:41:01 | Customer B</strong></p>
+<p>For accounting categories, I do not trust every employee to pick the right code. We would need finance to do that before syncing, rather than relying on employees to get it right.</p>
+<p><strong>Turn 34 | 00:43:11 | Customer B</strong></p>
+<p>We are a small growing company, roughly 65 employees. Efficiency matters more than a precise budget, but I do not want to disrupt what works. The external team processes vendor payments manually and it is expensive. That might be relevant later. I would have to confirm the volume—perhaps INR 26–39 lakh a month, with rent a large part.</p>
+<p><strong>Turn 35 | 00:47:39 | Team member A</strong></p>
+<p>I will send the cards proposal and information about the other modules. Could we arrange a follow-up next week?</p>
+<p><strong>Turn 36 | 00:48:43 | Customer B</strong></p>
+<p>Send the details first. We need time with the CFO and will tell you if another call is needed. Let us make that decision internally before scheduling more.</p></details><details><summary>M04 - meeting</summary><p>Source ID: b0f79b3d-37ba-52f9-b2bc-58b159dd6d91</p>
+<p>Source time: 2026-08-21T09:00:00Z</p>
+<p>Cedarwave Distribution / SpendNest discussion</p>
+<p><strong>Turn 1 | 00:00:51 | Team member A</strong></p>
+<p>I wanted to discuss the migration while there is still time to plan it. We should cover the present situation, the next steps and any feedback from your side.</p>
+<p><strong>Turn 2 | 00:01:30 | Team member A</strong></p>
+<p>Much of your usage is physical-card spending. We have seen acceptance problems with the existing programme and are proposing a move to a different provider and card network. We already operate that alternative programme, including a wallet-payment option.</p>
+<p><strong>Turn 3 | 00:03:17 | Customer A</strong></p>
+<p>I thought the wallet-payment option was coming to our existing cards too. Is that not what was being discussed?</p>
+<p><strong>Turn 4 | 00:03:23 | Team member A</strong></p>
+<p>It is not available on the current network in this arrangement. The programme we are moving to supports it. The plan is to close the old programme in the coming weeks, so we need to organise the transition.</p>
+<p><strong>Turn 5 | 00:04:33 | Customer A</strong></p>
+<p>Does that mean the current physical cards and virtual cards will both stop working?</p>
+<p><strong>Turn 6 | 00:04:38 | Team member A</strong></p>
+<p>Yes, under that programme. Users need to complete identity checks again because the provider changes. We can create the new account in parallel so you do not need to shut the current cards before starting the setup.</p>
+<p><strong>Turn 7 | 00:05:44 | Customer A</strong></p>
+<p>Before we do all that, there was another problem: connecting this application with our people and expense system. We did not think that integration was possible.</p>
+<p><strong>Turn 8 | 00:06:07 | Team member A</strong></p>
+<p>We do have integration support. Let us clarify which part you need rather than assume the whole connection is unavailable.</p>
+<p><strong>Turn 9 | 00:06:12 | Customer A</strong></p>
+<p>Also, will the replacement be a proper credit card? We do not really want another prepaid arrangement indefinitely.</p>
+<p><strong>Turn 10 | 00:06:21 | Team member A</strong></p>
+<p>The replacement I described is still prepaid. I do not want to promise that this becomes a credit card in the near term.</p>
+<p><strong>Turn 11 | 00:07:17 | Customer A</strong></p>
+<p>Give me a moment to check internally. Okay, I have confirmed it: moving from prepaid to credit is the main issue for us. At some stage we will have to consider another option for that.</p>
+<p><strong>Turn 12 | 00:09:56 | Team member A</strong></p>
+<p>My view is that the expense-platform alternatives still depend on banks for credit. Some alternatives are considerably more expensive. We have a bank partnership for corporate credit cards, subject to the bank&#x27;s assessment. That is different from us changing the prepaid product into credit.</p>
+<p><strong>Turn 13 | 00:12:22 | Customer A</strong></p>
+<p>We have been trying through our existing bank. Perhaps we get credit cards for around 26 people and keep SpendNest prepaid cards for the others.</p>
+<p><strong>Turn 14 | 00:12:39 | Team member A</strong></p>
+<p>We passed the earlier enquiry to the bank, but it was put on hold from your side. We can revisit it. The bank has spending and turnover criteria. The software layer can provide transaction visibility, receipts and review if the supported cards are connected.</p>
+<p><strong>Turn 15 | 00:13:46 | Customer A</strong></p>
+<p>To be clear, that bank option would actually be credit, with us paying the bank separately, while the other employees could remain prepaid?</p>
+<p><strong>Turn 16 | 00:13:49 | Team member A</strong></p>
+<p>Yes, that is the distinction. Both types could be visible in the same workspace, although the control and funding arrangements are different.</p>
+<p><strong>Turn 17 | 00:14:54 | Customer A</strong></p>
+<p>Let me bring in someone from our credit team. They know what is already in place and can help decide whether this is worth progressing.</p>
+<p><strong>Turn 18 | 00:17:50 | Customer A</strong></p>
+<p>We are discussing the planned card migration. The replacement is still prepaid, but there may be a way to connect our bank-issued credit cards to the SpendNest application.</p>
+<p><strong>Turn 19 | 00:18:54 | Team member A</strong></p>
+<p>The bank issues and controls the credit. After the relevant agreement and network consent, transaction details can come into our platform after settlement. Users can then attach receipts and send items for review. It is not the same as our real-time prepaid feed.</p>
+<p><strong>Turn 20 | 00:24:04 | Customer A</strong></p>
+<p>Can those transactions also sync into our accounting system? That was part of the problem before.</p>
+<p><strong>Turn 21 | 00:24:08 | Team member A</strong></p>
+<p>Many transaction fields can sync, but source-balance reconciliation is a question in this setup. I need the team to confirm feasibility for your bank-card transactions rather than say the existing prepaid integration automatically covers it.</p>
+<p><strong>Turn 22 | 00:24:32 | Customer B</strong></p>
+<p>We already have a corporate credit line of about INR 1.3 crore. Cards are issued to only a few people so far. We were waiting for the bank administration portal before attempting the accounting integration. If your platform can sit in between, we should understand that route.</p>
+<p><strong>Turn 23 | 00:25:44 | Team member A</strong></p>
+<p>I will check whether your already-issued cards can join the transaction-feed programme. If that is possible, the next steps are the agreement, network approval and linking the cards to users. I cannot confirm the existing-card eligibility on this call.</p>
+<p><strong>Turn 24 | 00:27:08 | Customer B</strong></p>
+<p>Would it show our available credit limit as well as the transactions? We need to know what is available to spend.</p>
+<p><strong>Turn 25 | 00:27:11 | Team member A</strong></p>
+<p>No, the proposed feed shows transaction details after settlement. The bank retains that control, so the available limit would not be shown here in the way it is for cards we issue.</p>
+<p><strong>Turn 26 | 00:27:36 | Customer B</strong></p>
+<p>Then what do we gain by adding SpendNest? We can already see transactions in the bank portal.</p>
+<p><strong>Turn 27 | 00:27:48 | Team member A</strong></p>
+<p>The additional layer is collecting receipts and business reasons, reviewing exceptions, attaching project information and reconciling alongside prepaid spending. Accounting integration could add value too, but that specific bank-card path still needs checking.</p>
+<p><strong>Turn 28 | 00:29:56 | Team member A</strong></p>
+<p>Please discuss the options internally. We can plan a mix of bank credit cards, prepaid cards or wallet payments, depending on your decision. I will confirm the eligibility and accounting questions with the programme team.</p>
+<p><strong>Turn 29 | 00:31:25 | Customer A</strong></p>
+<p>We will speak with the relevant people internally and see whether this is the direction we want. We are not deciding the whole migration on this call.</p>
+<p><strong>Turn 30 | 00:31:48 | Customer A</strong></p>
+<p>There is also the earlier issue with moving users between departments. The current department setup has become confusing and needs correcting.</p>
+<p><strong>Turn 31 | 00:32:08 | Team member A</strong></p>
+<p>I cannot move those users directly from the assistant view available to me. We can arrange a session to guide you through it and verify which departments and users should move before changing anything.</p>
+<p><strong>Turn 32 | 00:32:45 | Customer A</strong></p>
+<p>Okay. I will come back to you on that as well.</p></details><details><summary>M06 - meeting</summary><p>Source ID: 657b9e9d-9472-5b01-a127-a648ad7e8cf7</p>
+<p>Source time: 2026-08-21T06:30:00Z</p>
+<p>Mapletrail Services / SpendNest discussion</p>
+<p><strong>Turn 1 | 00:02:26 | Team member A</strong></p>
+<p>Good to speak after connecting professionally. I work on finance at SpendNest, and part of my interest is how finance teams spend their time. We have expense workflows and are also working on receivables automation. I would like to understand your role before jumping into the product.</p>
+<p><strong>Turn 2 | 00:04:47 | Customer A</strong></p>
+<p>I handle finance for one branch of Mapletrail Services. We do software development and testing. The main office supports me, but locally I cover a broad set of tasks rather than having a separate team for each function.</p>
+<p><strong>Turn 3 | 00:05:43 | Team member A</strong></p>
+<p>How large is finance at the main office? Is that a team you work with daily?</p>
+<p><strong>Turn 4 | 00:05:47 | Customer A</strong></p>
+<p>Roughly 65 people across finance. The business is sizeable, but locally I am the person dealing with the operational questions and getting support from them.</p>
+<p><strong>Turn 5 | 00:06:06 | Team member A</strong></p>
+<p>Are there plans to add people in your branch, or is the present setup expected to continue?</p>
+<p><strong>Turn 6 | 00:06:11 | Customer A</strong></p>
+<p>No expansion planned at the moment. Most operations sit centrally. I look after local payables, receivables, revenue and compliance-related work.</p>
+<p><strong>Turn 7 | 00:09:41 | Customer A</strong></p>
+<p>For supplier payments there is a dedicated team. They manage the purchase-order-to-payment process through our ERP and bank connections. Different people cover payables, receivables and compliance.</p>
+<p><strong>Turn 8 | 00:11:07 | Team member A</strong></p>
+<p>On receivables, how many invoices do you personally handle, and what happens between preparing one and getting paid?</p>
+<p><strong>Turn 9 | 00:11:17 | Customer A</strong></p>
+<p>I cover around eight clients. I speak to delivery managers about what was delivered, check the contract and resource rates, prepare the invoice and get confirmation. Then we send it to the client. Depending on the contract there may be 15- or 30-day terms before the collection follow-up starts.</p>
+<p><strong>Turn 10 | 00:12:24 | Customer A</strong></p>
+<p>When something remains unpaid, the collections team comes back to the delivery manager or to whoever issued it. One expense-recovery invoice has been outstanding for months even though the same client pays the normal service invoices. We still need the delivery manager to establish why that particular item is held up.</p>
+<p><strong>Turn 11 | 00:13:30 | Team member A</strong></p>
+<p>Across the company, roughly how many invoices are we talking about? I mean both the count and the value, if you have an estimate.</p>
+<p><strong>Turn 12 | 00:13:57 | Customer A</strong></p>
+<p>Around 65–78 customers. There may be several projects for each. Initially I would estimate 260–390 invoices a month, with a large total value.</p>
+<p><strong>Turn 13 | 00:14:34 | Team member A</strong></p>
+<p>Sorry, I may have mixed up the value and count. Were you saying only a few invoices for all that revenue, or several invoices for each customer each month?</p>
+<p><strong>Turn 14 | 00:14:45 | Customer A</strong></p>
+<p>Several for each customer, each month. I was not saying that the entire company only sends a handful of invoices.</p>
+<p><strong>Turn 15 | 00:15:04 | Team member A</strong></p>
+<p>So perhaps nearer 390–520 a month overall?</p>
+<p><strong>Turn 16 | 00:15:09 | Customer A</strong></p>
+<p>Approximately. The value is the bigger point, and many are in foreign currency. These are rough numbers in this conversation, not a report I have open.</p>
+<p><strong>Turn 17 | 00:15:26 | Team member A</strong></p>
+<p>It sounds like the manual work is reviewing the contract, checking with delivery and repeatedly following up with the customer. That is the part our collection automation is intended to help with.</p>
+<p><strong>Turn 18 | 00:16:18 | Team member A</strong></p>
+<p>The approach would first understand your process and connect to the relevant systems. The agent would use invoice records, previous emails and the relationship context when preparing a follow-up. It should not just send the same reminder to everyone regardless of the last discussion.</p>
+<p><strong>Turn 19 | 00:18:09 | Team member A</strong></p>
+<p>Different customers use different communication channels and escalation contacts. We would define that sequence with you: who to contact first, how long to wait, and who receives an escalation if there is no response.</p>
+<p><strong>Turn 20 | 00:19:12 | Customer A</strong></p>
+<p>Yes, I follow. That exception would need someone to look at it.</p>
+<p><strong>Turn 21 | 00:19:12 | Team member A</strong></p>
+<p>That should become an exception for a person to review. The agent could point to the relevant contract terms and explain the disputed point. The idea is to put focused actions in front of finance, while also showing expected collections. Those are capabilities we would configure around the process, not a reason to remove human judgment.</p>
+<p><strong>Turn 22 | 00:21:19 | Team member A</strong></p>
+<p>Cash application is another area. For example, if an invoice is INR 1.3 lakh and the payment is INR 1.17 lakh, the difference could be withholding, bank fees or an unresolved dispute. Matching the receipt is not enough; the team needs to know why the difference exists.</p>
+<p><strong>Turn 23 | 00:22:48 | Customer A</strong></p>
+<p>So the repetitive work goes to the system, with the final judgment still coming back to finance?</p>
+<p><strong>Turn 24 | 00:22:55 | Team member A</strong></p>
+<p>Exactly. Do you see scope for that in the current process at Mapletrail Services?</p>
+<p><strong>Turn 25 | 00:23:07 | Customer A</strong></p>
+<p>At present people still track contract terms and bank receipts manually. Automation could save time, especially when we have to wait for one contact and then follow up through another. But the dedicated central team handles much of this today.</p>
+<p><strong>Turn 26 | 00:24:50 | Team member A</strong></p>
+<p>That is the goal: give finance time to analyse and make decisions rather than spending everything on chasing and checking. We would need to understand the actual workflow in more detail.</p>
+<p><strong>Turn 27 | 00:25:47 | Team member A</strong></p>
+<p>We also have the expense side: cards with limits, department budgets and merchant controls, along with supplier payments and reimbursements. A virtual card can be restricted to the particular subscription or purpose for which it was issued.</p>
+<p><strong>Turn 28 | 00:28:07 | Team member A</strong></p>
+<p>Those cards use a shared funded wallet. Receipts and memos remain attached to transactions, and accounting fields can be mapped before syncing. That gives a record of who did what and the supporting documents, rather than only a bank entry.</p>
+<p><strong>Turn 29 | 00:29:59 | Team member A</strong></p>
+<p>For payables, invoices can be captured from uploaded documents or an inbox and go through approval levels. The exact integration and payment flow would need to fit the systems you already use. I can send material about both this and the receivables side.</p>
+<p><strong>Turn 30 | 00:33:40 | Team member A</strong></p>
+<p>After reviewing it, I would be interested in your view on what is useful for your company. Is there anything else you want to clarify today?</p>
+<p><strong>Turn 31 | 00:34:27 | Customer A</strong></p>
+<p>Confidentiality is important. Payment information is sensitive. How is that protected, and is there a risk of somebody interfering with it?</p>
+<p><strong>Turn 32 | 00:34:43 | Team member A</strong></p>
+<p>We have security and compliance controls and certifications around the platform. I understand why you ask; the information is sensitive. I can share the material on our setup as part of the follow-up.</p>
+<p><strong>Turn 33 | 00:35:33 | Customer A</strong></p>
+<p>It has been useful hearing a different perspective. Please send the information and we can stay in touch.</p></details><details><summary>M07 - meeting</summary><p>Source ID: 4f304fff-fd40-5cfc-a366-0a134c445c2a</p>
+<p>Source time: 2026-08-21T05:30:00Z</p>
+<p>Willowfield Trust / SpendNest discussion</p>
+<p><strong>Turn 1 | 00:08:36 | Team member A</strong></p>
+<p>I wanted to go through the issues you sent yesterday. If you share your screen, we can look at what is happening and I can take the details back to the team.</p>
+<p><strong>Turn 2 | 00:09:59 | Customer A</strong></p>
+<p>The first one is editing the description. I am changing this event-payment description to a short reference and clicking Save changes. Now look at the displayed description again.</p>
+<p><strong>Turn 3 | 00:11:16 | Team member A</strong></p>
+<p>The field still shows the earlier wording. So the change is not appearing after you save, is that right?</p>
+<p><strong>Turn 4 | 00:11:31 | Customer A</strong></p>
+<p>Yes, it is still the old description. That is why I sent it across.</p>
+<p><strong>Turn 5 | 00:11:33 | Team member A</strong></p>
+<p>Please reopen Edit. I want to see whether the editing form has the new value while the other screen still has the old one.</p>
+<p><strong>Turn 6 | 00:11:47 | Customer A</strong></p>
+<p>I will change it again to a different reference and save. It is saved now; let us check the other screen once more.</p>
+<p><strong>Turn 7 | 00:12:08 | Team member A</strong></p>
+<p>I have captured screenshots of that behaviour. I will get it checked today. I do not have an explanation for it yet.</p>
+<p><strong>Turn 8 | 00:12:25 | Customer A</strong></p>
+<p>Next is Recreate payment. Can we look at that here? When I go through this route, I cannot upload a document.</p>
+<p><strong>Turn 9 | 00:12:39 | Team member A</strong></p>
+<p>A new attachment is not being accepted on this screen? First click Save changes at the bottom, before creating the bill, so we can check the alternative path.</p>
+<p><strong>Turn 10 | 00:12:59 | Customer A</strong></p>
+<p>Saved. I have gone into Bill pay and then the invoice inbox. Now I am opening the Review option.</p>
+<p><strong>Turn 11 | 00:13:22 | Team member A</strong></p>
+<p>Try attaching the invoice here. I am checking whether the upload itself fails or whether it is specifically the screen reached from Recreate payment.</p>
+<p><strong>Turn 12 | 00:13:38 | Customer A</strong></p>
+<p>It uploads here. This route works, so it is not that I cannot attach a file anywhere.</p>
+<p><strong>Turn 13 | 00:13:40 | Team member A</strong></p>
+<p>Please also check Manage documents for adding another attachment. While the team investigates the direct route, the workaround is to save the changes, return to the invoice inbox, open Review and upload the document there.</p>
+<p><strong>Turn 14 | 00:14:53 | Customer A</strong></p>
+<p>Okay, we have an alternative for now. It is still extra steps compared with doing it directly when recreating the payment.</p>
+<p><strong>Turn 15 | 00:14:54 | Team member A</strong></p>
+<p>Yes. I will still raise the original behaviour with the team. The workaround does not mean the direct upload issue has been resolved.</p>
+<p><strong>Turn 16 | 00:15:01 | Customer A</strong></p>
+<p>The next issue is in reimbursements. I cannot select the first group of transactions on this screen.</p>
+<p><strong>Turn 17 | 00:15:10 | Team member A</strong></p>
+<p>Those payments are already in Processing, which is why selection is disabled. Is this only for one user, or are others seeing the same thing?</p>
+<p><strong>Turn 18 | 00:15:31 | Customer A</strong></p>
+<p>It happened for another user too, though that instance was resolved later. This set is still in the same state.</p>
+<p><strong>Turn 19 | 00:15:37 | Team member A</strong></p>
+<p>The payments appear to have been released but are stuck showing Processing. I have asked the team to look at these. I expect an update or resolution in an hour or two, and I will inform you when they confirm.</p>
+<p><strong>Turn 20 | 00:16:23 | Customer A</strong></p>
+<p>There is one more problem. It was not in the original list, but I can show it now while we are here.</p>
+<p><strong>Turn 21 | 00:16:27 | Customer A</strong></p>
+<p>When I use Mark as paid, the first payment shows INR 18,200. I enter the amount I need and save that payment. Then I open the next payment and choose Mark as paid again.</p>
+<p><strong>Turn 22 | 00:17:33 | Customer A</strong></p>
+<p>The amount from the previous item appears in the next one. Each time I have to cancel, leave it and open Mark as paid again before it shows the right information.</p>
+<p><strong>Turn 23 | 00:17:50 | Team member A</strong></p>
+<p>Let me confirm: it is retaining the previous amount rather than fetching the next payment&#x27;s value. It should refresh when the next item opens, but that is not what we are seeing.</p>
+<p><strong>Turn 24 | 00:17:55 | Customer A</strong></p>
+<p>Yes, the old value carries forward. So I end up doing the same action twice for each item.</p>
+<p><strong>Turn 25 | 00:18:07 | Team member A</strong></p>
+<p>I understand the sequence now. I will report that separately as well, with the steps you showed, and ask the team to investigate the refresh behaviour.</p>
+<p><strong>Turn 26 | 00:18:16 | Customer A</strong></p>
+<p>Those are the current issues. The attachment workaround helps, but we still need the other items checked.</p>
+<p><strong>Turn 27 | 00:18:19 | Team member A</strong></p>
+<p>I will send the details to the team, get their confirmation and come back to you. Thank you for showing the actual steps rather than only the final screen.</p></details><details><summary>M09 - meeting</summary><p>Source ID: 4b5b9192-f3fc-505a-8e77-4d2ffaa54594</p>
+<p>Source time: 2026-08-21T04:30:00Z</p>
+<p>Account setup and workflow discussion</p>
+<p><strong>Turn 1 | 00:01:53 | Customer A</strong></p>
+<p>I finally have time to return to the account setup. The invitation for Brookmint Holdings did not work when I tried it. It may have expired, or perhaps we can try again together.</p>
+<p><strong>Turn 2 | 00:02:38 | Team member A</strong></p>
+<p>There are two things to cover: getting you into Brookmint Holdings and the accounting issue you reported for Northkite Equipment. Our records show the invitation was sent, but acceptance is not recorded.</p>
+<p><strong>Turn 3 | 00:03:24 | Customer A</strong></p>
+<p>I cannot find the old message in this thread. A fresh link in the conversation we are using now would be easier; the original email is lost among the others.</p>
+<p><strong>Turn 4 | 00:04:14 | Team member A</strong></p>
+<p>I have sent a new reset invitation. Let me know when you receive it so we can see exactly what happens.</p>
+<p><strong>Turn 5 | 00:04:46 | Customer A</strong></p>
+<p>With two company accounts, can I switch between them? I also need to understand which login belongs to which company.</p>
+<p><strong>Turn 6 | 00:05:02 | Team member A</strong></p>
+<p>My understanding was that the original trial included spending for both companies. Is that correct?</p>
+<p><strong>Turn 7 | 00:05:19 | Customer A</strong></p>
+<p>No, only Northkite Equipment used the trial. There was no Brookmint Holdings spending in that period.</p>
+<p><strong>Turn 8 | 00:05:27 | Team member A</strong></p>
+<p>Thank you for correcting that. Going forward, each company&#x27;s activity belongs in its own account. The current setup uses different email identities for those accounts.</p>
+<p><strong>Turn 9 | 00:06:05 | Customer A</strong></p>
+<p>What happens when I eventually leave? A shared accounts mailbox would stay with the company, whereas my personal work address would not. I am thinking about continuity.</p>
+<p><strong>Turn 10 | 00:06:45 | Team member A</strong></p>
+<p>One option is to add the shared accounts address as an administrator. When you leave, your personal access can be removed and that administrator remains.</p>
+<p><strong>Turn 11 | 00:07:28 | Customer A</strong></p>
+<p>But the accounts-payable officer can read that shared mailbox. Would that give that person the same administrator rights as me?</p>
+<p><strong>Turn 12 | 00:07:43 | Team member A</strong></p>
+<p>If the shared address is configured as an administrator and they can use it, yes, it would have those rights.</p>
+<p><strong>Turn 13 | 00:07:57 | Customer A</strong></p>
+<p>That is what I do not want. Would we need a different address to prevent it?</p>
+<p><strong>Turn 14 | 00:08:04 | Team member A</strong></p>
+<p>A different address is one option. We also have member and accounting roles, plus configurable permissions, so the shared login could have a narrower role instead of administrator access.</p>
+<p><strong>Turn 15 | 00:09:34 | Customer A</strong></p>
+<p>The accounts-payable officer already has an individual login. My concern is that they also have access to the shared mailbox, so their individual role does not stop them using the other identity.</p>
+<p><strong>Turn 16 | 00:10:21 | Team member A</strong></p>
+<p>Understood. If the mailbox remains available to them, an instruction not to use that administrator login would rely on trust. You would need to decide internally how the access is set up.</p>
+<p><strong>Turn 17 | 00:11:23 | Customer A</strong></p>
+<p>I do not want this to depend on trusting someone not to use access that is available. That does not solve the permission problem.</p>
+<p><strong>Turn 18 | 00:11:34 | Team member A</strong></p>
+<p>Then a separate administrator email, or changing the shared account&#x27;s permissions, is the better route to explore. A future manager can be added and your access removed when responsibility changes.</p>
+<p><strong>Turn 19 | 00:12:01 | Customer A</strong></p>
+<p>I think separate personal work identities for the two companies may be better. Then I can hand over to another manager later. Okay, the reset email has now arrived.</p>
+<p><strong>Turn 20 | 00:12:52 | Team member A</strong></p>
+<p>Share the screen while you try it. The link should let you set a password and then log in with that new password.</p>
+<p><strong>Turn 21 | 00:13:54 | Customer A</strong></p>
+<p>It says the token has expired. This is the fresh message we just received.</p>
+<p><strong>Turn 22 | 00:13:57 | Team member A</strong></p>
+<p>I need to check that with the team. I hope to update you today, or by Monday at the latest. We have not got the Brookmint Holdings login working yet.</p>
+<p><strong>Turn 23 | 00:14:16 | Customer A</strong></p>
+<p>For Northkite Equipment, I managed to undo the accounting change and correct the tax treatment myself. But I have some other workflow questions, and I should probably revisit the training material.</p>
+<p><strong>Turn 24 | 00:15:18 | Customer A</strong></p>
+<p>Only a few people use Northkite Equipment, so the traffic is small. Brookmint Holdings has most of the employees. Before that becomes busy, I need to answer their questions properly instead of finding my way through each screen.</p>
+<p><strong>Turn 25 | 00:15:55 | Team member A</strong></p>
+<p>We can arrange a refresher for you or the other administrators, or you can send the specific questions to me. Let us look at the current example.</p>
+<p><strong>Turn 26 | 00:16:21 | Customer A</strong></p>
+<p>This transaction has no receipt, but the employee says the invoice was entered and saved. They also said they do not have permission to create a supplier in the accounting tool. I am not sure which step they actually completed.</p>
+<p><strong>Turn 27 | 00:17:02 | Team member A</strong></p>
+<p>Open the transaction itself so we can inspect the attachment. I cannot see a receipt on this item yet. You can upload it here and add another document using the additional-attachment option.</p>
+<p><strong>Turn 28 | 00:17:52 | Customer A</strong></p>
+<p>I only have the document in email. I need to save it locally before attaching it. Can I also add the purchase order afterwards?</p>
+<p><strong>Turn 29 | 00:18:01 | Team member A</strong></p>
+<p>The transaction is approved now, but syncing is still a separate step. If you need another attachment before syncing, you can undo the verification, attach it and review it again.</p>
+<p><strong>Turn 30 | 00:18:56 | Customer A</strong></p>
+<p>Okay. I will look through the videos before arranging another session. I will also wait for the update on the login issue.</p>
+<p><strong>Turn 31 | 00:19:23 | Team member A</strong></p>
+<p>I will check the expired-token problem for Brookmint Holdings with the team and aim to return with an update today, otherwise Monday.</p>
+<p><strong>Turn 32 | 00:19:44 | Customer A</strong></p>
+<p>I will speak to our IT team about the separate email identities. Thank you.</p></details><details><summary>M10 - meeting</summary><p>Source ID: 337f297d-9385-5b82-9e54-5019c1ed912c</p>
+<p>Source time: 2026-08-21T07:30:00Z</p>
+<p>Billing workflow walkthrough</p>
+<p><strong>Turn 1 | 00:01:05 | Team member A</strong></p>
+<p>I am finishing another call. Give me a couple of minutes and I will be back for the session.</p>
+<p><strong>Turn 2 | 00:02:00 | Team member B</strong></p>
+<p>I do not think the optional attendee is joining. We can wait for the trainer to return.</p>
+<p><strong>Turn 3 | 00:05:04 | Team member A</strong></p>
+<p>Yesterday we covered the subscription side of billing. Any questions before I show the remaining part, how invoices are generated and cleared?</p>
+<p><strong>Turn 4 | 00:05:16 | Team member B</strong></p>
+<p>I have access to a demo account as an administrator, but I do not have the back-office super-admin access you mentioned.</p>
+<p><strong>Turn 5 | 00:05:44 | Team member A</strong></p>
+<p>Okay. That is a different application. Operations uses it to create accounts, control enabled features and manage billing. I will show what it looks like, rather than ask you to create an invoice yourself.</p>
+<p><strong>Turn 6 | 00:06:37 | Team member A</strong></p>
+<p>Remember the subscription can include fixed, variable and one-time components. There may also be usage charges. When a customer chooses a plan, operations creates the invoice with the customer and plan details.</p>
+<p><strong>Turn 7 | 00:07:16 | Team member A</strong></p>
+<p>The nominal due period is seven days, but we sometimes give the customer until the end of the month. When you report payments, an invoice dated in an earlier month might have been cleared later, so check the dates rather than assuming they match.</p>
+<p><strong>Turn 8 | 00:08:40 | Team member A</strong></p>
+<p>There is a further exception for invoices raised in the last week of the month: the customer may be allowed until the middle of the next month. If that period is exceeded, we may void and reissue. The displayed due date and the allowed collection period are not always the same thing.</p>
+<p><strong>Turn 9 | 00:09:53 | Team member C</strong></p>
+<p>Understood. That explains why the invoice month alone does not tell us when the cash arrived.</p>
+<p><strong>Turn 10 | 00:09:56 | Team member A</strong></p>
+<p>You can add a one-time customisation line as well as the subscription. If only half is being collected upfront, the invoice should describe that instalment instead of making it look like the whole charge.</p>
+<p><strong>Turn 11 | 00:10:41 | Team member A</strong></p>
+<p>The tax presentation can be one integrated line or split components depending on the entity information. The demonstration changes when I update that field. This is part of the configuration the operations team needs to get right.</p>
+<p><strong>Turn 12 | 00:13:07 | Team member A</strong></p>
+<p>After the first payment, we configure the billing cycle for the account. Monthly, quarterly and annual customers do not all receive the same subscription charge every month.</p>
+<p><strong>Turn 13 | 00:15:02 | Team member A</strong></p>
+<p>You will also see zero-value invoices. If a periodic invoice has no subscription charge due and no extra usage component, its value can be zero. That is not automatically a missing payment.</p>
+<p><strong>Turn 14 | 00:15:48 | Team member A</strong></p>
+<p>For the automated engine, invoice generation is at midnight in the customer&#x27;s local time, with a later scheduled attempt to deduct the balance. Manual invoices are separate. There is a gap between generating an invoice and clearing it.</p>
+<p><strong>Turn 15 | 00:15:48 | Team member A</strong></p>
+<p>Suppose the invoice is INR 6,240 but the wallet contains INR 6,110. The deduction fails and a notification goes out. The system tries three times. Adding money afterwards does not mean it was available when that earlier attempt happened.</p>
+<p><strong>Turn 16 | 00:19:04 | Team member A</strong></p>
+<p>On the third day it tries again, but spending may have reduced the wallet balance. The next attempt can fail too. It repeats on the seventh day, now with a warning that another failure will freeze the account. The account manager receives the notices and can follow up before that point.</p>
+<p><strong>Turn 17 | 00:20:24 | Team member A</strong></p>
+<p>On the tenth day, if there is enough money, the invoice clears and the next billing date moves forward. If it still fails, payments and cards can be blocked, and the billing date stays stuck. Simply topping up a frozen account does not complete the whole recovery flow in this process.</p>
+<p><strong>Turn 18 | 00:20:24 | Team member A</strong></p>
+<p>The customer must tell us, then operations clears the outstanding invoice and unfreezes the account. Operations also needs to adjust the next billing date manually. Clearing the payment without checking that date can leave the next cycle wrong.</p>
+<p><strong>Turn 19 | 00:22:44 | Team member B</strong></p>
+<p>No further question from me on that part.</p>
+<p><strong>Turn 20 | 00:22:46 | Team member A</strong></p>
+<p>I will request the back-office access separately for the next training session. If questions come up when you review the billing examples, send them over and we will take them up.</p></details></section></main></body></html>

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "12216d5c-e254-52c6-b344-47de4c6e1ae5",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Product pitch — unified finance dashboard",
+      "rationale": "Meera delivered a product-value statement describing SpendNest's core offering (invoices, vendor payments, and documents in one dashboard). This is active sales pitching, and a next step is required to gauge prospect reaction and advance the deal.",
+      "evidence_ref": "12216d5c-e254-52c6-b344-47de4c6e1ae5 — \"SpendNest brings invoices, vendor payments and documents into one dashboard.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "sales_coaching",
+      "label": "Pitch delivery — discovery vs. feature dump",
+      "rationale": "The evidence shows Meera leading with a product feature statement. Coaching should review whether she had completed discovery before pitching and whether she tied the feature to the prospect's stated pain point.",
+      "evidence_ref": "12216d5c-e254-52c6-b344-47de4c6e1ae5 — \"SpendNest brings invoices, vendor payments and documents into one dashboard.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Meera pitched SpendNest's unified dashboard capability (invoices, vendor payments, documents) on this call. Whether the pitch was anchored to a prospect-stated problem is unknown from the available evidence.",
+  "what_established": "Meera articulated a core value proposition: SpendNest consolidates invoices, vendor payments, and documents into one dashboard.",
+  "what_not_established": "Prospect's company, prior discovery, interest level, deal value, any commitment, or call outcome.",
+  "next_action": "Confirm whether prospect discovery preceded the pitch; schedule a tailored follow-up demo addressing the prospect's specific finance workflow gaps.",
+  "owner": null,
+  "confidence": "medium",
+  "uncertainty": "Only the pitch line is captured; prospect response, context, and call outcome are not evidenced."
+}

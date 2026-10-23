@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "source_type": "meeting",
+  "source_id": "4f304fff-fd40-5cfc-a366-0a134c445c2a",
+  "source_revision": 2,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "customer_follow_up",
+      "label": "Active customer — issues triage with support team",
+      "rationale": "The contact explicitly stated they wanted to review issues sent the previous day and asked the SpendNest representative to share their screen to investigate. This is a live customer support and issue-triage session requiring follow-up action on the identified issues.",
+      "evidence_ref": "4f304fff-fd40-5cfc-a366-0a134c445c2a turn 1",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "A customer opened this meeting to walk through issues they reported the day before, requesting a screen-share session so the SpendNest team member could review the details and take them back for resolution. This is an active customer issue-triage meeting.",
+  "what_established": "The customer sent issues to SpendNest the previous day. The meeting was scheduled specifically to review those issues. The SpendNest team member was expected to collect details to take back to their team.",
+  "what_not_established": "What the specific issues are, their severity, which systems are affected, the customer's company name, deal value, or resolution timeline.",
+  "next_action": "Compile the issues reviewed in the screen-share session; create internal tickets and communicate a resolution timeline to the customer.",
+  "owner": null,
+  "confidence": "high",
+  "uncertainty": "Only turn 1 is available; the specific issues and their resolution are not yet evidenced."
+}

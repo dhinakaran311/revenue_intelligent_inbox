@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "4a1de681-f884-55e8-b1ad-de22d17cd959",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Outbound intro — SpendNest expense platform",
+      "rationale": "Meera identified herself and described SpendNest as an expense platform, indicating an outbound pitch call. A next step is needed to qualify the prospect and advance if there is interest.",
+      "evidence_ref": "4a1de681-f884-55e8-b1ad-de22d17cd959 — \"I'm with SpendNest, an expense platform.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "sales_coaching",
+      "label": "Pitch specificity — generic category vs. differentiated value",
+      "rationale": "The available evidence shows Meera described SpendNest only as 'an expense platform' without a differentiated hook. Coaching should review whether she followed up with a specific value statement tied to the prospect's context.",
+      "evidence_ref": "4a1de681-f884-55e8-b1ad-de22d17cd959 — \"I'm with SpendNest, an expense platform.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Meera introduced SpendNest as an expense platform during an outbound call. The opening line provides limited differentiation; the rest of the call and its outcome are not evidenced.",
+  "what_established": "Meera introduced SpendNest as an expense platform on this call.",
+  "what_not_established": "Prospect's company, deal value, interest level, qualification, any commitment, or call outcome.",
+  "next_action": "Log the call in CRM; if a live connection was made, review whether a value-differentiation point was delivered and schedule follow-up.",
+  "owner": null,
+  "confidence": "medium",
+  "uncertainty": "Only the opening intro is available; prospect details, conversation content, and outcome are not captured."
+}

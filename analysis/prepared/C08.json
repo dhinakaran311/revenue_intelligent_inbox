@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "129497b2-8e1d-5e01-919c-e8a852b5ff68",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "customer_follow_up",
+      "label": "Inbound inquiry or gatekeeper interaction",
+      "rationale": "The evidence ('What is it regarding? I'm from SpendNest.') suggests Meera either answered an inbound call (acting as SpendNest representative) or encountered a gatekeeper asking the purpose of her call. Either scenario may involve an existing customer or a prospect requiring follow-up.",
+      "evidence_ref": "129497b2-8e1d-5e01-919c-e8a852b5ff68 — \"What is it regarding? I'm from SpendNest.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "human_review",
+      "label": "Ambiguous call direction — review needed",
+      "rationale": "The snippet is ambiguous: 'What is it regarding?' could be Meera fielding an inbound call or responding to a gatekeeper on an outbound call. The call direction, parties involved, and outcome are all unclear from the available evidence.",
+      "evidence_ref": "129497b2-8e1d-5e01-919c-e8a852b5ff68 — \"What is it regarding? I'm from SpendNest.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "The call evidence is ambiguous — Meera may have been answering an inbound inquiry or navigating a gatekeeper on an outbound call. The call direction and outcome require human review.",
+  "what_established": "Meera identified herself as being from SpendNest and the phrase 'What is it regarding?' appears in the transcript.",
+  "what_not_established": "Call direction (inbound vs. outbound), the other party, company name, deal value, any commitment, or outcome.",
+  "next_action": "Retrieve the full call recording or CRM log to determine call direction and assign the appropriate next step.",
+  "owner": null,
+  "confidence": "low",
+  "uncertainty": "The snippet is ambiguous regarding call direction; both inbound and gatekeeper scenarios are plausible."
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "20d509ba-d589-5334-9aef-ea4ce6105b1a",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Cold outbound to Milan — evaluate fit",
+      "rationale": "Kiran initiated an outbound call to a contact named Milan and introduced herself as calling from SpendNest. This is a live cold-call connection requiring a next step to qualify and advance.",
+      "evidence_ref": "20d509ba-d589-5334-9aef-ea4ce6105b1a — \"Hello? Hi Milan, Kiran here from SpendNest.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "sales_coaching",
+      "label": "Opener hesitation on cold call",
+      "rationale": "The opener begins with 'Hello?' which may indicate Kiran was uncertain whether the call connected before identifying herself. This is a minor but observable coaching point on cold-call confidence.",
+      "evidence_ref": "20d509ba-d589-5334-9aef-ea4ce6105b1a — \"Hello? Hi Milan, Kiran here from SpendNest.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Kiran placed an outbound call to Milan and identified herself as being from SpendNest. Only the opening line is evidenced; the conversation content and outcome are unknown.",
+  "what_established": "Kiran made an outbound call to a contact named Milan, representing SpendNest.",
+  "what_not_established": "Milan's company, deal value, interest level, qualification outcome, any commitment, or call result.",
+  "next_action": "Log call outcome; if connected and interested, schedule a discovery session with Milan.",
+  "owner": null,
+  "confidence": "medium",
+  "uncertainty": "Only the opening line is captured; the rest of the conversation and its outcome are unknown."
+}

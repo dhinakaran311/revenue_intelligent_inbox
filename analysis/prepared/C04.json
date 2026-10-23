@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "bcdcbf56-d338-5c78-9a97-42c2fc1c9931",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Follow-up call — Lanternpath Media opportunity",
+      "rationale": "Arun explicitly references a prior conversation about expense software for Lanternpath Media ('following up on our earlier conversation about expense software for Lanternpath Media'). This is an active prospect with a prior touchpoint, making a concrete deal next step appropriate.",
+      "evidence_ref": "bcdcbf56-d338-5c78-9a97-42c2fc1c9931 — \"Arun from SpendNest, following up on our earlier conversation about expense software for Lanternpath Media.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Arun followed up on a prior conversation with Lanternpath Media about expense software. A previous engagement exists, indicating an active prospect that warrants a next commercial step.",
+  "what_established": "Arun had a prior conversation with someone at Lanternpath Media about expense software. This call is a follow-up to that discussion.",
+  "what_not_established": "Contact person's name or title at Lanternpath Media, deal value, stage of evaluation, any commitment made, or call outcome.",
+  "next_action": "Review CRM for prior notes on Lanternpath Media; confirm interest and schedule a product demo or proposal review.",
+  "owner": null,
+  "confidence": "medium",
+  "uncertainty": "Only the opening is available; the prospect's response and call outcome are not captured."
+}

@@ -1,0 +1,106 @@
+# =============================================================
+# Volopay Revenue Intelligence Inbox — .gitignore
+# =============================================================
+# NEVER commit: secrets, private assessment data, venvs,
+# dependency dirs, build artefacts, or export bundles.
+# =============================================================
+
+
+# ── Secrets & environment files ──────────────────────────────
+# Only .env.example files are committed.
+.env
+.env.*
+!.env.example
+
+# Connectivity test result (may contain endpoint details)
+backend/connectivity_report.json
+
+
+# ── Private assessment data ───────────────────────────────────
+# Raw source records are private; keep them local only.
+data/
+# Export bundles contain derived private data
+backend/exports/
+
+
+# ── Python ────────────────────────────────────────────────────
+# Virtual environment
+backend/.venv/
+.venv/
+venv/
+env/
+
+# Byte-compiled / optimised / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# mypy / pyright
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyright/
+
+
+# ── Node / Next.js (frontend) ─────────────────────────────────
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+frontend/.vercel/
+frontend/coverage/
+frontend/*.local
+
+# pnpm / yarn / npm lock files (commit the one your project uses)
+# Uncomment whichever you DON'T use:
+# frontend/package-lock.json
+# frontend/yarn.lock
+# frontend/pnpm-lock.yaml
+
+
+# ── OS / editor artefacts ─────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# VS Code (keep workspace settings if useful, ignore user-specific)
+.vscode/settings.json
+.vscode/launch.json
+.vscode/*.code-workspace
+
+# JetBrains / PyCharm
+.idea/
+*.iml
+
+# Kiro IDE agent artefacts
+.agents/
+
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+logs/
+
+
+# ── Misc ──────────────────────────────────────────────────────
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo

@@ -1,0 +1,15 @@
+# backend/requirements.txt
+
+# Core dependencies
+fastapi
+uvicorn[standard]
+python-dotenv
+psycopg2-binary
+supabase
+pinecone-client
+groq
+
+# Embedding dependencies (optional – install if you use HuggingFace sentence‑transformers)
+sentence-transformers
+# If you prefer to call the HuggingFace Inference API instead of running locally, you can also add:
+# huggingface_hub

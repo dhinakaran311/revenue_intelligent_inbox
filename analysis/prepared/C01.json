@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "2ec4404c-beee-5377-a63c-aab701da08ed",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Cold outbound — evaluate prospect fit",
+      "rationale": "Arun initiated an outbound call to Pranav and identified himself as calling from SpendNest. The call is at the very opening stage; no qualification has been completed, so a concrete next step is required to advance the opportunity.",
+      "evidence_ref": "2ec4404c-beee-5377-a63c-aab701da08ed — \"Hi Pranav, Arun calling from SpendNest.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "sales_coaching",
+      "label": "Cold-call opener quality",
+      "rationale": "The available evidence shows only the opening line. Whether Arun delivered a value proposition or discovery question after the greeting is not established. A coaching review of the full call would verify opener effectiveness.",
+      "evidence_ref": "2ec4404c-beee-5377-a63c-aab701da08ed — \"Hi Pranav, Arun calling from SpendNest.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Arun made an outbound cold call to Pranav introducing himself as calling from SpendNest. The call is at the very start; no prospect response or qualification is captured in the available evidence.",
+  "what_established": "Arun placed an outbound call to a contact named Pranav and introduced himself as representing SpendNest.",
+  "what_not_established": "Prospect's company, interest level, deal value, next meeting or demo commitment, outcome of the call, or any qualification details.",
+  "next_action": "Log the call outcome in CRM; if connected, schedule a discovery call or send introductory materials to Pranav.",
+  "owner": null,
+  "confidence": "medium",
+  "uncertainty": "Only the opening line is available; the rest of the conversation and its outcome are unknown."
+}

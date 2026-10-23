@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "4b870624-8aad-5315-a60e-0db95981cf99",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Cold call — Fernhaven Group engaged",
+      "rationale": "The call was answered at Fernhaven Group ('Good morning, you've reached Fernhaven Group'). This confirms a live connection, making it a qualified cold call opportunity requiring a next step to advance.",
+      "evidence_ref": "4b870624-8aad-5315-a60e-0db95981cf99 — \"Good morning, you've reached Fernhaven Group.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "sales_coaching",
+      "label": "Response to gatekeeper or reception",
+      "rationale": "The opening line reads as a company reception or voicemail greeting. How Arun responded to this — whether he asked for the right contact or left a compelling message — is a coachable moment not captured in the evidence.",
+      "evidence_ref": "4b870624-8aad-5315-a60e-0db95981cf99 — \"Good morning, you've reached Fernhaven Group.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Arun's call was answered at Fernhaven Group. The evidence captures only the company greeting; the substantive conversation and outcome are not available.",
+  "what_established": "The call reached Fernhaven Group (call was answered or reached voicemail). Fernhaven Group is a prospect being contacted.",
+  "what_not_established": "Contact person, deal value, interest level, any commitment, call outcome, or whether Arun was transferred to a decision-maker.",
+  "next_action": "Identify the correct contact at Fernhaven Group and log the call attempt; if voicemail, follow up with a targeted email.",
+  "owner": null,
+  "confidence": "medium",
+  "uncertainty": "The evidence is limited to the greeting only; the rest of the conversation is unavailable."
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "source_type": "meeting",
+  "source_id": "337f297d-9385-5b82-9e54-5019c1ed912c",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "human_review",
+      "label": "Insufficient content — meeting not yet started",
+      "rationale": "The only available evidence is the organiser saying they are finishing another call and will join in a couple of minutes. No substantive conversation, topic, or participant role is established. Human review is required once more of the meeting content is available.",
+      "evidence_ref": "337f297d-9385-5b82-9e54-5019c1ed912c turn 1",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "The only captured content is the organiser indicating they are finishing another call and will join shortly. No meeting substance, topic, or participants are established — this record cannot be meaningfully routed without further content.",
+  "what_established": "The meeting organiser was on another call at the start of this session and indicated they would join in a couple of minutes.",
+  "what_not_established": "Meeting topic, attendees, customer or prospect involved, deal value, any discussion content, or outcome.",
+  "next_action": "Retrieve the remainder of the meeting transcript or recording; re-run analysis once substantive content is available.",
+  "owner": null,
+  "confidence": "low",
+  "uncertainty": "The meeting has effectively not started in the captured evidence; no routing decision can be made on a brief pre-meeting placeholder statement."
+}

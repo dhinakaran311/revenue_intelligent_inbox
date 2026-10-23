@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "75a6b94f-7717-5cfb-9e41-0acc94415e17",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Outbound intro — evaluate prospect",
+      "rationale": "Meera introduced herself as being from SpendNest, indicating an outbound call. A next step is needed to determine whether a discovery conversation took place and what follow-on actions are required.",
+      "evidence_ref": "75a6b94f-7717-5cfb-9e41-0acc94415e17 — \"I'm with SpendNest.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "human_review",
+      "label": "Minimal evidence — review full call recording",
+      "rationale": "The available evidence is a single introductory phrase. Without more context it is impossible to determine if this was inbound or outbound, what the prospect situation is, or what the outcome was.",
+      "evidence_ref": "75a6b94f-7717-5cfb-9e41-0acc94415e17 — \"I'm with SpendNest.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Meera identified herself as being from SpendNest in this call. The extremely limited evidence means the call type, prospect details, and outcome are all unknown.",
+  "what_established": "Meera mentioned she is with SpendNest during this call.",
+  "what_not_established": "Whether the call was inbound or outbound, the prospect's company or name, deal value, any qualification, interest level, or call outcome.",
+  "next_action": "Retrieve and review the full call recording or CRM notes to determine call type, prospect details, and required next step.",
+  "owner": null,
+  "confidence": "low",
+  "uncertainty": "Only a single-phrase introduction is available; no context, direction, or outcome is evidenced."
+}

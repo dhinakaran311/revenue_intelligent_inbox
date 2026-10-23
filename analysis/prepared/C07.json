@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "call",
+  "source_id": "428817fa-7e9e-5418-a7d4-bb396d28dfbf",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "deal_next_step",
+      "label": "Cold outbound by Dev — evaluate prospect",
+      "rationale": "Dev identified himself as calling from SpendNest, indicating an outbound cold call. A next step is needed to log the outcome and advance the opportunity if the prospect engaged.",
+      "evidence_ref": "428817fa-7e9e-5418-a7d4-bb396d28dfbf — \"Dev calling from SpendNest.\"",
+      "is_manual": false
+    },
+    {
+      "route_id": "human_review",
+      "label": "Minimal evidence — full call context needed",
+      "rationale": "Only the opener is available. The prospect, company, any response, and the call outcome are entirely unknown, making full routing uncertain.",
+      "evidence_ref": "428817fa-7e9e-5418-a7d4-bb396d28dfbf — \"Dev calling from SpendNest.\"",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "Dev placed an outbound call and introduced himself as calling from SpendNest. No further conversation content is available from the evidence.",
+  "what_established": "Dev made an outbound call identifying himself as representing SpendNest.",
+  "what_not_established": "Prospect name, company, interest level, deal value, qualification status, or call outcome.",
+  "next_action": "Review CRM for Dev's notes on this call; if a live connection was made, ensure a follow-up action is logged.",
+  "owner": null,
+  "confidence": "low",
+  "uncertainty": "Only the opener is evidenced; no prospect information or conversation outcome is available."
+}

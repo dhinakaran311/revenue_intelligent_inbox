@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source_type": "meeting",
+  "source_id": "657b9e9d-9472-5b01-a127-a648ad7e8cf7",
+  "source_revision": 1,
+  "analysis_source": "prepared",
+  "suggested_routes": [
+    {
+      "route_id": "internal_vendor_action",
+      "label": "Internal discovery — finance role alignment",
+      "rationale": "The SpendNest finance team member stated they wanted to understand the other party's role before jumping into the product. This is an internal or vendor discovery/networking session, not a customer-facing sales meeting.",
+      "evidence_ref": "657b9e9d-9472-5b01-a127-a648ad7e8cf7 turn 1",
+      "is_manual": false
+    },
+    {
+      "route_id": "human_review",
+      "label": "Context ambiguity — internal or external?",
+      "rationale": "The phrasing 'understand your role before jumping into the product' could indicate an internal cross-team alignment meeting or an external partner/vendor introduction. Without more turns the distinction cannot be confirmed.",
+      "evidence_ref": "657b9e9d-9472-5b01-a127-a648ad7e8cf7 turn 1",
+      "is_manual": false
+    }
+  ],
+  "concise_output": "A SpendNest finance team member opened the meeting by wanting to understand the other attendee's role before a product discussion. The context is ambiguous — this may be internal role alignment or a vendor/partner discovery session.",
+  "what_established": "The meeting organiser works in finance at SpendNest. They initiated the meeting to understand the counterpart's role as a prerequisite to a product discussion.",
+  "what_not_established": "Who the counterpart is (internal or external), the product or system under discussion, meeting outcome, or whether a follow-up action was agreed.",
+  "next_action": "Clarify whether this is an internal or external meeting; if external, document the counterpart's role and identify whether a product demo or collaboration discussion is the right next step.",
+  "owner": null,
+  "confidence": "low",
+  "uncertainty": "Only turn 1 is available and the meeting context (internal vs. external, and topic) is ambiguous."
+}
