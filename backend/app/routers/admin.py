@@ -79,6 +79,16 @@ def _reset_via_rest(client) -> None:
 
 
 SAMPLE_FILES = {"initial": "01_initial.json", "update": "02_update.json"}
+# Render Secret File names must start with a letter, so accept these too.
+SAMPLE_ALIASES = {"initial": "initial.json", "update": "update.json"}
+
+
+def _sample_path(name: str) -> Path:
+    """The delivery file for `name`, under its supplied name or its alias."""
+    for fname in (SAMPLE_FILES[name], SAMPLE_ALIASES[name]):
+        if (_data_dir() / fname).exists():
+            return _data_dir() / fname
+    return _data_dir() / SAMPLE_FILES[name]
 
 
 def _data_dir() -> Path:
@@ -98,9 +108,9 @@ def _import_sample(name: str, reorder: bool) -> dict:
 
     if name not in SAMPLE_FILES:
         raise HTTPException(status_code=404, detail=f"Unknown sample '{name}' (use initial or update)")
-    path = _data_dir() / SAMPLE_FILES[name]
+    path = _sample_path(name)
     if not path.exists():
-        raise HTTPException(status_code=404, detail=f"{SAMPLE_FILES[name]} is not on this server. Use the upload box, or add it as a Render Secret File with DATA_DIR=/etc/secrets.")
+        raise HTTPException(status_code=404, detail=f"{SAMPLE_FILES[name]} is not on this server. Use the upload box, or add it as a Render Secret File named {SAMPLE_ALIASES[name]} with DATA_DIR=/etc/secrets.")
     raw = path.read_bytes()
     delivery = json.loads(raw.decode("utf-8"))
     records = delivery.get("records", [])
@@ -157,7 +167,7 @@ def demo_load() -> dict:
     _forbid_in_production()
     # Check the delivery files BEFORE deleting anything: a host without the
     # private data directory must fail without wiping the current state.
-    missing = [f for f in SAMPLE_FILES.values() if not (_data_dir() / f).exists()]
+    missing = [SAMPLE_ALIASES[n] for n in SAMPLE_FILES if not _sample_path(n).exists()]
     if missing:
         raise HTTPException(
             status_code=409,

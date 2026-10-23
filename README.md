@@ -203,6 +203,6 @@ Currently deployed at the links at the top: the API on Render, the web app on Ve
 
 **Data on a hosted deployment.** The raw data is not in git. The hosted app reads the same Supabase database, so it opens in whatever state was last loaded.
 
-To make the replay buttons and demo-load work on Render, add `01_initial.json` and `02_update.json` as **Secret Files** (Render → Environment → Secret Files) and set `DATA_DIR=/etc/secrets`. Without them, demo-load refuses and resets nothing, and you can still replay with **Data & replay → upload a delivery file**.
+To make the replay buttons and demo-load work on Render, add the two deliveries as **Secret Files** named `initial.json` and `update.json` (Render names must start with a letter) (Render → Environment → Secret Files) and set `DATA_DIR=/etc/secrets`. Without them, demo-load refuses and resets nothing, and you can still replay with **Data & replay → upload a delivery file**.
 
 `render.yaml` describes the API service.
