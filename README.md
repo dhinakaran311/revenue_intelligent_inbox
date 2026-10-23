@@ -7,6 +7,8 @@ A workspace for a sales manager reviewing one day (21 August 2026, Asia/Kolkata)
 3. **Why should I believe it?** Every recommendation links to the exact transcript passage behind it.
 4. **What did the system decide, and what did I decide?** Suggested routes and manual routes are stored and shown separately.
 
+**Live demo (private link):** app <https://revenue-intelligent-inbox-phi.vercel.app> · API <https://revenue-intelligent-inbox-518o.onrender.com/docs>. The API is on Render's free tier, so the first request after idle can take 30–60 s.
+
 **Stack:** Next.js 14 (frontend) · FastAPI (API, imports and exports) · Supabase Postgres (system of record) · Groq (optional runtime analysis) · Pinecone (optional retrieval index).
 
 ---
