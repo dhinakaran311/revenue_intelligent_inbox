@@ -56,7 +56,7 @@ def _render_text_summary(rec: dict, analysis: dict | None) -> str:
     ]
 
     if not analysis:
-        lines.append("No analysis available for this record.")
+        lines.append("No usable supplied text — analysis unavailable.")
         return "\n".join(lines)
 
     lines += [
@@ -181,16 +181,11 @@ def generate_export(export_root: str) -> dict:
                 route_ids = [r["route_id"] for r in routes if isinstance(r, dict) and "route_id" in r]
 
         # Determine analysis freshness
-        analysis_freshness = None
-        analysis_source = None
-        output_path: str | None = None
-
+        analysis_dict = None
         if an:
             analysis_source = an.get("analysis_source", "prepared")
             is_current = an.get("source_revision") == rec.get("revision")
             analysis_freshness = "current" if is_current else "stale"
-
-            # Build analysis dict for text rendering
             analysis_dict = {
                 "analysis_source": analysis_source,
                 "source_revision": an.get("source_revision"),
@@ -204,16 +199,19 @@ def generate_export(export_root: str) -> dict:
                 "owner": an.get("owner"),
                 "suggested_routes": an.get("suggested_routes") or [],
             }
+        else:
+            analysis_source = None
+            analysis_freshness = None
 
-            # Write text file
-            safe_source_id = rec["source_id"].replace("/", "_").replace("\\", "_")
-            filename = f"{rec['source_type']}_{safe_source_id}.txt"
-            out_path = records_dir / filename
-            out_path.write_text(
-                _render_text_summary(rec, analysis_dict), encoding="utf-8"
-            )
-            written_paths.append(out_path)
-            output_path = str(Path("records") / filename)  # relative
+        # Always write a .txt file for every record
+        safe_source_id = rec["source_id"].replace("/", "_").replace("\\", "_")
+        filename = f"{rec['source_type']}_{safe_source_id}.txt"
+        out_path = records_dir / filename
+        out_path.write_text(
+            _render_text_summary(rec, analysis_dict), encoding="utf-8"
+        )
+        written_paths.append(out_path)
+        output_path = str(Path("records") / filename)  # always relative
 
         manifest_entries.append({
             "source_type": rec["source_type"],
